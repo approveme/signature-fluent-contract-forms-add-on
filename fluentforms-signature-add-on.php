@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @package   	      Fluent Forms Signature Contract Add-on
  * @contributors      Kevin Michael Gray (Approve Me), Abu Sohib (Approve Me)
@@ -17,4 +16,24 @@
 // If this file is called directly, abort.
 if (!defined('WPINC')) {
     die;
+}
+
+// define constant 
+if (!defined("ESIG_FLUENT_ADDON_PATH")) {
+    define('ESIG_FLUENT_ADDON_PATH', dirname(__FILE__));
+}
+if (!defined("ESIG_FLUENT_ADDON_URL")) {
+    define('ESIG_FLUENT_ADDON_URL', plugins_url("/", __FILE__));
+}
+
+require_once(plugin_dir_path(__FILE__) . 'includes/fluentIntegration.php');
+
+
+add_action("init","loadEsigFluentIntegration",11);
+
+function loadEsigFluentIntegration()
+{
+    if (function_exists('wpFluentForm')) {
+        new esigFluentIntegration\esigFluent(wpFluentForm());
+    }
 }
