@@ -26,6 +26,7 @@ if (!defined("ESIG_FLUENT_ADDON_URL")) {
     define('ESIG_FLUENT_ADDON_URL', plugins_url("/", __FILE__));
 }
 
+require_once(plugin_dir_path(__FILE__) . 'includes/fluentEsigSettings.php');
 require_once(plugin_dir_path(__FILE__) . 'includes/fluentIntegration.php');
 
 
