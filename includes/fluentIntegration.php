@@ -95,6 +95,18 @@ class esigFluent extends IntegrationManager
                 'component'   => 'text'
             ],
             [
+                'key'         => 'signing_logic',
+                'label'       => 'Signing Logic',
+                'tips'      => 'Please select your desired signing logic once this form is submitted.',
+                'required'    =>  true, // true/false
+                'component'   => 'select', //  component type
+                'placeholder' => 'Select desired signing logic',
+                'options'     => [
+                    'redirect' => 'Redirect user to Contract/Agreement after Submission',
+                    'email' => 'Send User an Email Requesting their Signature after Submission',
+                ]
+            ],
+            [
                 'key'                => 'CustomFields',
                 'require_list'       => false,
                 'label'              => 'Map Fields',
@@ -104,89 +116,33 @@ class esigFluent extends IntegrationManager
                 'field_label_local'  => 'Form Field',
                 'primary_fileds'     => [
                     [
-                        'key'           => 'Email',
+                        'key'           => 'signerEmail',
                         'label'         => 'Email Address',
                         'required'      => true,
                         'input_options' => 'emails'
                     ],
                     [
-                        'key'       => 'username',
-                        'label'     => 'User name',
-                        'required'  => false,
+                        'key'       => 'signerName',
+                        'label'     => 'Signer Name',
+                        'required'      => true,
                         'input_options' => 'all',
                         'help_text' => 'Keep empty if you want the username and user email is the same',
-                    ],
-                    [
-                        'key'   => 'first_name',
-                        'label' => 'First Name'
-                    ],
-                    [
-                        'key'   => 'last_name',
-                        'label' => 'Last Name'
-                    ],
-                    [
-                        'key'       => 'password',
-                        'label'     => 'Password',
-                        'help_text' => 'Keep empty to be auto generated',
                     ],
                 ]
             ],
             [
-                'require_list' => false,
-                'required'     => true,
-                'key'          => 'userRole',
-                'label'        => 'Default User Role',
-                'tips'         => 'Set default user role when registering a new user.',
-                'component'    => 'radio_choice',
-                'options'      =>'' ,
+                'key'         => 'underline_data',
+                'label'       => 'Display Type',
+                'tips'      => 'Please select your desired display type once value display in agreement.',
+                'component'   => 'select', //  component type
+                'placeholder' => 'Select your desired display type',
+                'options'     => [
+                    'redirect' => 'Underline the data That was submitted from this Formidable form',
+                    'email' => 'Do not underline the data that was submitted from the Formidable Form',
+                ]
             ],
-            [
-                'require_list' => false,
-                'key'          => 'userMeta',
-                'label'        => 'User Meta',
-                'tips'         => 'Add user meta.',
-                'component'    => 'dropdown_label_repeater',
-                'field_label'  => 'User Meta Key',
-                'value_label'  => 'User Meta Value'
-            ],
-            [
-                'require_list'   => false,
-                'key'            => 'enableAutoLogin',
-                'label'          => 'Auto Login',
-                'checkbox_label' => 'Allow the user login automatically after registration',
-                'component'      => 'checkbox-single',
-            ],
-            [
-                'require_list'   => false,
-                'key'            => 'sendEmailToNewUser',
-                'label'          => 'Email Notification',
-                'checkbox_label' => 'Send default WordPress welcome email to user after registration',
-                'component'      => 'checkbox-single',
-            ],
-            [
-                'require_list'   => false,
-                'key'            => 'validateForUserEmail',
-                'label'          => 'Form Validation',
-                'checkbox_label' => 'Do not submit the form if user already exist in Database',
-                'component'      => 'checkbox-single',
-            ]
+            
         ], $formId);
-
-        $fields[] = [
-            'require_list' => false,
-            'key'          => 'conditionals',
-            'label'        => 'Conditional Logics',
-            'tips'         => 'Allow User Registration integration conditionally based on your submission values',
-            'component'    => 'conditional_block'
-        ];
-        $fields[] = [
-            'require_list'   => false,
-            'key'            => 'enabled',
-            'label'          => 'Status',
-            'component'      => 'checkbox-single',
-            'checkbox_label' => 'Enable This feed',
-            'inline_tip'     => 'Please note that, This action will only run if the visitor is logged out state and the email is not registered yet'
-        ];
 
         return [
             'fields'              => $fields,
