@@ -9,7 +9,7 @@
  * Version:           1.0.0
  * Author:            Approve Me
  * Author URI:        https://www.approveme.com/
- * Text Domain:       esig-ff
+ * Text Domain:       esig-ffds
  * Domain Path:       /languages
  */
 
@@ -26,9 +26,13 @@ if (!defined("ESIG_FLUENT_ADDON_URL")) {
     define('ESIG_FLUENT_ADDON_URL', plugins_url("/", __FILE__));
 }
 
+//register_activation_hook( __FILE__, array( 'ESIG_FFDS', 'activate' ) );
+//register_deactivation_hook( __FILE__, array( 'ESIG_FFDS', 'deactivate' ) );
+
 require_once(plugin_dir_path(__FILE__) . 'includes/fluentEsigSettings.php');
 require_once(plugin_dir_path(__FILE__) . 'includes/fluentIntegration.php');
-
+require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-fluentform-document-view.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-ffds.php' );
 
 add_action("init","loadEsigFluentIntegration",11);
 
@@ -38,3 +42,4 @@ function loadEsigFluentIntegration()
         new esigFluentIntegration\esigFluent(wpFluentForm());
     }
 }
+
