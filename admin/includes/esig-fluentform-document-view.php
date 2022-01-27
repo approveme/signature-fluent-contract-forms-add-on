@@ -37,19 +37,7 @@ class esig_fluentform_document_view {
                     
 				if(function_exists('wpFluentForm'))
 				{								 
-					$forms = esigFluentSetting::getAllFluentForm();	
-					
-					$fields = esigFluentSetting::getAllFluentFormFields(3);
-				//	print_r($fields[0]['form_fields']);
-
-					//$test = json_decode($fields[0]['form_fields'], true);
-				//	foreach ($test as $value) {
-					//	print_r($value[0]['fields']);
-					//  }
-
-					//$test = new FormProperties();
-					
-
+					$forms = esigFluentSetting::getAllFluentForm();			
 				}				
                     
         	    
