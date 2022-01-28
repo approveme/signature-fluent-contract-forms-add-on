@@ -1,7 +1,8 @@
 (function($){
+    
 
 	  // almost done modal dialog here 
-       $( "#esig-caldera-almost-done" ).dialog({
+       $( "#esig-fluent-almost-done" ).dialog({
 			  dialogClass: 'esig-dialog',
 			  height:350,
 			  width:350,
@@ -9,8 +10,8 @@
 			});
             
       // do later button click 
-       $( "#esig-caldera-setting-later" ).click(function() {
-          $( '#esig-caldera-almost-done' ).dialog( "close" );
+       $( "#esig-fluent-setting-later" ).click(function() {
+          $( '#esig-fluent-almost-done' ).dialog( "close" );
         });
       
      

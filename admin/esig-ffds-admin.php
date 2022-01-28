@@ -52,7 +52,73 @@ if (!class_exists('ESIG_FFDS_Admin')) :
              add_filter('fluentform_submission_confirmation',  array($this, 'fluentform_submission_confirmation'), 10, 3);
             add_shortcode('esigfluentform', array($this, 'render_shortcode_esigfluentform'));
             add_action('admin_menu', array($this, 'adminmenu'));
+            add_action('admin_init', array($this, 'esig_almost_done_fluentform_settings'));
        
+        }
+
+        final function esig_almost_done_fluentform_settings() {
+
+            if (!function_exists('WP_E_Sig'))
+                return;
+
+            // getting sad document id 
+            $sad_document_id = ESIG_GET('doc_preview_id');
+
+
+            if (!$sad_document_id) {
+                return;
+            }
+            // creating esignature api here 
+            $api = new WP_E_Api();
+
+            $documents = $api->document->getDocument($sad_document_id);
+
+
+            $document_content = $documents->document_content;
+
+            $document_raw = $api->signature->decrypt(ENCRYPTION_KEY, $document_content);
+
+
+
+            if (has_shortcode($document_raw, 'esigfluentform')) {
+
+
+                preg_match_all('/' . get_shortcode_regex() . '/s', $document_raw, $matches, PREG_SET_ORDER);
+
+                //$ninja_shortcode = $matches[0][0];
+
+                $fluent_shortcode = '';
+                $fluentFormid = '';
+                foreach ($matches as $match) {
+                    if (in_array('esigfluentform', $match)) {
+                        
+                        $atts = shortcode_parse_atts($match[0]);
+                        extract(shortcode_atts(array(
+                    'formid' => '',
+                    'field_id' => '', //foo is a default value
+                                ), $atts, 'esigninja'));
+                        if(is_numeric($formid)){
+                            $fluentFormid = $formid ; 
+                            break;
+                        }
+                         //$ninja_shortcode = $match[0];
+                       
+                    }
+                }
+               
+                WP_E_Sig()->document->saveFormIntegration($sad_document_id, 'ninja');
+                
+
+                
+
+
+
+                $data = array("form_id" => $fluentFormid);
+
+
+                $display_notice = dirname(__FILE__) . '/views/alert-almost-done.php';
+                $api->view->renderPartial('', $data, true, '', $display_notice);
+            }
         }
 
         public function adminmenu() {
