@@ -41,7 +41,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
             $this->name = __('Esignature', 'esig-FFDS');
             
-            $this->document_view = new esig_caldera_document_view();
+            $this->document_view = new esig_fluentform_document_view();
             
             add_filter('esig_sif_buttons_filter', array($this, 'add_sif_fluentform_buttons'), 12, 1);
             add_filter('esig_text_editor_sif_menu', array($this, 'add_sif_fluentform_text_menu'), 12, 1);
@@ -51,6 +51,14 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             add_action('fluenform_before_submission_confirmation', array($this, 'fluentform_submission'), 10, 3);
              add_filter('fluentform_submission_confirmation',  array($this, 'fluentform_submission_confirmation'), 10, 3);
             add_shortcode('esigfluentform', array($this, 'render_shortcode_esigfluentform'));
+            add_action('admin_menu', array($this, 'adminmenu'));
+       
+        }
+
+        public function adminmenu() {
+            $esigAbout = new esig_Addon_About("Fluentform");
+            add_submenu_page('fluent_forms', __('E-signature', 'esig'), __('E-signature', 'esig'), 'read', 'esign-fluentform-about', array($esigAbout, 'about_page'));
+           
         }
         
         public function render_shortcode_esigfluentform($atts) {

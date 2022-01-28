@@ -26,13 +26,16 @@ if (!defined("ESIG_FLUENT_ADDON_URL")) {
     define('ESIG_FLUENT_ADDON_URL', plugins_url("/", __FILE__));
 }
 
-//register_activation_hook( __FILE__, array( 'ESIG_FFDS', 'activate' ) );
-//register_deactivation_hook( __FILE__, array( 'ESIG_FFDS', 'deactivate' ) );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-ffds.php' );
+register_activation_hook( __FILE__, array( 'ESIG_FFDS', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'ESIG_FFDS', 'deactivate' ) );
 
-require_once(plugin_dir_path(__FILE__) . 'admin/includes/fluentEsigSettings.php');
-require_once(plugin_dir_path(__FILE__) . 'admin/includes/fluentIntegration.php');
-require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/esig-fluentform-document-view.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'admin/includes/esig-ffds.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'admin/about/autoload.php' );
+
+require_once(plugin_dir_path(__FILE__) . 'includes/fluentEsigSettings.php');
+require_once(plugin_dir_path(__FILE__) . 'includes/fluentIntegration.php');
+require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-fluentform-document-view.php' );
+
 
 add_action("init","loadEsigFluentIntegration",11);
 

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 
  * @package ESIG_FFDS
@@ -48,22 +47,21 @@ class ESIG_FFDS {
 
 		// Load plugin text domain
 		add_action( 'init', array($this, 'load_plugin_textdomain') );
-                add_action( 'admin_init',array($this, 'esign_fluent_after_install') );
+                add_action( 'admin_init',array($this, 'esign_fluentform_after_install') );
 		
 	
 	}
    
-      public function esign_fluent_after_install() {
-		global $pagenow;
+        public function esign_fluentform_after_install() {
 		
 		if( ! is_admin() )
 		return;
 		
 		// Delete the transient
 		//delete_transient( '_esign_activation_redirect' );
-		if(delete_transient( '_esign_fluent_redirect' )) 
+		if(delete_transient( '_esign_fluentform_redirect' )) 
 		{
-		//	wp_safe_redirect( admin_url( 'admin.php?page=esign-fluent-about' ));
+			wp_safe_redirect( admin_url( 'admin.php?page=esign-fluentform-about' ));
 			exit;
 		}
 	}
@@ -108,7 +106,7 @@ class ESIG_FFDS {
 	 
 	public static function activate( $network_wide ) {
 		self::single_activate();
-                set_transient( '_esign_fluent_redirect', true, 30 );
+                set_transient( '_esign_fluentform_redirect', true, 30 );
 	}
 
 	/**
