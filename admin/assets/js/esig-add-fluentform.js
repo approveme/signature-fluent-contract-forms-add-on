@@ -25,9 +25,10 @@
                    var form_id= $('select[name="esig_ff_form_id"]').val();
                    
                    var field_id =$('select[name="esig_ff_field_id"]').val();
+                    var label = $('select[name="esig_ff_field_id"]').find(':selected').data('id');
                    var displayType =$('select[name="esig_fluentform_value_display_type"]').val();
                    // 
-                   var return_text = ' [esigfluentform formid="'+ form_id +'" field_id="'+ field_id +'" display="'+ displayType +'" ] ';
+                   var return_text = ' [esigfluent formid="'+ form_id +'" label="'+ label +'" field_id="'+ field_id +'" display="'+ displayType +'" ] ';
 		  esig_sif_admin_controls.insertContent(return_text);
             
              tb_remove();

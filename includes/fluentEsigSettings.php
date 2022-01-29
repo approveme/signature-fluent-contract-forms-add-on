@@ -172,59 +172,95 @@ class esigFluentSetting {
          * @param type $form_id
          * @return string
          */
-        public static function get_value($document_id, $form_id,$entry_id, $field_id, $display, $option) {
+        public static function get_value($document_id,$label,$field_id, $display, $option) {
             
-            return $display . 'i am here';
-          //  return false;
+          
 
-            $label = $form['fields'][$field_id]['label'];
+            $label = $label;
+            
+            
            
+            
 
-
-            if ($display == "label") {
-                return $label;
-            }
+           // if ($display == "label") {
+           //     return $label;
+           // }
 
             $data_query = WP_E_Sig()->meta->get($document_id, 'esig_fluent_forms_submission_value');
             
-            if (!$data_query) {
-                $data = self::getEntyValue($form_id, $entry_id);
-            } else {
-                $data = json_decode($data_query, true);
-            }
-            
-            print_r($data);
+            $data = json_decode($data_query, true);
+
+           
            
             // print_r($data);
             if (is_array($data)) {
 
-                if ($display == "value") {
-
-                    if ($fType == "checkbox" && $option == "check") {
-                        return self::getCheckbox($data[$field_id], $display, $option);
-                    }
+                if ($display == "value") {                   
                     $data = isset($data[$field_id]) ? $data[$field_id] : false;
                     return $data;
-                } elseif ($display == "label_value") {
+                } elseif ($display == "label_value") {                   
 
                     $value = isset($data[$field_id]) ? $data[$field_id] : false;
                     $result = '';
-
+                    
+                   
+                    
                     if (is_array($value)) {
                         foreach ($value as $val) {
                             $result .= $val . " ,";
+                        } 
+
+                        
+                        if($field_id == "checkbox"){
+                            $items = '';
+                            foreach ($value as $item) {
+                                if ($item) {
+                                    $items .= '<li><input type="checkbox" onclick="return false;" checked >'.$item.'</li>';
+                                }
+                            }
+                            return $label . ": " ."<ul class='esig-checkbox-tick'>$items</ul>";
+                           // return $label . ": " ."<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
+                        
                         }
+                        
+                        if($field_id == "multi_select"){
+                        $items = '';
+                            foreach ($value as $item) {
+                                if ($item) {
+                                    $items .= '<li><input type="checkbox" onclick="return false;" checked >'.$item.'</li>';
+                                }
+                            }
+                            return $label . ": " ."<ul class='esig-checkbox-tick'>$items</ul>";
+                        }
+
+
+                     
+                        
+                        if($field_id == "file-upload" || $field_id == "image-upload"){
+                            return $label . ": " ."<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
+                        
+                        }
+                        
                         return $label . ": " . substr($result, 0, strlen($result) - 2);
                     }
-
+                    
+                    if($field_id == "input_radio"){
+                       $value = '<input type="radio" id='.$value.' onclick="return false;" checked> '.$value.'';
+                    }
+                    
+                    
+                    if($field_id == "url"){
+                        $value = "<a href='$value'>".$value."</a>";
+                    }                 
                     return $label . ": " . $value;
+
                 }
             }
             return false;
         }
         
         
-        public static function display_value($form, $form_id, $ff_value, $submit_type) {
+        public static function display_value($ff_value, $submit_type) {
 
             $result = '';
             if ($submit_type == "underline") {

@@ -47,10 +47,11 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             add_filter('esig_text_editor_sif_menu', array($this, 'add_sif_fluentform_text_menu'), 12, 1);
             add_filter('esig_admin_more_document_contents', array($this, 'document_add_data'), 10, 1);
             add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
+            add_shortcode('esigfluent', array($this, 'render_shortcode_esigfluent'));
             add_action('wp_ajax_esig_fluent_form_fields', array($this, 'esig_fluent_form_fields'));
             add_action('fluenform_before_submission_confirmation', array($this, 'fluentform_submission'), 10, 3);
              add_filter('fluentform_submission_confirmation',  array($this, 'fluentform_submission_confirmation'), 10, 3);
-            add_shortcode('esigfluentform', array($this, 'render_shortcode_esigfluentform'));
+           
             add_action('admin_menu', array($this, 'adminmenu'));
             add_action('admin_init', array($this, 'esig_almost_done_fluentform_settings'));
        
@@ -80,7 +81,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
 
 
-            if (has_shortcode($document_raw, 'esigfluentform')) {
+            if (has_shortcode($document_raw, 'esigfluent')) {
 
 
                 preg_match_all('/' . get_shortcode_regex() . '/s', $document_raw, $matches, PREG_SET_ORDER);
@@ -90,7 +91,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 $fluent_shortcode = '';
                 $fluentFormid = '';
                 foreach ($matches as $match) {
-                    if (in_array('esigfluentform', $match)) {
+                    if (in_array('esigfluent', $match)) {
                         
                         $atts = shortcode_parse_atts($match[0]);
                         extract(shortcode_atts(array(
@@ -127,15 +128,15 @@ if (!class_exists('ESIG_FFDS_Admin')) :
            
         }
         
-        public function render_shortcode_esigfluentform($atts) {
-
-
+        public function render_shortcode_esigfluent($atts) {
+            
             extract(shortcode_atts(array(
                 'formid' => '',
+                'label' => '', 
                 'field_id' => '', 
                 'display' => '',
                 'option' => 'default'
-                            ), $atts, 'esigfluentform'));
+                            ), $atts, 'esigfluent'));
 
             if (!function_exists('WP_E_Sig'))
                 return;
@@ -151,6 +152,9 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
             $form_id = WP_E_Sig()->meta->get($document_id, 'esig_ff_form_id');
             $entry_id = WP_E_Sig()->meta->get($document_id, 'esig_ff_entry_id');
+            
+            
+            
 
 
             if (empty($entry_id)) {
@@ -161,43 +165,23 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             //$forms = Caldera_Forms::get_forms();
             if (function_exists('wpFluentForm')) {
                 $esigFeed = esigFluentSetting::getEsigFeedSettings($form_id);                
-                $submit_type = $form['underline_data'];
+                $submit_type = $esigFeed['underline_data'];
             }
+            
+           
 
+            $ff_value = esigFluentSetting::get_value($document_id,$label,$field_id, $display, $option);
+            
+            
+            
 
-
-            $ff_value = esigFluentSetting::get_value($document_id, $form_id,$entry_id, $field_id, $display, $option);
-
-            if (!$cf_value) {
+            if (!$ff_value) {
                 return;
             }
 
 
-            if (is_array($cf_value)) {
-
-                /*  if (is_array($cf_value)) {
-                  $checkboxvalue = $cf_value;
-                  } else {
-                  $checkboxvalue = json_decode($cf_value, true);
-                  } */
-                $html = '';
-
-                foreach ($cf_value as $value) {
-                    $html .= $value . " ,";
-                    /*  if ($submit_type == "underline") {
-                      $html .= '<input type="checkbox" disabled readonly value="' . $value . '" checked="checked" ><u>' . $value . '</u>';
-                      } else {
-                      $html .= '<input type="checkbox" disabled readonly value="' . $value . '" checked="checked" >' . $value;
-                      } */
-                }
-                return substr($html, 0, strlen($html) - 2);
-            }
-
-            if (strpos($cf_value, 'click') !== false) {
-                $html = '';
-                return $html;
-            }
-            return self::display_value($form, $form_id, $cf_value, $submit_type);
+  
+            return esigFluentSetting::display_value($ff_value, $submit_type);
         }
 
 
@@ -219,8 +203,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
     
         
             foreach ($formFields as $fieldlabel=>$fieldname) {
-                
-                $html .= '<option value=' . $fieldname . '>' . $fieldlabel . '</option>';
+                $abel = "'".$fieldlabel."'";
+                $html .= '<option data-id='.$abel .' value=' . $fieldname . '>' . $fieldlabel . '</option>';
             }
             echo $html;
     

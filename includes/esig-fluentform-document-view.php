@@ -117,7 +117,6 @@ class esig_fluentform_document_view {
                                           
                                          
                                            <option value="value">Display value</option>
-                                           <option value="label">Display label</option>
                                            <option value="label_value">Display label + value</option>';
                                 	   
                                            
