@@ -455,6 +455,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
            $signing_logic = $feedValue['signing_logic'];
              
+        
          
              if($signing_logic == "redirect"){                  
                
@@ -466,7 +467,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                    'redirectUrl' => $url,
 
                ];  
-                
+                 esigFluentSetting::remove_invite_url();
                
               
             } else{

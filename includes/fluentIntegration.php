@@ -175,7 +175,9 @@ class esigFluent extends IntegrationManager
                 'required'    => false,               
                 'component'   => 'checkbox-single',
                 'checkbox_label' => __('Enabling signing reminder email. If/When user has not sign the document', 'esig'),
+                
             ],
+            
             
         ], $formId);
 

@@ -147,8 +147,7 @@ class esigFluentSetting {
                 return false;
            }
         
-        $invite_url = WP_E_Invite::get_invite_url($invite_hash, $document_checksum);
-        
+        $invite_url = WP_E_Invite::get_invite_url($invite_hash, $document_checksum);   
       
 
 
@@ -178,13 +177,7 @@ class esigFluentSetting {
 
             $label = $label;
             
-            
-           
-            
 
-           // if ($display == "label") {
-           //     return $label;
-           // }
 
             $data_query = WP_E_Sig()->meta->get($document_id, 'esig_fluent_forms_submission_value');
             
@@ -196,8 +189,60 @@ class esigFluentSetting {
             if (is_array($data)) {
 
                 if ($display == "value") {                   
-                    $data = isset($data[$field_id]) ? $data[$field_id] : false;
-                    return $data;
+                    $value = isset($data[$field_id]) ? $data[$field_id] : false;
+                   // return $data;
+                    $result = '';
+                    if (is_array($value)) {
+                        foreach ($value as $val) {
+                            $result .= $val . " ,";
+                        } 
+
+                        if($field_id == "checkbox"){
+                            $items = '';
+                            foreach ($value as $item) {
+                                if ($item) {
+                                    $items .= '<li><input type="checkbox" onclick="return false;" checked >'.$item.'</li>';
+                                }
+                            }
+                            return  "<ul class='esig-checkbox-tick'>$items</ul>";
+                           // return $label . ": " ."<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
+                        
+                        }
+                        
+                        if($field_id == "multi_select"){
+                        $items = '';
+                            foreach ($value as $item) {
+                                if ($item) {
+                                    $items .= '<li><input type="checkbox" onclick="return false;" checked >'.$item.'</li>';
+                                }
+                            }
+                            return "<ul class='esig-checkbox-tick'>$items</ul>";
+                        }
+
+
+                     
+                        
+                        if($field_id == "file-upload" || $field_id == "image-upload"){
+                            return "<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
+                        
+                        }
+                        
+                        return substr($result, 0, strlen($result) - 2);
+                    }
+                    
+                    if($field_id == "input_radio"){
+                       $value = '<input type="radio" id='.$value.' onclick="return false;" checked> '.$value.'';
+                    }
+                    
+                    
+                    if($field_id == "url"){
+                        $value = "<a href='$value'>".$value."</a>";
+                    }                 
+                    return $value;
+
+                
+
+
                 } elseif ($display == "label_value") {                   
 
                     $value = isset($data[$field_id]) ? $data[$field_id] : false;
