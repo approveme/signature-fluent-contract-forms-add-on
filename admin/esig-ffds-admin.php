@@ -306,8 +306,13 @@ if (!class_exists('ESIG_FFDS_Admin')) :
            
            $formId = $form->id;          
            $feedValue = esigFluentSetting::getEsigFeedSettings($formId);
-    
            
+    
+           if($feedValue['enable_esig'] != "1"){
+                return ;
+            }
+
+
     
          //  $ArrayHelper = new ArrayHelper();
          //  $signer_name = $ArrayHelper->get($feedValue, 'signer_name');
@@ -332,7 +337,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
            
     
             //sending email invitation / redirecting .
-            self::esig_invite_document($document_id, $signer_email, $signer_name, $formId,$insertId, $signing_logic,$formData,);
+            self::esig_invite_document($document_id, $signer_email, $signer_name, $formId,$insertId, $signing_logic,$formData,$feedValue);
     
            
     
@@ -340,7 +345,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
         }
 
 
-        public static function esig_invite_document($old_doc_id, $signer_email, $signer_name, $form_id,$insertId, $signing_logic, $formData) {
+        public static function esig_invite_document($old_doc_id, $signer_email, $signer_name, $form_id,$insertId, $signing_logic, $formData,$feedValue) {
 
 
            
@@ -399,6 +404,14 @@ if (!class_exists('ESIG_FFDS_Admin')) :
     
             // Enable reminder from cf7 e-signature settings. 
           //  self::enableReminder($form_id,$doc_id);
+         
+
+            if($feedValue['signing_reminder'] == '1'){
+               self::enableReminder($feedValue,$doc_id);
+            }
+           
+
+            
     
             // Get Owner
             $owner = WP_E_Sig()->user->getUserByID($doc->user_id);
@@ -441,6 +454,39 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 
                 
             }
+        }
+
+
+        private static function enableReminder($esignConfig,$docId)
+        {
+
+           
+
+            $reminder_set =  $esignConfig['signing_reminder'];
+
+            $reminderEmail = $esignConfig['reminder_email'];
+            $first_reminder_send = $esignConfig['first_reminder_send'];
+            $expire_reminder = $esignConfig['expire_reminder'];
+
+           
+
+            if($reminderEmail < 1 || $first_reminder_send < 1 || $expire_reminder < 1)
+            {
+                return false ; 
+            }
+
+            if ($reminder_set == '1') {
+
+                $esig_ff_reminders_settings = array(
+                    "esig_reminder_for" => absint($reminderEmail),
+                    "esig_reminder_repeat" => absint($first_reminder_send),
+                    "esig_reminder_expire" => abs($expire_reminder),
+                );
+
+                WP_E_Sig()->meta->add($docId, "esig_reminder_settings_", json_encode($esig_ff_reminders_settings));
+                WP_E_Sig()->meta->add($docId, "esig_reminder_send_", "1");
+            }
+
         }
         
 

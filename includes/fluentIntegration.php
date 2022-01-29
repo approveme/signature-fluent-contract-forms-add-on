@@ -177,6 +177,35 @@ class esigFluent extends IntegrationManager
                 'checkbox_label' => __('Enabling signing reminder email. If/When user has not sign the document', 'esig'),
                 
             ],
+            [
+                'key'                => 'signing_reminder_fields',
+                'require_list'       => false, 
+                'component'          => 'map_fields',
+                'primary_fileds'     => [
+                    [
+                        'key'           => 'reminder_email',
+                        'label'         => ' SEND THE FIRST REMINDER TO THE SIGNER AFTER',
+                        'required'      => false,
+                        'component'   => 'text',
+                        'help_text' => 'AFTER THE INITIAL SIGNING REQUEST',
+                    ],
+                    [
+                        'key'       => 'first_reminder_send',
+                        'label'     => 'SEND THE SECOND REMINDER TO THE SIGNER AFTER',
+                        'required'      => false,
+                        'component'   => 'text',
+                        'help_text' => 'AFTER THE INITIAL SIGNING REQUEST',
+                    ],
+                    [
+                        'key'       => 'expire_reminder',
+                        'label'     => 'SEND THE LAST REMINDER TO THE SIGNER AFTER',
+                        'required'      => false,
+                        'component'   => 'text',
+                        'help_text' => 'AFTER THE INITIAL SIGNING REQUEST',
+                    ],
+                ]
+            ],
+
             
             
         ], $formId);
