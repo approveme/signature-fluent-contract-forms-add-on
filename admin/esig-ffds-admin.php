@@ -7,6 +7,7 @@
  */
 
 use esigFluentIntegration\esigFluentSetting;
+use FluentForm\Framework\Helpers\ArrayHelper;
 
 if (!class_exists('ESIG_FFDS_Admin')) :
 
@@ -50,7 +51,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             add_shortcode('esigfluent', array($this, 'render_shortcode_esigfluent'));
             add_action('wp_ajax_esig_fluent_form_fields', array($this, 'esig_fluent_form_fields'));
             add_action('fluenform_before_submission_confirmation', array($this, 'fluentform_submission'), 10, 3);
-             add_filter('fluentform_submission_confirmation',  array($this, 'fluentform_submission_confirmation'), 10, 3);
+            add_filter('fluentform_submission_confirmation',  array($this, 'fluentform_submission_confirmation'), 10, 3);
            
             add_action('admin_menu', array($this, 'adminmenu'));
             add_action('admin_init', array($this, 'esig_almost_done_fluentform_settings'));
@@ -165,7 +166,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             //$forms = Caldera_Forms::get_forms();
             if (function_exists('wpFluentForm')) {
                 $esigFeed = esigFluentSetting::getEsigFeedSettings($form_id);                
-                $submit_type = $esigFeed['underline_data'];
+                $submit_type = esigget('underline_data',$esigFeed);
             }
             
            
@@ -317,10 +318,21 @@ if (!class_exists('ESIG_FFDS_Admin')) :
          //  $ArrayHelper = new ArrayHelper();
          //  $signer_name = $ArrayHelper->get($feedValue, 'signer_name');
     
-           $sad_page_id = $feedValue['select_sad_doc'];
-           $signer_name = $feedValue['signer_name'];
-           $signer_email = $feedValue['signer_email'];
-           $signing_logic = $feedValue['signing_logic'];
+           $sad_page_id = esigget('select_sad_doc',$feedValue);
+           $signer_name = esigget('signer_name',$feedValue);
+           $signer_email = esigget('signer_email',$feedValue);
+
+           if (!is_email($signer_email) && $signer_email=="{inputs.email}") {
+
+            
+                $signer_email = ArrayHelper::get(
+                    $formData, 'email'
+                );
+
+            }
+          
+
+           $signing_logic = esigget('signing_logic',$feedValue);
     
            $document_id = $sad->get_sad_id($sad_page_id);
                 
@@ -337,7 +349,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
            
     
             //sending email invitation / redirecting .
-            self::esig_invite_document($document_id, $signer_email, $signer_name, $formId,$insertId, $signing_logic,$formData,$feedValue);
+            self::esig_invite_document($document_id, $signer_email, $signer_name, $formId,$insertId, $signing_logic,$formData,$feedValue,$form);
     
            
     
@@ -345,7 +357,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
         }
 
 
-        public static function esig_invite_document($old_doc_id, $signer_email, $signer_name, $form_id,$insertId, $signing_logic, $formData,$feedValue) {
+        public static function esig_invite_document($old_doc_id, $signer_email, $signer_name, $form_id,$insertId, $signing_logic, $formData,$feedValue,$form) {
 
 
            
@@ -450,9 +462,13 @@ if (!class_exists('ESIG_FFDS_Admin')) :
               
                 $invitation_id = $invite_controller->save($invitation);
                 $invite_hash = WP_E_Sig()->invite->getInviteHash($invitation_id);
-                $url =  esigFluentSetting::save_invite_url($invite_hash, $doc->document_checksum);
-                
-                
+               
+                $invite_url = WP_E_Invite::get_invite_url($invite_hash, $doc->document_checksum);   
+               
+                WP_E_Sig()->meta->add($form_id, "esig_fluent_forms_invite_url", $invite_url);
+               // esigFluentSetting::save_invite_url($invite_hash, $doc->document_checksum);
+                  
+
             }
         }
 
@@ -462,11 +478,11 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
            
 
-            $reminder_set =  $esignConfig['signing_reminder'];
+            $reminder_set =  esigget('signing_reminder',$esignConfig);
 
-            $reminderEmail = $esignConfig['reminder_email'];
-            $first_reminder_send = $esignConfig['first_reminder_send'];
-            $expire_reminder = $esignConfig['expire_reminder'];
+            $reminderEmail = esigget('reminder_email',$esignConfig);
+            $first_reminder_send = esigget('first_reminder_send',$esignConfig);
+            $expire_reminder = esigget('expire_reminder',$esignConfig);
 
            
 
@@ -499,13 +515,16 @@ if (!class_exists('ESIG_FFDS_Admin')) :
            $formId = $form->id;          
            $feedValue = esigFluentSetting::getEsigFeedSettings($formId);
 
-           $signing_logic = $feedValue['signing_logic'];
+           $signing_logic = esigget('signing_logic',$feedValue);
              
-        
+           
          
-             if($signing_logic == "redirect"){                  
+             if($signing_logic == "redirect"){    
+                 
+              
                
-                $url =  esigFluentSetting::get_invite_url();            
+                $url =  WP_E_Sig()->meta->get($formId, "esig_fluent_forms_invite_url");           
+               
                 $returnData = [  
                    'message'     => 'Form Submitted! Now Redirecting WP E-Signature document for signing',
                    'action'      => 'hide_form',
@@ -513,7 +532,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                    'redirectUrl' => $url,
 
                ];  
-                 esigFluentSetting::remove_invite_url();
+             
                
               
             } else{
@@ -530,7 +549,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 'action' => $confirmation['samePageFormBehavior'],
                 ];
             }
-            
+           // WP_E_Sig()->meta->delete($formId, "esig_fluent_forms_invite_url");
             return $returnData;
             
             
