@@ -291,30 +291,16 @@ if (!class_exists('ESIG_FFDS_Admin')) :
         public function fluentform_submission($insertId, $formData, $form)
         {
             
+            if (!function_exists('WP_E_Sig')) return false;
             
-    
-            if (!function_exists('WP_E_Sig')) {
-                return;
-            }
-            
-            if(!class_exists('esig_sad_document')){
-                return false;
-            }
-    
+            if(!class_exists('esig_sad_document')) return false;
             $sad = new esig_sad_document();    
     
-            
+            $formId = $form->id;          
+            $feedValue = esigFluentSetting::getEsigFeedSettings($formId);
            
-           $formId = $form->id;          
-           $feedValue = esigFluentSetting::getEsigFeedSettings($formId);
-           
-    
-           if($feedValue['enable_esig'] != "1"){
-                return ;
-            }
-
-
-    
+            if(!wp_validate_boolean(esigget("enable_esig",$feedValue))) return false;
+          
          //  $ArrayHelper = new ArrayHelper();
          //  $signer_name = $ArrayHelper->get($feedValue, 'signer_name');
     
@@ -324,36 +310,24 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
            if (!is_email($signer_email) && $signer_email=="{inputs.email}") {
 
-            
                 $signer_email = ArrayHelper::get(
                     $formData, 'email'
                 );
 
             }
-          
-
+    
            $signing_logic = esigget('signing_logic',$feedValue);
     
            $document_id = $sad->get_sad_id($sad_page_id);
                 
            $docStatus  = WP_E_Sig()->document->getStatus($document_id);
                 
-            if($docStatus !="stand_alone"){
-                return false;
-            }
+            if($docStatus !="stand_alone") return false;
     
-            if (!is_email($signer_email)) {
-                    return;
-            }
-            
-           
-    
+            if (!is_email($signer_email)) return false;
             //sending email invitation / redirecting .
             self::esig_invite_document($document_id, $signer_email, $signer_name, $formId,$insertId, $signing_logic,$formData,$feedValue,$form);
     
-           
-    
-          
         }
 
 
@@ -364,10 +338,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             
             if (!function_exists('WP_E_Sig'))
                 return;
-    
-    
-            global $wpdb;
-    
+
             /* make it a basic document and then send to sign */
             $old_doc = WP_E_Sig()->document->getDocument($old_doc_id);
     
@@ -422,13 +393,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                self::enableReminder($feedValue,$doc_id);
             }
            
-
-            
-    
             // Get Owner
             $owner = WP_E_Sig()->user->getUserByID($doc->user_id);
-    
-    
             // Create the invitation?
             $invitation = array(
                 "recipient_id" => $recipient['id'],
@@ -443,9 +409,6 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 "sad_doc_id" => $old_doc_id,
             );
     
-            
-    
-    
             $invite_controller = new WP_E_invitationsController();
     
             if ($signing_logic == "email") {
@@ -454,21 +417,16 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                   
                     return true;
                 }
-    
-                
+       
             } elseif ($signing_logic == "redirect") {
                 
-               
-              
                 $invitation_id = $invite_controller->save($invitation);
                 $invite_hash = WP_E_Sig()->invite->getInviteHash($invitation_id);
                
                 $invite_url = WP_E_Invite::get_invite_url($invite_hash, $doc->document_checksum);   
                
-                WP_E_Sig()->meta->add($form_id, "esig_fluent_forms_invite_url", $invite_url);
+                WP_E_Sig()->meta->add($doc_id, "esig_fluent_forms_invite_url", $invite_url);
                // esigFluentSetting::save_invite_url($invite_hash, $doc->document_checksum);
-                  
-
             }
         }
 
@@ -476,15 +434,10 @@ if (!class_exists('ESIG_FFDS_Admin')) :
         private static function enableReminder($esignConfig,$docId)
         {
 
-           
-
             $reminder_set =  esigget('signing_reminder',$esignConfig);
-
             $reminderEmail = esigget('reminder_email',$esignConfig);
             $first_reminder_send = esigget('first_reminder_send',$esignConfig);
             $expire_reminder = esigget('expire_reminder',$esignConfig);
-
-           
 
             if($reminderEmail < 1 || $first_reminder_send < 1 || $expire_reminder < 1)
             {
@@ -505,11 +458,6 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
         }
         
-
-
-
-
-            
          public function fluentform_submission_confirmation($returnData, $form, $confirmation)
         {
            $formId = $form->id;          
@@ -517,12 +465,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
            $signing_logic = esigget('signing_logic',$feedValue);
              
-           
-         
              if($signing_logic == "redirect"){    
                  
-              
-               
                 $url =  WP_E_Sig()->meta->get($formId, "esig_fluent_forms_invite_url");           
                
                 $returnData = [  
@@ -533,8 +477,6 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
                ];  
              
-               
-              
             } else{
                 $confirmation = [
                     'redirectTo'           => 'samePage',  // or customUrl or customPage
@@ -550,17 +492,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 ];
             }
            // WP_E_Sig()->meta->delete($formId, "esig_fluent_forms_invite_url");
-            return $returnData;
-            
-            
+            return $returnData;  
         }
-
-
-
-
-
-
-       
         /**
          * Return an instance of this class.
          * @since     0.1
@@ -577,20 +510,6 @@ if (!class_exists('ESIG_FFDS_Admin')) :
         }
 
     }
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
     
 endif;
 
