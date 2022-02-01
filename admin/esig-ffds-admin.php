@@ -81,9 +81,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             $document_raw = $api->signature->decrypt(ENCRYPTION_KEY, $document_content);
 
 
-
             if (has_shortcode($document_raw, 'esigfluent')) {
-
 
                 preg_match_all('/' . get_shortcode_regex() . '/s', $document_raw, $matches, PREG_SET_ORDER);
 
@@ -109,15 +107,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 }
                
                 WP_E_Sig()->document->saveFormIntegration($sad_document_id, 'ninja');
-                
-
-                
-
-
-
+            
                 $data = array("form_id" => $fluentFormid);
-
-
                 $display_notice = dirname(__FILE__) . '/views/alert-almost-done.php';
                 $api->view->renderPartial('', $data, true, '', $display_notice);
             }
@@ -139,8 +130,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 'option' => 'default'
                             ), $atts, 'esigfluent'));
 
-            if (!function_exists('WP_E_Sig'))
-                return;
+            if (!function_exists('WP_E_Sig')) return false;
 
 
             $csum = isset($_GET['csum']) ? sanitize_text_field($_GET['csum']) : null;
@@ -153,36 +143,18 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
             $form_id = WP_E_Sig()->meta->get($document_id, 'esig_ff_form_id');
             $entry_id = WP_E_Sig()->meta->get($document_id, 'esig_ff_entry_id');
-            
-            
-            
-
-
-            if (empty($entry_id)) {
-                return;
-            }
-
-
+           
+            if (empty($entry_id)) return false;
             //$forms = Caldera_Forms::get_forms();
             if (function_exists('wpFluentForm')) {
                 $esigFeed = esigFluentSetting::getEsigFeedSettings($form_id);                
                 $submit_type = esigget('underline_data',$esigFeed);
             }
-            
-           
-
             $ff_value = esigFluentSetting::get_value($document_id,$label,$field_id, $display, $option);
             
-            
-            
-
-            if (!$ff_value) {
-                return;
-            }
-
-
-  
+            if (!$ff_value) return false;
             return esigFluentSetting::display_value($ff_value, $submit_type);
+
         }
 
 
@@ -190,9 +162,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
         public function esig_fluent_form_fields() {
 
 
-            if (!function_exists('WP_E_Sig'))
-                return;
-    
+            if (!function_exists('WP_E_Sig')) return false;
     
             $html = '';
     
@@ -235,9 +205,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 }
             }
     
-            if ($esig_type != 'sad') {
-                return $sif_menu;
-            }
+            if ($esig_type != 'sad') return $sif_menu;
     
             $sif_menu .= ' {text: "Fluent form Form Data",value: "fluentform", onclick: function () { tb_show( "+ Fluent form option", "#TB_inline?width=450&height=300&inlineId=esig-fluentform-option");esign.tbSize(450);}},';
     
@@ -256,9 +224,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 }
             }
     
-            if ($esig_type != 'sad') {
-                return $sif_menu;
-            }
+            if ($esig_type != 'sad') return $sif_menu;
             $sif_menu['Fluentform'] = array('label' => "Fluent Form Data");
             return $sif_menu;
         }
@@ -333,11 +299,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
         public static function esig_invite_document($old_doc_id, $signer_email, $signer_name, $form_id,$insertId, $signing_logic, $formData,$feedValue,$form) {
 
-
-           
-            
-            if (!function_exists('WP_E_Sig'))
-                return;
+            if (!function_exists('WP_E_Sig')) return false;
 
             /* make it a basic document and then send to sign */
             $old_doc = WP_E_Sig()->document->getDocument($old_doc_id);
