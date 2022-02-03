@@ -6,6 +6,7 @@
  * @author  Arafat Rahman <arafatrahmank@gmail.com>
  */
 
+use FluentForm\App\Helpers\Helper;
 use esigFluentIntegration\esigFluentSetting;
 use FluentForm\Framework\Helpers\ArrayHelper;
 
@@ -50,13 +51,17 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
             add_shortcode('esigfluent', array($this, 'render_shortcode_esigfluent'));
             add_action('wp_ajax_esig_fluent_form_fields', array($this, 'esig_fluent_form_fields'));
-            add_action('fluenform_before_submission_confirmation', array($this, 'fluentform_submission'), 10, 3);
+            add_action('fluentform_before_form_actions_processing', array($this, 'fluentform_submission'), 10, 3);
+
             add_filter('fluentform_submission_confirmation',  array($this, 'fluentform_submission_confirmation'), 10, 3);
+            //add_filter('fluentform_form_submission_confirmation',  array($this, 'fluentform_before_confirmation'), 10, 3);
            
             add_action('admin_menu', array($this, 'adminmenu'));
             add_action('admin_init', array($this, 'esig_almost_done_fluentform_settings'));
        
         }
+
+       
 
         final function esig_almost_done_fluentform_settings() {
 
@@ -373,7 +378,10 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             );
     
             $invite_controller = new WP_E_invitationsController();
-    
+
+            // save entry  id with fluentform submission meta
+            Helper::setSubmissionMeta($insertId, 'esig_document_id', $doc_id);
+            global $esigFluentDocumentId;
             if ($signing_logic == "email") {
     
                 if ($invite_controller->saveThenSend($invitation, $doc)) {
@@ -387,8 +395,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 $invite_hash = WP_E_Sig()->invite->getInviteHash($invitation_id);
                
                 $invite_url = WP_E_Invite::get_invite_url($invite_hash, $doc->document_checksum);   
-               
-                WP_E_Sig()->meta->add($doc_id, "esig_fluent_forms_invite_url", $invite_url);
+                WP_E_Sig()->meta->add($doc_id, "esig_fluent_forms_invite_url", wp_sanitize_redirect(urldecode( $invite_url)));
+                $esigFluentDocumentId = $doc_id;
                // esigFluentSetting::save_invite_url($invite_hash, $doc->document_checksum);
             }
         }
@@ -427,34 +435,23 @@ if (!class_exists('ESIG_FFDS_Admin')) :
            $feedValue = esigFluentSetting::getEsigFeedSettings($formId);
 
            $signing_logic = esigget('signing_logic',$feedValue);
-             
-             if($signing_logic == "redirect"){    
-                 
-                $url =  WP_E_Sig()->meta->get($formId, "esig_fluent_forms_invite_url");           
+
+            global $esigFluentDocumentId;
+        
+             if(!is_null($esigFluentDocumentId) && $signing_logic == "redirect"){
+
+                
+                $url =  WP_E_Sig()->meta->get($esigFluentDocumentId, "esig_fluent_forms_invite_url");           
                
                 $returnData = [  
-                   'message'     => 'Form Submitted! Now Redirecting WP E-Signature document for signing',
+                   'message'     => 'Form Submitted! Now redirecting to WP E-Signature document for signing',
                    'action'      => 'hide_form',
                    'redirectTo'  => 'customUrl',
                    'redirectUrl' => $url,
-
                ];  
              
-            } else{
-                $confirmation = [
-                    'redirectTo'           => 'samePage',  // or customUrl or customPage
-                    'messageToShow'        => 'Thank you for your message. We will get in touch with you shortly',
-                    'customPage'           => '' ,
-                    'samePageFormBehavior' => 'hide_form', // or reset_form 
-                    'customUrl'            => '',
-                ];
-                
-                 $returnData = [
-                'message' => $confirmation['messageToShow'],
-                'action' => $confirmation['samePageFormBehavior'],
-                ];
-            }
-           // WP_E_Sig()->meta->delete($formId, "esig_fluent_forms_invite_url");
+            } 
+           
             return $returnData;  
         }
         /**
