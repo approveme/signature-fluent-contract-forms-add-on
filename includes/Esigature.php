@@ -186,7 +186,7 @@ class Esigature extends IntegrationManager
                 ],
                 
                 [
-                    'key' => 'fields',
+                    'key' => 'CustomFields',
                     'label' => 'Map Fields',
                     'tips' => 'Select which Fluent Form fields pair with their<br /> respective Esig fields.',
                     'component' => 'map_fields',

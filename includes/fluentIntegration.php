@@ -98,7 +98,8 @@ class esigFluent extends IntegrationManager
 
     public function getSettingsFields($settings, $formId = null)
     {
-
+        //echo $formId . "testing";
+        //update_option("rupom", $formId);
         $SadFieldOptions = [];
         foreach (esigFluentSetting::get_sad_documents() as $key => $column) {
             $SadFieldOptions[$key] = $column;
@@ -127,14 +128,16 @@ class esigFluent extends IntegrationManager
                 'required' => true,
                 'label'        => __('Signer Name', 'esig'),
                 'placeholder'  => __('Signer Name', 'esig'),
-                'component'    => 'value_text'
+                'component'    => 'value_text',
+                'input_options' => 'all',
             ],
             [
                 'key'          => 'signer_email',
                 'required' => true,
                 'label'        => __('Signer Email', 'esig'),
                 'placeholder'  => __('Signer Email', 'esig'),
-                'component'    => 'value_text'
+                'component'    => 'value_text',
+                'input_options' => 'emails',
             ],
             [
                 'key'         => 'signing_logic',
@@ -184,9 +187,10 @@ class esigFluent extends IntegrationManager
                 'primary_fileds'     => [
                     [
                         'key'           => 'reminder_email',
+                        'type'          => 'input_text',
                         'label'         => ' SEND THE FIRST REMINDER TO THE SIGNER AFTER',
                         'required'      => false,
-                        'component'   => 'text',
+                        'component'   => 'input_number',
                         'help_text' => 'AFTER THE INITIAL SIGNING REQUEST',
                     ],
                     [

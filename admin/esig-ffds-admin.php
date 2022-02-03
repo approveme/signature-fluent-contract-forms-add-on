@@ -269,21 +269,22 @@ if (!class_exists('ESIG_FFDS_Admin')) :
           
          //  $ArrayHelper = new ArrayHelper();
          //  $signer_name = $ArrayHelper->get($feedValue, 'signer_name');
-    
-           $sad_page_id = esigget('select_sad_doc',$feedValue);
-           $signer_name = esigget('signer_name',$feedValue);
            $signer_email = esigget('signer_email',$feedValue);
-
-           if (!is_email($signer_email) && $signer_email=="{inputs.email}") {
-
-                $signer_email = ArrayHelper::get(
-                    $formData, 'email'
-                );
-
-            }
+            
+            //$edShortcode = new FluentForm\App\Services\FormBuilder\EditorShortcode();
+            $signer_email = ArrayHelper::get($formData, esigFluentSetting::parseInput($signer_email));
+           if (!is_email($signer_email)) return false;
     
            $signing_logic = esigget('signing_logic',$feedValue);
-    
+
+            $sad_page_id = esigget('select_sad_doc', $feedValue);
+            
+            $signer_name = ArrayHelper::get($formData, esigFluentSetting::parseInput(esigget('signer_name', $feedValue)));
+
+            if(!is_array($signer_name)) return false;
+
+            $signerName = esigFluentSetting::prepareNames($signer_name);
+           
            $document_id = $sad->get_sad_id($sad_page_id);
                 
            $docStatus  = WP_E_Sig()->document->getStatus($document_id);
@@ -292,7 +293,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
     
             if (!is_email($signer_email)) return false;
             //sending email invitation / redirecting .
-            self::esig_invite_document($document_id, $signer_email, $signer_name, $formId,$insertId, $signing_logic,$formData,$feedValue,$form);
+            self::esig_invite_document($document_id, $signer_email, $signerName, $formId,$insertId, $signing_logic,$formData,$feedValue,$form);
     
         }
 

@@ -89,7 +89,7 @@ class esigFluentSetting {
         $formArray = json_decode(json_encode($forms), true);
         
         $fields = json_decode($formArray[0]['form_fields'], true);
-	$fieldsArray = [];
+	    $fieldsArray = [];
         
 		foreach ($fields as $value) {
                     $fieldsArray = [];
@@ -316,6 +316,23 @@ class esigFluentSetting {
             return $result;
         }
     
+        public static function parseInput($string)
+        {
+            $results = preg_replace('/^{(.*)}$/', '$1', $string);
+            $array = explode(".", $results);
+            return esigget("1",$array);
+        }
+
+        public static function prepareNames($names)
+        {
+            if(!is_array($names)) return false;
+            $result = false;
+            foreach($names as $name)
+            {
+                $result .= $name;
+            }
+            return $result;
+        }
 
     
 }
