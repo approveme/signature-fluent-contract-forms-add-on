@@ -230,7 +230,6 @@ class esigFluent extends IntegrationManager
             if (!wp_validate_boolean($field['required'])) continue;
             if(empty($settings[$field['key']]))
             {
-                update_option("rupom", $field['key']);
                 $errors[$field['key']] = $field['label'] . ' is required.';
             }
         }
@@ -245,40 +244,6 @@ class esigFluent extends IntegrationManager
         Helper::setFormMeta($formId, '_has_wpesignature', 'yes');
 
         return $settings;
-    }
-
-    
-    /*
-     * Form Submission Hooks Here
-     */
-    public function notify($feed, $formData, $entry, $form)
-    {
-
-        $feedData = $feed['processedValues'];
-        die();
-
-        do_action('ff_log_data', [
-            'parent_source_id' => $form->id,
-            'source_type' => 'submission_item',
-            'source_id' => $entry->id,
-            'component' => $this->integrationKey,
-            'status' => 'failed',
-            'title' => $feed['settings']['name'],
-            'description' =>  $feedData
-        ]);
-        exit;
-
-        $feedData = $feed['processedValues'];
-        $row = [];
-        $metaFields = $feedData['meta_fields'];
-
-        if(!$metaFields) {
-            return do_action('ff_integration_action_result', $feed, 'failed', 'No meta fields found');
-        }
-
-        foreach ($metaFields as $field) {
-            $row[] = wp_unslash(sanitize_textarea_field(ArrayHelper::get($field, 'item_value')));
-        }
     }
 
     // There is no global settings, so we need
