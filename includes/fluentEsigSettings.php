@@ -157,34 +157,16 @@ class esigFluentSetting {
             self::$tempSingleCookie = $invite_url;
 
     }
-
-    public static function get_invite_url() {
-        return esigget(self::ESIG_FF_COOKIE, $_COOKIE);
-    }
-
-    public static function remove_invite_url() {
-        setcookie(self::ESIG_FF_COOKIE, null, time() - YEAR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN);
-    }
-    
             /**
          * Generate fields option using form id
          * @param type $form_id
          * @return string
          */
-        public static function get_value($document_id,$label,$field_id, $display, $option) {
+        public static function get_value($data,$label,$field_id, $display, $option) {
             
-          
 
             $label = $label;
-            
 
-
-            $data_query = WP_E_Sig()->meta->get($document_id, 'esig_fluent_forms_submission_value');
-            
-            $data = json_decode($data_query, true);
-
-           
-           
             // print_r($data);
             if (is_array($data)) {
 
@@ -329,9 +311,9 @@ class esigFluentSetting {
             $result = false;
             foreach($names as $name)
             {
-                $result .= $name;
+                $result .= $name . " ";
             }
-            return $result;
+            return rtrim($result);
         }
 
     

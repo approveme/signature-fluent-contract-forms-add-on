@@ -101,7 +101,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                         extract(shortcode_atts(array(
                     'formid' => '',
                     'field_id' => '', //foo is a default value
-                                ), $atts, 'esigninja'));
+                                ), $atts, 'esigfluent'));
                         if(is_numeric($formid)){
                             $fluentFormid = $formid ; 
                             break;
@@ -122,7 +122,6 @@ if (!class_exists('ESIG_FFDS_Admin')) :
         public function adminmenu() {
             $esigAbout = new esig_Addon_About("Fluentform");
             add_submenu_page('fluent_forms', __('E-signature', 'esig'), __('E-signature', 'esig'), 'read', 'esign-fluentform-about', array($esigAbout, 'about_page'));
-           
         }
         
         public function render_shortcode_esigfluent($atts) {
@@ -135,29 +134,17 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 'option' => 'default'
                             ), $atts, 'esigfluent'));
 
-            if (!function_exists('WP_E_Sig')) return false;
-
-
-            $csum = isset($_GET['csum']) ? sanitize_text_field($_GET['csum']) : null;
-
-            if (empty($csum)) {
-                $document_id = get_option('esig_global_document_id');
-            } else {
-                $document_id = WP_E_Sig()->document->document_id_by_csum($csum);
-            }
-
-            $form_id = WP_E_Sig()->meta->get($document_id, 'esig_ff_form_id');
-            $entry_id = WP_E_Sig()->meta->get($document_id, 'esig_ff_entry_id');
-           
-            if (empty($entry_id)) return false;
-            //$forms = Caldera_Forms::get_forms();
+            global $esigFluentInsertId,$esigFluentFormdata;
+          
             if (function_exists('wpFluentForm')) {
-                $esigFeed = esigFluentSetting::getEsigFeedSettings($form_id);                
+                $esigFeed = esigFluentSetting::getEsigFeedSettings($formid);           
                 $submit_type = esigget('underline_data',$esigFeed);
             }
-            $ff_value = esigFluentSetting::get_value($document_id,$label,$field_id, $display, $option);
+
+            $ff_value = esigFluentSetting::get_value($esigFluentFormdata,$label,$field_id, $display, $option);
             
             if (!$ff_value) return false;
+
             return esigFluentSetting::display_value($ff_value, $submit_type);
 
         }
@@ -310,13 +297,16 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             /* make it a basic document and then send to sign */
             $old_doc = WP_E_Sig()->document->getDocument($old_doc_id);
     
+            global $esigFluentInsertId , $esigFluentFormdata;
+            $esigFluentInsertId = $insertId;
+            $esigFluentFormdata = $formData;
             // Copy the document
             $doc_id = WP_E_Sig()->document->copy($old_doc_id);
     
             WP_E_Sig()->meta->add($doc_id, 'esig_ff_form_id', $form_id);
             WP_E_Sig()->meta->add($doc_id, 'esig_ff_entry_id', $insertId);
           
-            WP_E_Sig()->document->saveFormIntegration($doc_id, 'ff');
+            WP_E_Sig()->document->saveFormIntegration($doc_id, 'fluentform');
             
             esigFluentSetting::save_submission_value($doc_id, $form_id,$formData);
            
@@ -382,6 +372,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             // save entry  id with fluentform submission meta
             Helper::setSubmissionMeta($insertId, 'esig_document_id', $doc_id);
             global $esigFluentDocumentId;
+            $esigFluentDocumentId = $doc_id;
             if ($signing_logic == "email") {
     
                 if ($invite_controller->saveThenSend($invitation, $doc)) {
@@ -396,7 +387,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                
                 $invite_url = WP_E_Invite::get_invite_url($invite_hash, $doc->document_checksum);   
                 WP_E_Sig()->meta->add($doc_id, "esig_fluent_forms_invite_url", wp_sanitize_redirect(urldecode( $invite_url)));
-                $esigFluentDocumentId = $doc_id;
+                
                // esigFluentSetting::save_invite_url($invite_hash, $doc->document_checksum);
             }
         }
