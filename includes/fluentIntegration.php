@@ -47,7 +47,7 @@ class esigFluent extends IntegrationManager
 
         $this->description = 'This add-on makes it possible to automatically email or redirect WP E-Signature document after the user has succesfully submitted a Fluent Forms';
 
-
+        add_filter('fluentform_save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
       
        $this->registerAdminHooks();
     }
@@ -110,7 +110,7 @@ class esigFluent extends IntegrationManager
             [
                 'key'         => 'enable_esig',
                 'label'       => 'E-Signature Integration',
-                'required'    => false,
+                'required'    => true,
                 'placeholder' => 'Your Feed Name',
                 'component'   => 'checkbox-single',
                 'checkbox_label' => __('Enable E-Signature for this contract form', 'esig'),
@@ -223,71 +223,31 @@ class esigFluent extends IntegrationManager
 
     public function validate($settings, $integrationId, $formId)
     {
-        $parseSettings = $this->userApi->validate(
-            $settings,
-            $this->getSettingsFields($settings)
-        );
-
-        Helper::setFormMeta($formId, '_has_user_registration', 'yes');
-
-        return $parseSettings;
-    }
-
-    public function validateSubmittedForm($errors, $data, $form)
-    {
-        $feeds = wpFluent()->table('fluentform_form_meta')
-            ->where('form_id', $form->id)
-            ->where('meta_key', 'user_registration_feeds')
-            ->get();
-
-        if (!$feeds) {
-            return $errors;
-        }
-
-        foreach ($feeds as $feed) {
-            $parsedValue = json_decode($feed->value, true);
-
-            if (!ArrayHelper::isTrue($parsedValue, 'validateForUserEmail')) {
-                continue;
-            }
-
-            if ($parsedValue && ArrayHelper::isTrue($parsedValue, 'enabled')) {
-                // Now check if conditions matched or not
-                $isConditionMatched = $this->checkCondition($parsedValue, $data);
-                if (!$isConditionMatched) {
-                    continue;
-                }
-                $email = ArrayHelper::get($data, $parsedValue['Email']);
-                if (!$email) {
-                    continue;
-                }
-
-                if (email_exists($email)) {
-                    if (!isset($errors['restricted'])) {
-                        $errors['restricted'] = [];
-                    }
-                    $errors['restricted'][] = __('This email is already registered. Please choose another one.', 'fluentformpro');
-                    return $errors;
-                }
-
-                if (!empty($parsedValue['username'])) {
-                    $userName = ArrayHelper::get($data, $parsedValue['username']);
-                    if ($userName) {
-                        if (username_exists($userName)) {
-                            if (!isset($errors['restricted'])) {
-                                $errors['restricted'] = [];
-                            }
-                            $errors['restricted'][] = __('This username is already registered. Please choose another one.', 'fluentformpro');
-                            return $errors;
-                        }
-                    }
-                }
+        $errors = [];
+        
+        $settingsFields = $this->getSettingsFields($settings);
+        foreach ($settingsFields['fields'] as $field) {
+            if (!wp_validate_boolean($field['required'])) continue;
+            if(empty($settings[$field['key']]))
+            {
+                update_option("rupom", $field['key']);
+                $errors[$field['key']] = $field['label'] . ' is required.';
             }
         }
 
-        return $errors;
+        if ($errors) {
+            wp_send_json_error([
+                'message' => array_shift($errors),
+                'errors' => $errors
+            ], 422);
+        }
+
+        Helper::setFormMeta($formId, '_has_wpesignature', 'yes');
+
+        return $settings;
     }
 
+    
     /*
      * Form Submission Hooks Here
      */
