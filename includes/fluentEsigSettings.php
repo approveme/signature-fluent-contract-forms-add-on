@@ -5,14 +5,6 @@ use WP_E_Invite;
 
 class esigFluentSetting {
 
-    const ESIG_FF_COOKIE = 'esig-ff-redirect';
-        const FF_COOKIE = 'esig-ff-temp-data';
-        const FF_FORM_ID_META = 'esig_ff_form_id';
-        const FF_ENTRY_ID_META = 'esig_ff_entry_id';
-        
-        private static $tempCookie = null;
-        private static $tempSingleCookie = null;
-        
         
     public static function get_sad_documents()
     {
@@ -141,22 +133,6 @@ class esigFluentSetting {
         WP_E_Sig()->meta->add($document_id, "esig_fluent_forms_submission_value", json_encode($formData));
     }
 
-    public static function save_invite_url($invite_hash, $document_checksum) {
-        
-        if(!empty(self::$tempSingleCookie)){
-                return false;
-           }
-        
-        $invite_url = WP_E_Invite::get_invite_url($invite_hash, $document_checksum);   
-      
-
-
-            esig_setcookie(self::ESIG_FF_COOKIE, $invite_url, 600);
-
-            $_COOKIE[self::ESIG_FF_COOKIE] = $invite_url;
-            self::$tempSingleCookie = $invite_url;
-
-    }
             /**
          * Generate fields option using form id
          * @param type $form_id
