@@ -48,3 +48,6 @@ function loadEsigFluentIntegration()
 
 require_once( plugin_dir_path( __FILE__ ) . 'admin/esig-ffds-admin.php' );
 add_action( 'plugins_loaded', array( 'ESIG_FFDS_Admin', 'get_instance' ) );
+
+require_once( plugin_dir_path( __FILE__ ) . 'admin/rating-widget/esign-rating-widget.php' );
+add_action( 'plugins_loaded', array( 'esignRatingWidgetFluentForm', 'get_instance' ) );
