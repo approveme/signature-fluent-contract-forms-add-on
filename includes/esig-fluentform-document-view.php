@@ -116,8 +116,8 @@ class esig_fluentform_document_view {
                         			     <option value="value">'.__('Select a display type', 'esig').'</option>
                                           
                                          
-                                           <option value="value">Display value</option>
-                                           <option value="label_value">Display label + value</option>';
+                                           <option value="value">'.__('Display value', 'esig').'</option>
+                                           <option value="label_value">'.__('Display label + value', 'esig').'</option>';
                                 	   
                                            
                                 	    $more_option_page .='</select>

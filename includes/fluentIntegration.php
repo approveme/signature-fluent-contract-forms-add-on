@@ -109,9 +109,9 @@ class esigFluent extends IntegrationManager
            
             [
                 'key'         => 'enable_esig',
-                'label'       => 'E-Signature Integration',
+                'label'       => __('E-Signature Integration','esign'),
                 'required'    => true,
-                'placeholder' => 'Your Feed Name',
+                'placeholder' => __('Your Feed Name','esign'),
                 'component'   => 'checkbox-single',
                 'checkbox_label' => __('Enable E-Signature for this contract form', 'esig'),
             ],
@@ -120,7 +120,7 @@ class esigFluent extends IntegrationManager
                 'key'         => 'name',
                 'label'       => 'Name',
                 'required'    => true,
-                'placeholder' => 'Your Feed Name',
+                'placeholder' => __('Your Feed Name','esign'),
                 'component'   => 'text'
             ],
             [
@@ -141,40 +141,40 @@ class esigFluent extends IntegrationManager
             ],
             [
                 'key'         => 'signing_logic',
-                'label'       => 'Signing Logic',
-                'tips'      => 'Please select your desired signing logic once this form is submitted.',
+                'label'       => __('Signing Logic', 'esig'),
+                'tips'      => __('Please select your desired signing logic once this form is submitted.', 'esig'),
                 'required'    =>  true, // true/false
                 'component'   => 'select', //  component type
-                'placeholder' => 'Select desired signing logic',
+                'placeholder' => __('Select desired signing logic', 'esig'),
                 'options'     => [
-                    'redirect' => 'Redirect user to Contract/Agreement after Submission',
-                    'email' => 'Send User an Email Requesting their Signature after Submission',
+                    'redirect' => __('Redirect user to Contract/Agreement after Submission', 'esig'),
+                    'email' => __('Send User an Email Requesting their Signature after Submission', 'esig'),
                 ]
             ],   
             [
                 'key'         => 'select_sad_doc',
-                'label'       => 'Select Document',
-                'tips'      => 'If you would like to can create new document',
+                'label'       => __('Select Document', 'esig'),
+                'tips'      => __('If you would like to can create new document', 'esig'),
                 'required'    =>  true, // true/false
                 'component'   => 'select', //  component type
-                'placeholder' => 'Select Sad document',
+                'placeholder' => __('Select Sad document', 'esig'),
                 'options'     => $SadFieldOptions
             ],           
            
             [
                 'key'         => 'underline_data',
-                'label'       => 'Display Type',
-                'tips'      => 'Please select your desired display type once value display in agreement.',
+                'label'       => __('Display Type', 'esig'),
+                'tips'      => __('Please select your desired display type once value display in agreement.', 'esig'),
                 'component'   => 'select', //  component type
-                'placeholder' => 'Select your desired display type',
+                'placeholder' => __('Select your desired display type', 'esig'),
                 'options'     => [
-                    'underline' => 'Underline the data That was submitted from this Formidable form',
-                    'notunderline' => 'Do not underline the data that was submitted from the Formidable Form',
+                    'underline' => __('Underline the data That was submitted from this Formidable form', 'esig'),
+                    'notunderline' => __('Do not underline the data that was submitted from the Formidable Form', 'esig'),
                 ]
             ],
             [
                 'key'         => 'signing_reminder',
-                'label'       => 'Signing Reminder Email',
+                'label'       => __('Signing Reminder Email',
                 'required'    => false,               
                 'component'   => 'checkbox-single',
                 'checkbox_label' => __('Enabling signing reminder email. If/When user has not sign the document', 'esig'),
@@ -188,24 +188,24 @@ class esigFluent extends IntegrationManager
                     [
                         'key'           => 'reminder_email',
                         'type'          => 'input_text',
-                        'label'         => ' SEND THE FIRST REMINDER TO THE SIGNER AFTER',
+                        'label'         => __(' SEND THE FIRST REMINDER TO THE SIGNER AFTER', 'esig'),
                         'required'      => false,
                         'component'   => 'input_number',
-                        'help_text' => 'AFTER THE INITIAL SIGNING REQUEST',
+                        'help_text' => __('AFTER THE INITIAL SIGNING REQUEST', 'esig'),
                     ],
                     [
                         'key'       => 'first_reminder_send',
-                        'label'     => 'SEND THE SECOND REMINDER TO THE SIGNER AFTER',
+                        'label'     => __('SEND THE SECOND REMINDER TO THE SIGNER AFTER', 'esig'),
                         'required'      => false,
                         'component'   => 'text',
-                        'help_text' => 'AFTER THE INITIAL SIGNING REQUEST',
+                        'help_text' => __('AFTER THE INITIAL SIGNING REQUEST', 'esig'),
                     ],
                     [
                         'key'       => 'expire_reminder',
-                        'label'     => 'SEND THE LAST REMINDER TO THE SIGNER AFTER',
+                        'label'     => __('SEND THE LAST REMINDER TO THE SIGNER AFTER', 'esig'),
                         'required'      => false,
                         'component'   => 'text',
-                        'help_text' => 'AFTER THE INITIAL SIGNING REQUEST',
+                        'help_text' => __('AFTER THE INITIAL SIGNING REQUEST', 'esig'),
                     ],
                 ]
             ],
