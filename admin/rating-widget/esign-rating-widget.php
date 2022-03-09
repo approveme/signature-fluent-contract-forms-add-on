@@ -35,18 +35,17 @@ if (!class_exists('esignRatingWidgetFluentForm')) :
              */
 
             $this->feedbackURL = 'https://www.approveme.com/plugin-feedback/';
+            $this->rattingURL = 'https://wordpress.org/support/plugin/fluentforms-signature-contract-add-on/reviews/#new-post';
             
             add_action('esig_admin_notices', array($this, 'esignRatingWidget'));
             add_action('admin_enqueue_scripts', array($this, 'enqueueAdminStyles'));
             add_action('admin_enqueue_scripts', array($this, 'enqueueAdminScripts'));
-            add_action('wp_ajax_esig_ratting_widget_remove', array($this, 'esigRattingWidgetRemove'));
+            add_action('wp_ajax_esig_fluent_ratting_widget_remove', array($this, 'esigFluentRattingWidgetRemove'));
         
         }
 
-        public function esigRattingWidgetRemove() {
-
-            $pluginName = self::getIntegrationPluginName();            
-            update_option('remove_rating_widget_'.$pluginName,'Yes');
+        public function esigFluentRattingWidgetRemove() {    
+            update_option('remove_rating_widget_fluent','Yes');
             die();
         }
         
@@ -55,7 +54,7 @@ if (!class_exists('esignRatingWidgetFluentForm')) :
             $current = $screen->id;
             
             if (($current == 'toplevel_page_esign-docs')) {
-                wp_enqueue_style('esig-rating-widget-admin-styles', plugins_url('assets/css/esign-rating-widget.css', __FILE__), array(), '0.1.1');
+                wp_enqueue_style('esig-fluent-rating-widget-admin-styles', plugins_url('assets/css/esign-rating-widget.css', __FILE__), array(), '0.1.1');
             }
         }
 
@@ -70,7 +69,7 @@ if (!class_exists('esignRatingWidgetFluentForm')) :
             
             if (($current == 'toplevel_page_esign-docs')) {
               
-                 wp_enqueue_script('rating-widget-admin-script', plugins_url('assets/js/rating-widget-control.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.1.1', true);
+                 wp_enqueue_script('fluent-rating-widget-admin-script', plugins_url('assets/js/rating-widget-control.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.1.1', true);
             }
 
         }
@@ -101,83 +100,7 @@ if (!class_exists('esignRatingWidgetFluentForm')) :
             
         }
 
-        public static function getIntegrationPluginName(){
-            $dir = plugin_dir_path( __FILE__ );
-            $pluginName = '';
-
-            if(strpos($dir, 'caldera') !== false){
-                $pluginName = 'caldera';
-            } else if(strpos($dir, 'ninja') !== false){
-                $pluginName = 'ninja';
-            } else if(strpos($dir, 'gravity') !== false){
-                $pluginName = 'gravity';
-            } else if(strpos($dir, 'edd') !== false){
-                $pluginName = 'edd';
-            } else if(strpos($dir, 'wp-forms') !== false){
-                $pluginName = 'wp-forms';
-            } else if(strpos($dir, 'formidable') !== false){
-                $pluginName = 'formidable';
-            } else if(strpos($dir, 'woocommerce') !== false){
-                $pluginName = 'woocommerce';
-            }else if(strpos($dir, 'fluentforms') !== false){
-                $pluginName = 'fluentforms';
-            }
-
-            return $pluginName;
-        }
-
-        public static function getIntegrationPluginUrl(){
-
-            $formName = self::getIntegrationPluginName();
-            $pluginURL = '';
-            if($formName == 'caldera'){
-                $pluginURL = 'https://wordpress.org/support/plugin/signature-caldera-forms-online-contract-add-on/reviews/#new-post';
-            } else if($formName == 'ninja'){
-                $pluginURL = 'https://wordpress.org/support/plugin/ninja-signature-contract-forms-add-on/reviews/#new-post';
-            } else if($formName == 'gravity'){
-                $pluginURL = 'https://wordpress.org/support/plugin/gravity-signature-forms-add-on/reviews/#new-post';
-            } else if($formName == 'edd'){
-                $pluginURL = 'https://wordpress.org/support/plugin/edd-digital-signature-add-on/reviews/#new-post';
-            } else if($formName == 'wp-forms'){
-                $pluginURL = 'https://wordpress.org/support/plugin/wp-forms-signature-contract-add-on/reviews/#new-post';
-            } else if($formName == 'formidable'){
-                $pluginURL = 'https://wordpress.org/support/plugin/forms-signature-formidable-online-contract-automation/reviews/#new-post';
-            } else if($formName == 'woocommerce'){
-                $pluginURL = 'https://wordpress.org/support/plugin/woocommerce-digital-signature/reviews/#new-post';
-            }else if($formName == 'fluentforms'){
-                $pluginURL = 'https://wordpress.org/support/plugin/fluentforms-signature-contract-add-on/reviews/#new-post';
-            }
-
-            return $pluginURL;
-        }
-
-
-        public static function getIntegrationPluginMetaKey(){
-            
-            $formName = self::getIntegrationPluginName();
-            $metaKey = '';
-            if($formName == 'caldera'){
-                $metaKey = 'esig_caldera_entry_id';
-            } else if($formName == 'ninja'){
-                $metaKey = 'esig_ninja_entry_id';
-            } else if($formName == 'gravity'){
-                $metaKey = 'esig_gravity_entry_id';
-            } else if($formName == 'edd'){
-                $metaKey = '_esig_edd_meta_product_agreement';
-            } else if($formName == 'wp-forms'){
-                $metaKey = 'esig_wp_entry_id';
-            } else if($formName == 'formidable'){
-                $metaKey = 'esig_formidable_entry_id';
-            } else if($formName == 'woocommerce'){
-                $metaKey = 'https://wordpress.org/support/plugin/woocommerce-digital-signature/reviews/#new-post';
-            }else if($formName == 'fluentforms'){
-                $metaKey = 'esig_ff_entry_id';
-            }
-
-            return $metaKey;
-        }
-        
-        
+ 
         
         public function esignRatingWidget(){
             
@@ -189,30 +112,17 @@ if (!class_exists('esignRatingWidgetFluentForm')) :
                            
               if( $screen->id != 'toplevel_page_esign-docs') return false;
 
-              $pluginName = self::getIntegrationPluginName();
+              $checkWidget = get_option('remove_rating_widget_fluent');             
 
-              $checkWidget = get_option('remove_rating_widget_'.$pluginName);
-
-             
-
-              if($checkWidget == "Yes") return false;
-
-            
-             $metaKey = self::getIntegrationPluginMetaKey();
+           //   if($checkWidget == "Yes") return false;
               
-             $checkRequierment = self::checkSignedDoc($metaKey);
+             $checkRequierment = self::checkSignedDoc('esig_ff_entry_id');
 
-             if(!wp_validate_boolean($checkRequierment)) return false;
-
-             $pluginName = self::getIntegrationPluginName(); 
+        //     if(!wp_validate_boolean($checkRequierment)) return false;
 
               $api = new WP_E_Api();
-              
-              $formName = ucfirst($pluginName.' Form'); 
-
-            //  $feedbackUrl = 'https://www.approveme.com/plugin-feedback/';
-              $pluginUrl = self::getIntegrationPluginUrl();
-              $data = array("form_name" => $formName,"feedback_url"=>$this->feedbackURL,"plugin_url"=>$pluginUrl);
+             
+              $data = array("form_name" => "Fluent Form","feedback_url"=>$this->feedbackURL,"plugin_url"=>$this->rattingURL);
               $displayNotice = dirname(__FILE__) . '/views/esig-ratting-widget-view.php';
               $api->view->renderPartial('', $data, true, '', $displayNotice);
           

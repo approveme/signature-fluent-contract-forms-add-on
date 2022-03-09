@@ -5,29 +5,29 @@
 h2.hndle.esign_ratting_widget_head {
     padding: 23px;
 }
-.esign_ratting_widget_info {
+.esign_fluent_ratting_widget_info {
     font-size: 14px;
 }
 .esign_ratting_widget_button{
   
 }
-.esign_ratting_widget_yes_button{
+.esign_fluent_ratting_widget_yes_button{
     padding:0px 20px 0px 20px !important;
 }
-.esign_ratting_widget_yes{
+.esign_fluent_ratting_widget_yes{
     padding-top: 20px;
 }
-.esign_ratting_widget_no {
+.esign_fluent_ratting_widget_no {
     padding-top: 25px;
-    padding-left: 40px;
+    padding-left: 45px;
    
 }
-#esign-ratting .inside {
+#esign-fluent-ratting .inside {
     padding-left: 20px !important;
 }
-#esign-ratting .inside {
+#esign-fluent-ratting .inside {
     padding: 0 0px 0px;
 }
-.rating_widget_hide {
+.fluent_rating_widget_hide {
     padding-left: 25px;
 }

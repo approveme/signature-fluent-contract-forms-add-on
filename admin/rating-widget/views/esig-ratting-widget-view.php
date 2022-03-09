@@ -1,13 +1,13 @@
-<input type="hidden" id="feedback-url" value="<?php echo $data['feedback_url']?>">
-<input type="hidden" id="rating-url" value="<?php echo $data['plugin_url']?>">
-<input type="hidden" id="plugin-name" value="<?php echo $data['form_name']?>">
+<input type="hidden" id="feedback-fluent-url" value="<?php echo $data['feedback_url']?>">
+<input type="hidden" id="fluent-rating-url" value="<?php echo $data['plugin_url']?>">
+<input type="hidden" id="fluent-plugin-name" value="<?php echo $data['form_name']?>">
 
 
-<div id="esign-ratting" class="postbox esign_ratting_section">
+<div id="esign-fluent-ratting" class="postbox esign_ratting_section">
 	<div class="postbox-header"><h2 class="hndle esign_ratting_widget_head"><b>WP E-Signature & <?php echo $data['form_name'] ?> Integration</b></h2>
 	</div>
 	<div class="inside">
-		<div class="esign_ratting_widget_info">
+		<div class="esign_fluent_ratting_widget_info">
 		
 		Hey, I noticed you've gotten quite a few documents signed with WP E-Signature & <?php echo $data['form_name']?>s! Are you enjoying WP E-Signature?
 
@@ -15,8 +15,8 @@
 
 		<div class="row esign_ratting_widget_button">
 
-		<div class="col-sm-1 esign_ratting_widget_yes"><input type="submit" id="esig-action-ratting-widget" class="button action esign_ratting_widget_yes_button" value="Yes"></div>
-    	<div class="col-sm-4 esign_ratting_widget_no"><a class="esign_ratting_widget_no_button" href="#">Not Really</a></div>
+		<div class="col-sm-1 esign_fluent_ratting_widget_yes"><input type="submit" id="esig-fluent-action-ratting-widget" class="button action esign_fluent_ratting_widget_yes_button" value="Yes"></div>
+    	<div class="col-sm-4 esign_fluent_ratting_widget_no"><a class="esign_fluent_ratting_widget_no_button" href="#">Not Really</a></div>
 		<div class="col-sm-7 esign_monster_icon"><img src="<?php echo plugins_url("esign-monster.png",__FILE__) ; ?>" ></div>
 
 
