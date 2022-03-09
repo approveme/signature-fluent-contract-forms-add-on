@@ -114,11 +114,11 @@ if (!class_exists('esignRatingWidgetFluentForm')) :
 
               $checkWidget = get_option('remove_rating_widget_fluent');             
 
-           //   if($checkWidget == "Yes") return false;
+              if($checkWidget == "Yes") return false;
               
              $checkRequierment = self::checkSignedDoc('esig_ff_entry_id');
 
-        //     if(!wp_validate_boolean($checkRequierment)) return false;
+             if(!wp_validate_boolean($checkRequierment)) return false;
 
               $api = new WP_E_Api();
              
