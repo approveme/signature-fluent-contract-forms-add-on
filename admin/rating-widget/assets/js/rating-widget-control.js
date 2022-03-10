@@ -11,13 +11,14 @@
  
                  $(".esign_fluent_ratting_widget_info").html("Thats's awesome! Could you please do me Big Favor and give it a 5-star rating on Wordpress to help us spready the word and boost our motivation");     
                  $(".esign_fluent_ratting_widget_yes").removeClass("col-sm-1");
-                 $(".esign_fluent_ratting_widget_yes").addClass("col-sm-2");
+                 $(".esign_fluent_ratting_widget_yes").addClass("col-sm-3");
                  $(".esign_fluent_ratting_widget_yes").html("<a onclick='fluent_hide_permanent()' href='"+ratting_url+"' class='button-primary'>OK, you deserve it!</a>"); 
                  $(".esign_fluent_ratting_widget_no").removeClass("col-sm-4");
                  $(".esign_fluent_ratting_widget_no").addClass("col-sm-3");
                  $(".esign_fluent_ratting_widget_no").attr("id","fluent_rating_widget_hide");
                  $(".esign_fluent_ratting_widget_no").html("<a onclick='fluent_hide_permanent()' href='#'>Not Thanks</a>"); 
-     
+                 $(".esign_monster_icon").removeClass("col-sm-7");
+                 $(".esign_monster_icon").addClass("col-sm-6");
      
                
      
