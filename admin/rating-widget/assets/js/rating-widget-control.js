@@ -67,12 +67,11 @@ function fluentGiveFeedback() {
 
 function fluent_hide_permanent() {
 
-
+        var esignRatting = document.getElementById('esign-fluent-ratting');
+        esignRatting.parentNode.removeChild(esignRatting);
+        
         var pluginName = document.getElementById('fluent-plugin-name').value;
         esigRemoteRequest("esig_fluent_ratting_widget_remove", "POST", function(pluginName){
-
-                var esignRatting = document.getElementById('esign-fluent-ratting');
-                esignRatting.parentNode.removeChild(esignRatting);
 
         });
 } 
