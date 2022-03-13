@@ -200,7 +200,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
     
             if ($esig_type != 'sad') return $sif_menu;
     
-            $sif_menu .= ' {text: "Fluent form Form Data",value: "fluentform", onclick: function () { tb_show( "+ Fluent form option", "#TB_inline?width=450&height=300&inlineId=esig-fluentform-option");esign.tbSize(450);}},';
+            $sif_menu .= ' {text: "Fluent Form Data",value: "fluentform", onclick: function () { tb_show( "+ Fluent form option", "#TB_inline?width=450&height=300&inlineId=esig-fluentform-option");esign.tbSize(450);}},';
     
             return $sif_menu;
         }
