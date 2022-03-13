@@ -168,8 +168,8 @@ class esigFluent extends IntegrationManager
                 'component'   => 'select', //  component type
                 'placeholder' => 'Select your desired display type',
                 'options'     => [
-                    'underline' => 'Underline the data That was submitted from this Formidable form',
-                    'notunderline' => 'Do not underline the data that was submitted from the Formidable Form',
+                    'underline' => 'Underline the data That was submitted from this Fluent form',
+                    'notunderline' => 'Do not underline the data that was submitted from the Fluent form',
                 ]
             ],
             [
