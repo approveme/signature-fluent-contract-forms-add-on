@@ -158,13 +158,14 @@ if (!class_exists('ESIG_FFDS_Admin')) :
     
             $html = '';
     
-            $html .= '<select name="esig_ff_field_id" class="chosen-select" style="width:250px;">';
+            $html .= '<select id="esig_ff_field_id" name="esig_ff_field_id" class="chosen-select" style="width:250px;">';
             $form_id = $_POST['form_id'];
             
     
             $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
     
-        
+            $html .= '<option value="all">Insert all fields</option>';
+            
             foreach ($formFields as $fieldlabel=>$fieldname) {
                 $abel = "'".$fieldlabel."'";
                 $html .= '<option data-id='.$abel .' value=' . $fieldname . '>' . $fieldlabel . '</option>';
