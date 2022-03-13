@@ -143,6 +143,10 @@ class esigFluentSetting {
 
             $label = $label;
 
+            if ($display == "label") {
+                return $label;
+            }
+
             // print_r($data);
             if (is_array($data)) {
 
