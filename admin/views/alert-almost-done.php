@@ -19,7 +19,7 @@
 		   
 		   
 		  <?php _e('Congrats on setting up your document! You\'ve got part 1 of 2 complete! Now you need to
-          head over to the "Form Settings" tab for the Ninja Form you are trying to connect it to.' ,'esig-nf'); ?> </p>
+          head over to the "Form Settings" tab for the Fluent Form you are trying to connect it to.' ,'esig-nf'); ?> </p>
 		</div>
         
 
