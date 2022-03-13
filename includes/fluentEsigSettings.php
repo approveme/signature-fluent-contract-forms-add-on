@@ -195,7 +195,12 @@ class esigFluentSetting {
                     
                     if($field_id == "url"){
                         $value = "<a href='$value'>".$value."</a>";
-                    }                 
+                    }  
+                    
+                    if($field_id == "email"){
+                        $value = '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>';
+                      
+                    }               
                     return $value;
 
                 
@@ -254,7 +259,12 @@ class esigFluentSetting {
                     
                     if($field_id == "url"){
                         $value = "<a href='$value'>".$value."</a>";
-                    }                 
+                    } 
+                    
+                    if($field_id == "url"){
+                        $value = '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>';
+                      
+                    } 
                     return $label . ": " . $value;
 
                 }
