@@ -71,6 +71,25 @@ class esigFluentSetting {
         return $formArray;
     }
 
+    public static function getHtmlFieldsValue($formID,$names){
+        $forms = wpFluent()->table('fluentform_forms')
+        ->select(['form_fields'])
+        ->orderBy('id', 'DESC')
+        ->where('id', $formID)
+        ->get();
+
+    $formArray = json_decode(json_encode($forms), true);        
+    $fields = json_decode($formArray[0]['form_fields'], true);
+    foreach ($fields as $value) {
+        foreach ($value as $name) {
+            if(array_key_exists($names,$name['settings'])){               
+                return $name['settings'][$names];
+            }
+        }
+    }
+
+    }
+
     public static function getAllFluentFormFields($formID){
         $forms = wpFluent()->table('fluentform_forms')
 								->select(['form_fields'])
@@ -78,24 +97,35 @@ class esigFluentSetting {
                                 ->where('id', $formID)
 								->get();
 
-        $formArray = json_decode(json_encode($forms), true);
-        
+        $formArray = json_decode(json_encode($forms), true);       
         $fields = json_decode($formArray[0]['form_fields'], true);
 	    $fieldsArray = [];
         
 		foreach ($fields as $value) {
-                    $fieldsArray = [];
-                    foreach ($value as $name) {                       
+
+            
+                  
+                    foreach ($value as $name) {
                         
-                        
+                      
+
                         if (array_key_exists("label",$name['settings']))
                         {
                         $labelname = $name['settings']['label'];
-                        } else{
+                        }                        
+                        else{
                             $labelname = $name['settings']['admin_field_label'];
-                        }                   
+                        }                        
                         
-                        $fieldsArray[$labelname]= $name['attributes']['name'];
+                        if(array_key_exists("html_codes",$name['settings'])){
+                            $labelname = 'Custom/Html';
+                            $fieldsArray[$labelname]= 'html_codes';                          
+                        } else{
+                            $fieldsArray[$labelname]= $name['attributes']['name']; 
+                        }    
+                        
+                        
+                       
                     }
                     
                     return $fieldsArray;
