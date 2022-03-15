@@ -210,6 +210,22 @@ class esigFluentSetting {
                             }
                             return "<ul class='esig-checkbox-tick'>$items</ul>";
                         }
+                        
+                        if($field_id == "repeater_field"){
+                            $items = '';
+                        
+                            foreach ($value as $val) {
+                                
+                                foreach ($val as $item) {
+                                if ($item) {
+                                    $items .=  $item.'<br>';
+                                }
+                                }
+                               
+                            } 
+
+                            return $items;
+                        }
 
 
                      
@@ -243,13 +259,11 @@ class esigFluentSetting {
                 } elseif ($display == "label_value") {                   
 
                     $value = isset($data[$field_id]) ? $data[$field_id] : false;
-                    $result = '';
-                    
-                   
+                    $result = '';                          
                     
                     if (is_array($value)) {
                         foreach ($value as $val) {
-                            $result .= $val . " ,";
+                            $result .= $val . ' ';
                         } 
 
                         
@@ -274,8 +288,22 @@ class esigFluentSetting {
                             }
                             return $label . ": " ."<ul class='esig-checkbox-tick'>$items</ul>";
                         }
+                        
+                         if($field_id == "repeater_field"){
+                            $items = '';
+                        
+                            foreach ($value as $val) {
+                                
+                                foreach ($val as $item) {
+                                if ($item) {
+                                    $items .= $item.'<br>';
+                                }
+                                }
+                               
+                            } 
 
-
+                            return $label . ": " . $items;
+                        }
                      
                         
                         if($field_id == "file-upload" || $field_id == "image-upload"){
