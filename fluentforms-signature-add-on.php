@@ -29,19 +29,15 @@ if (!defined("ESIG_FLUENT_ADDON_URL")) {
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-ffds.php' );
 register_activation_hook( __FILE__, array( 'ESIG_FFDS', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'ESIG_FFDS', 'deactivate' ) );
-
-require_once( plugin_dir_path( __FILE__ ) . 'admin/about/autoload.php' );
-
-require_once(plugin_dir_path(__FILE__) . 'includes/fluentEsigSettings.php');
-require_once(plugin_dir_path(__FILE__) . 'includes/fluentIntegration.php');
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-fluentform-document-view.php' );
 
-
-add_action("plugins_loaded","loadEsigFluentIntegration",11);
-
+add_action('init',"loadEsigFluentIntegration",11);
 function loadEsigFluentIntegration()
 {
     if (function_exists('wpFluentForm')) {
+        require_once( plugin_dir_path( __FILE__ ) . 'admin/about/autoload.php' );        
+        require_once(plugin_dir_path(__FILE__) . 'includes/fluentEsigSettings.php');
+        require_once(plugin_dir_path(__FILE__) . 'includes/fluentIntegration.php');
         new esigFluentIntegration\esigFluent(wpFluentForm());
     }
 }

@@ -348,7 +348,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
           //  self::enableReminder($form_id,$doc_id);
          
 
-            if($feedValue['signing_reminder'] == '1'){
+            if(isset($feedValue['signing_reminder'])){
                self::enableReminder($feedValue,$doc_id);
             }
            
