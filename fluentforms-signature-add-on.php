@@ -37,7 +37,7 @@ require_once(plugin_dir_path(__FILE__) . 'includes/fluentIntegration.php');
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-fluentform-document-view.php' );
 
 
-add_action("init","loadEsigFluentIntegration",11);
+add_action("plugins_loaded","loadEsigFluentIntegration",11);
 
 function loadEsigFluentIntegration()
 {
