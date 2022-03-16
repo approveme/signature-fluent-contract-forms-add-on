@@ -141,7 +141,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 $submit_type = esigget('underline_data',$esigFeed);
             }
 
-            $ff_value = esigFluentSetting::get_value($esigFluentFormdata,$label,$formid,$field_id, $display, $option);
+            $ff_value = esigFluentSetting::get_value($esigFluentFormdata,$label,$formid,$field_id, $display, $option,$submit_type);
             
             if (!$ff_value) return false;
 

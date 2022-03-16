@@ -179,7 +179,7 @@ class esigFluentSetting {
          * @param type $form_id
          * @return string
          */
-        public static function get_value($data,$label,$formid,$field_id, $display, $option) {
+        public static function get_value($data,$label,$formid,$field_id, $display, $option,$submit_type) {
             
 
             $label = $label;
@@ -204,7 +204,7 @@ class esigFluentSetting {
                             $items = '';
                             foreach ($value as $item) {
                                 if ($item) {
-                                    $items .= '<li><input type="checkbox" onclick="return false;" checked >'.$item.'</li>';
+                                    $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">'.$item.'</li>';
                                 }
                             }
                             return  "<ul class='esig-checkbox-tick'>$items</ul>";
@@ -216,7 +216,7 @@ class esigFluentSetting {
                         $items = '';
                             foreach ($value as $item) {
                                 if ($item) {
-                                    $items .= '<li><input type="checkbox" onclick="return false;" checked >'.$item.'</li>';
+                                    $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">'.$item.'</li>';
                                 }
                             }
                             return "<ul class='esig-checkbox-tick'>$items</ul>";
@@ -252,16 +252,16 @@ class esigFluentSetting {
                   
                     
                     if($field_id == "input_radio"){
-                       $value = '<input type="radio" id='.$value.' onclick="return false;" checked> '.$value.'';
+                       $value = '<input type="radio" id='.$value.' onclick="return false;" readonly checked="checked"> '.$value.'';
                     }
                     
                     
                     if($field_id == "url"){
-                        $value = "<a href='$value'>".$value."</a>";
+                        $value = ($submit_type == "underline") ? '<a href="' . $value . '" target="_blank"><u>' . $value . '</u></a>' : '<a href="' . $value . '" target="_blank">' . $value . '</a>';
                     }  
                     
                     if($field_id == "email"){
-                        $value = '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>';
+                        $value = ($submit_type == "underline") ?  '<a href="mailto:' . $value . '" target="_blank"><u>' . $value . '</u></a>' :  '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>';
                       
                     } 
                     
@@ -288,7 +288,7 @@ class esigFluentSetting {
                             $items = '';
                             foreach ($value as $item) {
                                 if ($item) {
-                                    $items .= '<li><input type="checkbox" onclick="return false;" checked >'.$item.'</li>';
+                                    $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">'.$item.'</li>';
                                 }
                             }
                             return $label . ": " ."<ul class='esig-checkbox-tick'>$items</ul>";
@@ -300,7 +300,7 @@ class esigFluentSetting {
                         $items = '';
                             foreach ($value as $item) {
                                 if ($item) {
-                                    $items .= '<li><input type="checkbox" onclick="return false;" checked >'.$item.'</li>';
+                                    $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">'.$item.'</li>';
                                 }
                             }
                             return $label . ": " ."<ul class='esig-checkbox-tick'>$items</ul>";
@@ -332,21 +332,18 @@ class esigFluentSetting {
                     }
                     
                     if($field_id == "input_radio"){
-                       $value = '<input type="radio" id='.$value.' onclick="return false;" checked> '.$value.'';
-                    }
-                    
-                    
-                    if($field_id == "url"){
-                        $value = "<a href='$value'>".$value."</a>";
-                    } 
+                       $value = '<input type="radio" id='.$value.' onclick="return false;" readonly checked="checked"> '.$value.'';
+                    }                    
                     
                     if($field_id == "url"){
-                        $value = '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>';
+                        $value = ($submit_type == "underline") ? '<a href="' . $value . '" target="_blank"><u>' . $value . '</u></a>' : '<a href="' . $value . '" target="_blank">' . $value . '</a>';
+                    }  
+                    
+                    if($field_id == "email"){
+                        $value = ($submit_type == "underline") ?  '<a href="mailto:' . $value . '" target="_blank"><u>' . $value . '</u></a>' :  '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>';
                       
-                    }                     
-                    if($field_id == "html_codes"){
-                        
-                       
+                    } 
+                    if($field_id == "html_codes"){                     
                         
                        $value =  self::getHtmlFieldsValue($formid,'html_codes');
                     }
