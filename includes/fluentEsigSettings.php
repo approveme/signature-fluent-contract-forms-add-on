@@ -72,21 +72,31 @@ class esigFluentSetting {
     }
 
     public static function getHtmlFieldsValue($formID,$names){
-        $forms = wpFluent()->table('fluentform_forms')
-        ->select(['form_fields'])
-        ->orderBy('id', 'DESC')
-        ->where('id', $formID)
-        ->get();
 
-    $formArray = json_decode(json_encode($forms), true);        
-    $fields = json_decode($formArray[0]['form_fields'], true);
-    foreach ($fields as $value) {
-        foreach ($value as $name) {
-            if(array_key_exists($names,$name['settings'])){               
-                return $name['settings'][$names];
-            }
-        }
-    }
+        $forms = wpFluent()->table('fluentform_forms')
+								->select(['form_fields'])
+								->orderBy('id', 'DESC')
+                                ->where('id', $formID)
+								->get();
+
+        $formArray = json_decode(json_encode($forms), true);       
+        $fields = json_decode($formArray[0]['form_fields'], true);
+	    $labelname = '';
+        
+		foreach ($fields as $value) {
+                 
+                    foreach ($value as $name) {
+                        
+                        if(array_key_exists("html_codes",$name['settings'])){
+                          return $name['settings']['html_codes'];
+                                                 
+                        }
+                                        
+                    }                 
+                   
+                  
+		}               
+            
 
     }
 
@@ -115,7 +125,8 @@ class esigFluentSetting {
                         }                        
                         else{
                             $labelname = $name['settings']['admin_field_label'];
-                        }                        
+                        } 
+                        
                         
                         if(array_key_exists("html_codes",$name['settings'])){
                             $labelname = 'Custom/Html';
@@ -168,7 +179,7 @@ class esigFluentSetting {
          * @param type $form_id
          * @return string
          */
-        public static function get_value($data,$label,$field_id, $display, $option) {
+        public static function get_value($data,$label,$formid,$field_id, $display, $option) {
             
 
             $label = $label;
@@ -238,6 +249,8 @@ class esigFluentSetting {
                         return substr($result, 0, strlen($result) - 2);
                     }
                     
+                  
+                    
                     if($field_id == "input_radio"){
                        $value = '<input type="radio" id='.$value.' onclick="return false;" checked> '.$value.'';
                     }
@@ -250,7 +263,11 @@ class esigFluentSetting {
                     if($field_id == "email"){
                         $value = '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>';
                       
-                    }               
+                    } 
+                    
+                    if($field_id == "html_codes"){
+                       $value =  self::getHtmlFieldsValue($formid,'html_codes');
+                    }
                     return $value;
 
                 
@@ -326,7 +343,13 @@ class esigFluentSetting {
                     if($field_id == "url"){
                         $value = '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>';
                       
-                    } 
+                    }                     
+                    if($field_id == "html_codes"){
+                        
+                       
+                        
+                       $value =  self::getHtmlFieldsValue($formid,'html_codes');
+                    }
                     return $label . ": " . $value;
 
                 }
