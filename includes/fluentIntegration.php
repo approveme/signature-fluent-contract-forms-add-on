@@ -180,36 +180,29 @@ class esigFluent extends IntegrationManager
                 'checkbox_label' => __('Enabling signing reminder email. If/When user has not sign the document', 'esig'),
                 
             ],
+
             [
-                'key'                => 'signing_reminder_fields',
-                'require_list'       => false, 
-                'component'          => 'map_fields',
-                'primary_fileds'     => [
-                    [
-                        'key'           => 'reminder_email',
-                        'type'          => 'input_text',
-                        'label'         => ' SEND THE FIRST REMINDER TO THE SIGNER AFTER',
-                        'required'      => false,
-                        'component'   => 'input_number',
-                        'help_text' => 'AFTER THE INITIAL SIGNING REQUEST',
-                    ],
-                    [
-                        'key'       => 'first_reminder_send',
-                        'label'     => 'SEND THE SECOND REMINDER TO THE SIGNER AFTER',
-                        'required'      => false,
-                        'component'   => 'text',
-                        'help_text' => 'AFTER THE INITIAL SIGNING REQUEST',
-                    ],
-                    [
-                        'key'       => 'expire_reminder',
-                        'label'     => 'SEND THE LAST REMINDER TO THE SIGNER AFTER',
-                        'required'      => false,
-                        'component'   => 'text',
-                        'help_text' => 'AFTER THE INITIAL SIGNING REQUEST',
-                    ],
-                ]
+                'key'         => 'reminder_email',
+                'label'       => 'First Reminder',
+                'required'    => false,
+                'component'   => 'number',               
+                'tips'         => 'Send the First Reminder to the signer after Number of days',
             ],
 
+            [
+                'key'         => 'first_reminder_send',
+                'label'       => 'Second Reminder',
+                'required'    => false,
+                'tips'         => 'Send the Second Reminder to the signer after Number of days',
+                'component'   => 'number'
+            ],
+            [
+                'key'         => 'expire_reminder',
+                'label'       => 'Expire Reminder',
+                'required'    => false,
+                'tips'         => 'Send the Last Reminder to the signer after Number of days',
+                'component'   => 'number'
+            ],
             
             
         ], $formId);
