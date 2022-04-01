@@ -65,7 +65,7 @@ class esig_fluentform_document_view {
                         				<p id="select-fluentform-form-list" align="center">
                                 	    
                         		        <select data-placeholder="Choose a Option..." class="chosen-select" tabindex="2" id="esig-fluentform-form-id" name="esig_ff_form_id">
-                        			     <option value="sddelect">'.__('Select a fluentform Form', 'esig').'</option>';
+                        			     <option value="sddelect">'.__('Select a fluent Form', 'esig').'</option>';
                                 	    
 										
 
@@ -101,7 +101,7 @@ class esig_fluentform_document_view {
                  $more_option_page .='<!-- Caldera form second step start here -->
                                             <div id="esig-ff-second-step" style="display:none;">
                                             
-                                        	<div align="center" class="esig-popup-header esign-form-header">'.__('What fluentform form field data would you like to insert?', 'esig').'</div>
+                                        	<div align="center" class="esig-popup-header esign-form-header">'.__('What fluent form field data would you like to insert?', 'esig').'</div>
                                             
                                             <p id="esig-ff-field-option" align="center">
                                
