@@ -1,6 +1,7 @@
 <?php
 namespace esigFluentIntegration;
 
+use Mpdf\Tag\U;
 use WP_E_Invite;
 
 class esigFluentSetting {
@@ -230,7 +231,14 @@ class esigFluentSetting {
 
                             return $items;
                         }elseif($field_id == "file-upload" || $field_id == "image-upload"){
-                            return "<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
+                           
+                            $items = '';
+                            foreach ($value as $item) {
+                                if ($item) {
+                                    $items .=  $item;  
+                                }
+                            }
+                            return "<a href=".$items.">".basename($items)."</a>";
                         
                         }elseif($field_id == "address_1"){
                             
@@ -336,8 +344,17 @@ class esigFluentSetting {
 
                             return $label . ": " . $items;
                         }elseif($field_id == "file-upload" || $field_id == "image-upload"){
-                            return $label . ": " ."<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
-                        
+                           
+                            
+                            $items = '';
+                            foreach ($value as $item) {
+                                if ($item) {
+                                    $items .=  $item;  
+                                }
+                            }
+                           
+                            return $label . ": " ."<a href=".$items.">".basename($items)."</a>";
+                            
                         }else{
                             foreach ($value as $val) {
                                 $result .= $val . ' ';
