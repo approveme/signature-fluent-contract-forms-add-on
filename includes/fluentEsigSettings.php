@@ -196,10 +196,7 @@ class esigFluentSetting {
                    // return $data;
                     $result = '';
                     if (is_array($value)) {
-                        foreach ($value as $val) {
-                            $result .= $val . " ,";
-                        } 
-
+                        
                         if($field_id == "checkbox"){
                             $items = '';
                             foreach ($value as $item) {
@@ -210,9 +207,7 @@ class esigFluentSetting {
                             return  "<ul class='esig-checkbox-tick'>$items</ul>";
                            // return $label . ": " ."<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
                         
-                        }
-                        
-                        if($field_id == "multi_select"){
+                        }elseif($field_id == "multi_select"){
                         $items = '';
                             foreach ($value as $item) {
                                 if ($item) {
@@ -220,9 +215,7 @@ class esigFluentSetting {
                                 }
                             }
                             return "<ul class='esig-checkbox-tick'>$items</ul>";
-                        }
-                        
-                        if($field_id == "repeater_field"){
+                        }elseif($field_id == "repeater_field"){
                             $items = '';
                         
                             foreach ($value as $val) {
@@ -236,14 +229,27 @@ class esigFluentSetting {
                             } 
 
                             return $items;
-                        }
-
-
-                     
-                        
-                        if($field_id == "file-upload" || $field_id == "image-upload"){
+                        }elseif($field_id == "file-upload" || $field_id == "image-upload"){
                             return "<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
                         
+                        }elseif($field_id == "address_1"){
+                            
+                            foreach ($value as $key => $val) {                           
+
+                                if($key == 'country'){                                    
+                                    $result .= $val . '.   ';
+                                }else{
+                                    if($val){
+                                        $result .= $val . ',';
+                                    }                                    
+                                    
+                                }                              
+                               
+                            }                            
+                        }else{
+                            foreach ($value as $val) {
+                                $result .= $val . ' ';
+                            } 
                         }
                         
                         return substr($result, 0, strlen($result) - 2);
@@ -279,12 +285,25 @@ class esigFluentSetting {
                     $result = '';                          
                     
                     if (is_array($value)) {
-                        foreach ($value as $val) {
-                            $result .= $val . ' ';
-                        } 
-
                         
-                        if($field_id == "checkbox"){
+
+                        if($field_id == "address_1"){
+                            
+                            foreach ($value as $key => $val) {                           
+
+                                if($key == 'country'){                                    
+                                    $result .= $val . '.   ';
+                                }else{
+                                    if($val){
+                                        $result .= $val . ',';
+                                    }                                    
+                                    
+                                }                              
+                               
+                            }
+
+                            
+                        }elseif($field_id == "checkbox"){
                             $items = '';
                             foreach ($value as $item) {
                                 if ($item) {
@@ -294,9 +313,7 @@ class esigFluentSetting {
                             return $label . ": " ."<ul class='esig-checkbox-tick'>$items</ul>";
                            // return $label . ": " ."<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
                         
-                        }
-                        
-                        if($field_id == "multi_select"){
+                        }elseif($field_id == "multi_select"){
                         $items = '';
                             foreach ($value as $item) {
                                 if ($item) {
@@ -304,9 +321,7 @@ class esigFluentSetting {
                                 }
                             }
                             return $label . ": " ."<ul class='esig-checkbox-tick'>$items</ul>";
-                        }
-                        
-                         if($field_id == "repeater_field"){
+                        }elseif($field_id == "repeater_field"){
                             $items = '';
                         
                             foreach ($value as $val) {
@@ -320,12 +335,13 @@ class esigFluentSetting {
                             } 
 
                             return $label . ": " . $items;
-                        }
-                     
-                        
-                        if($field_id == "file-upload" || $field_id == "image-upload"){
+                        }elseif($field_id == "file-upload" || $field_id == "image-upload"){
                             return $label . ": " ."<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
                         
+                        }else{
+                            foreach ($value as $val) {
+                                $result .= $val . ' ';
+                            } 
                         }
                         
                         return $label . ": " . substr($result, 0, strlen($result) - 2);
