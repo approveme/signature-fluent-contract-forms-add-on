@@ -220,10 +220,18 @@ class esigFluent extends IntegrationManager
         
         $settingsFields = $this->getSettingsFields($settings);
         foreach ($settingsFields['fields'] as $field) {
-            if (!wp_validate_boolean($field['required'])) continue;
-            if(empty($settings[$field['key']]))
+          
+            if(empty($settings[$field['key']]) && wp_validate_boolean($field['required']))
             {
                 $errors[$field['key']] = $field['label'] . ' is required.';
+            }elseif($field['key'] == 'reminder_email' || $field['key'] == 'first_reminder_send' || $field['key'] == 'expire_reminder'){
+                
+                $reminderValue = $test = $settings[$field['key']];
+
+                if(strpos($reminderValue, '-') !== false || $reminderValue == '0' || preg_match("/[a-z]/i", $reminderValue)){
+                    $errors[$field['key']] = 'Please enter a valid value for '. $field['label'];
+                }               
+
             }
         }
 
