@@ -175,6 +175,89 @@ class esigFluentSetting {
         WP_E_Sig()->meta->add($document_id, "esig_fluent_forms_submission_value", json_encode($formData));
     }
 
+    public static function checkboxValue($value)
+    {
+        if(!is_array($value)) return false;
+
+        $items = '';
+        foreach ($value as $item) {
+            if ($item) {
+                $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">' . $item . '</li>';
+            }
+        }
+        return  "<ul class='esig-checkbox-tick'>$items</ul>";
+    }
+
+    public static function repeaterValue($value)
+    {
+        if (!is_array($value)) return false;
+        $items = '';
+        foreach ($value as $val) {
+
+            foreach ($val as $item) {
+                if ($item) {
+                    $items .=  $item . '<br>';
+                }
+            }
+        } 
+        return $items; 
+    }
+
+    public static function arrayValue($value)
+    {
+        if (!is_array($value)) return false;
+        $items = '';
+        foreach ($value as $item) {
+            if ($item) {
+                $items .=  $item;
+            }
+        }
+        return $items; 
+    }
+
+    public static function addressValue($value)
+    {
+        if(!is_array($value)) return false;
+        $result = '';
+        foreach ($value as $key => $val) {
+
+            if ($key == 'country') {
+                $countries = wpFluentForm()->load(
+                    wpFluentForm()->appPath('Services/FormBuilder/CountryNames.php')
+                );
+                $result .= $countries[$val] . '.';
+            } else {
+                if ($val) {
+                    $result .= $val . ',  ';
+                }
+            }
+        }
+        return $result;
+    }
+
+    public static function generateValue($data,$fieldId,$formId)
+    {
+        if(!is_array($data)) return false;
+        $value  = esigget($fieldId,$data);
+        switch($fieldId){
+            case "checkbox":
+                return self::checkboxValue($value);
+                break;
+            case "multi_select":
+                return self::checkboxValue($value);
+                break;
+            case "repeater_field":
+                return self::repeaterValue($value);
+                break;
+            case "address_1":
+                return self::addressValue($value);
+                break;    
+            default:
+                if(is_array($value)) return self::arrayValue($value);
+                return $value;
+        }
+    }
+
             /**
          * Generate fields option using form id
          * @param type $form_id
@@ -182,15 +265,20 @@ class esigFluentSetting {
          */
         public static function get_value($data,$label,$formid,$field_id, $display, $option,$submit_type) {
             
-
-            $label = $label;
-
             if ($display == "label") {
                 return $label;
             }
 
+            $displayValue = self::generateValue($data,$field_id,$formid);
+
+            if($display == "value") return $displayValue;
+
+            if($display == "label_value") return $label  . ": " . $displayValue;
+
+            return false;
+
             // print_r($data);
-            if (is_array($data)) {
+            /*if (is_array($data)) {
 
                 if ($display == "value") {                   
                     $value = isset($data[$field_id]) ? $data[$field_id] : false;
@@ -198,39 +286,7 @@ class esigFluentSetting {
                     $result = '';
                     if (is_array($value)) {
                         
-                        if($field_id == "checkbox"){
-                            $items = '';
-                            foreach ($value as $item) {
-                                if ($item) {
-                                    $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">'.$item.'</li>';
-                                }
-                            }
-                            return  "<ul class='esig-checkbox-tick'>$items</ul>";
-                           // return $label . ": " ."<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
-                        
-                        }elseif($field_id == "multi_select"){
-                        $items = '';
-                            foreach ($value as $item) {
-                                if ($item) {
-                                    $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">'.$item.'</li>';
-                                }
-                            }
-                            return "<ul class='esig-checkbox-tick'>$items</ul>";
-                        }elseif($field_id == "repeater_field"){
-                            $items = '';
-                        
-                            foreach ($value as $val) {
-                                
-                                foreach ($val as $item) {
-                                if ($item) {
-                                    $items .=  $item.'<br>';
-                                }
-                                }
-                               
-                            } 
-
-                            return $items;
-                        }elseif($field_id == "file-upload" || $field_id == "image-upload"){
+                      if($field_id == "file-upload" || $field_id == "image-upload"){
                            
                             $items = '';
                             foreach ($value as $item) {
@@ -248,7 +304,7 @@ class esigFluentSetting {
                                     $result .= $val . '.   ';
                                 }else{
                                     if($val){
-                                        $result .= $val . ',';
+                                        $result .= $val . ', ';
                                     }                                    
                                     
                                 }                              
@@ -299,11 +355,14 @@ class esigFluentSetting {
                             
                             foreach ($value as $key => $val) {                           
 
-                                if($key == 'country'){                                    
-                                    $result .= $val . '.   ';
+                                if($key == 'country'){    
+                                    $countries = wpFluentForm()->load(
+                                    wpFluentForm()->appPath('Services/FormBuilder/CountryNames.php')
+                                ) ;                               
+                                    $result .=$countries[$val] . '.   ';
                                 }else{
                                     if($val){
-                                        $result .= $val . ',';
+                                        $result .= $val . ', ';
                                     }                                    
                                     
                                 }                              
@@ -384,7 +443,7 @@ class esigFluentSetting {
 
                 }
             }
-            return false;
+            return false;*/
         }
         
         

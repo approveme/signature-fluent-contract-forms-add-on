@@ -65,7 +65,7 @@ class esig_fluentform_document_view {
                         				<p id="select-fluentform-form-list" align="center">
                                 	    
                         		        <select data-placeholder="Choose a Option..." class="chosen-select" tabindex="2" id="esig-fluentform-form-id" name="esig_ff_form_id">
-                        			     <option value="sddelect">'.__('Select a fluent Form', 'esig').'</option>';
+                        			     <option value="sddelect">'.__('Select a Fluent Form', 'esig').'</option>';
                                 	    
 										
 
