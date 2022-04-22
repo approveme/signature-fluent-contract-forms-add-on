@@ -58,10 +58,25 @@ if (!class_exists('ESIG_FFDS_Admin')) :
            
             add_action('admin_menu', array($this, 'adminmenu'));
             add_action('admin_init', array($this, 'esig_almost_done_fluentform_settings'));
+            add_filter('show_sad_invite_link', array($this, 'show_sad_invite_link'), 10, 3);
        
         }
 
-       
+        final function show_sad_invite_link($show, $doc, $page_id)
+        {
+            if (!isset($doc->document_content)) {
+                return $show;
+            }
+            $document_content = $doc->document_content;
+            $document_raw = WP_E_Sig()->signature->decrypt(ENCRYPTION_KEY, $document_content);
+
+            if (has_shortcode($document_raw, 'esigfluent')) {
+
+                $show = false;
+                return $show;
+            }
+            return $show;
+        }
 
         final function esig_almost_done_fluentform_settings() {
 
