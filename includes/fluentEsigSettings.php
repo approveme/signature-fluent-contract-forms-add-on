@@ -80,10 +80,13 @@ class esigFluentSetting {
                                 ->where('id', $formID)
 								->get();
 
-        $formArray = json_decode(json_encode($forms), true);       
+        $formArray = json_decode(json_encode($forms), true);
+        if(!is_array($formArray)) return false;       
         $fields = json_decode($formArray[0]['form_fields'], true);
 	    $labelname = '';
-        
+
+        if(!is_array($fields)) return false;
+
 		foreach ($fields as $value) {
                  
                     foreach ($value as $name) {
@@ -93,9 +96,7 @@ class esigFluentSetting {
                                                  
                         }
                                         
-                    }                 
-                   
-                  
+                    }                     
 		}               
             
 
@@ -251,7 +252,10 @@ class esigFluentSetting {
                 break;
             case "address_1":
                 return self::addressValue($value);
-                break;    
+                break;
+            case "html_codes":
+                return self::getHtmlFieldsValue($formId, 'html_codes');
+                break;        
             default:
                 if(is_array($value)) return self::arrayValue($value);
                 return $value;
