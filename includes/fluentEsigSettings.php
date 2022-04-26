@@ -74,6 +74,8 @@ class esigFluentSetting {
 
     public static function getHtmlFieldsValue($formID,$names){
 
+        if(!function_exists('wpFluent')) return false;
+
         $forms = wpFluent()->table('fluentform_forms')
 								->select(['form_fields'])
 								->orderBy('id', 'DESC')
@@ -236,6 +238,19 @@ class esigFluentSetting {
         return $result;
     }
 
+
+    public static function fileValue($value)
+    {
+        $items = '';
+            foreach ($value as $item) {
+                if ($item) {
+                    $items .=  $item;  
+                }
+            }
+                           
+        return "<a href=".$items.">".basename($items)."</a>";
+    }
+
     public static function generateValue($data,$fieldId,$formId)
     {
         if(!is_array($data)) return false;
@@ -257,8 +272,17 @@ class esigFluentSetting {
                 return self::getHtmlFieldsValue($formId, 'html_codes');
                 break;
             case "email":
-                return '<a href="mailto:' . $value . '" target="_blank"><u>' . $value . '</u></a>' ;
-                break;       
+                return '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>' ;
+                break;  
+            case "url":
+                return '<a href="' . $value . '" target="_blank">' . $value . '</a>' ;
+                break;
+            case "file-upload":
+                return self::fileValue($value);
+                break;   
+            case "image-upload":
+                return self::fileValue($value);
+                break;     
             default:
                 if(is_array($value)) return self::arrayValue($value);
                 return $value;
