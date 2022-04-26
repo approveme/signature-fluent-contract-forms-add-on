@@ -255,7 +255,10 @@ class esigFluentSetting {
                 break;
             case "html_codes":
                 return self::getHtmlFieldsValue($formId, 'html_codes');
-                break;        
+                break;
+            case "email":
+                return '<a href="mailto:' . $value . '" target="_blank"><u>' . $value . '</u></a>' ;
+                break;       
             default:
                 if(is_array($value)) return self::arrayValue($value);
                 return $value;
