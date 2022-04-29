@@ -239,7 +239,7 @@ class esigFluentSetting {
     }
 
 
-    public static function fileValue($value)
+    public static function fileValue($value,$style)
     {
         $items = '';
             foreach ($value as $item) {
@@ -248,11 +248,16 @@ class esigFluentSetting {
                 }
             }
                            
-        return "<a href=".$items.">".basename($items)."</a>";
+        return "<a style=".$style." href=".$items.">".basename($items)."</a>";
     }
 
-    public static function generateValue($data,$fieldId,$formId)
+    public static function generateValue($data,$fieldId,$formId,$displayType)
     {
+        $style = '';
+        if($displayType == 'underline'){
+            $style = 'text-decoration:underline;';
+        }
+
         if(!is_array($data)) return false;
         $value  = esigget($fieldId,$data);
         switch($fieldId){
@@ -272,16 +277,16 @@ class esigFluentSetting {
                 return self::getHtmlFieldsValue($formId, 'html_codes');
                 break;
             case "email":
-                return '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>' ;
+                return '<a style="'.$style.'" href="mailto:' . $value . '" target="_blank">' . $value . '</a>' ;
                 break;  
             case "url":
-                return '<a href="' . $value . '" target="_blank">' . $value . '</a>' ;
+                return '<a style="'.$style.'" href="' . $value . '" target="_blank">' . $value . '</a>' ;
                 break;
             case "file-upload":
-                return self::fileValue($value);
+                return self::fileValue($value,$style);
                 break;   
             case "image-upload":
-                return self::fileValue($value);
+                return self::fileValue($value,$style);
                 break;     
             default:
                 if(is_array($value)) return self::arrayValue($value);
@@ -300,7 +305,7 @@ class esigFluentSetting {
                 return $label;
             }
 
-            $displayValue = self::generateValue($data,$field_id,$formid);
+            $displayValue = self::generateValue($data,$field_id,$formid,$submit_type);
 
             if($display == "value") return $displayValue;
 
