@@ -191,6 +191,21 @@ class esigFluentSetting {
         return  "<ul class='esig-checkbox-tick'>$items</ul>";
     }
 
+    public static function checkboxGridValue($value)
+    {
+        if(!is_array($value)) return false;
+
+        $items = '';
+        foreach ($value as $key => $item) {
+            foreach ($item as $newItem) {
+                $items .= '<li>'.$key.' - <input type="checkbox" onclick="return false;" readonly checked="checked">' . $newItem . '</li>';
+            }
+
+        }
+        return  "<ul class='esig-checkbox-tick'>$items</ul>";
+    }
+    
+
     public static function repeaterValue($value)
     {
         if (!is_array($value)) return false;
@@ -245,11 +260,11 @@ class esigFluentSetting {
         $items = '';
             foreach ($value as $item) {               
                 if ($item) {
-                    $items .=  $item;  
+                    $items .=  '<a href='.$item.' style='.$style.' >'.basename($item).'</a><br>';  
                 }
             }
                            
-        return "<a href=".$items." style=".$style." >".basename($items)."</a>";
+        return $items;
     }
 
     public static function generateValue($data,$fieldId,$formId,$displayType)
@@ -264,6 +279,9 @@ class esigFluentSetting {
         switch($fieldId){
             case "checkbox":
                 return self::checkboxValue($value);
+                break;
+            case "tabular_grid":
+                return self::checkboxGridValue($value);
                 break;
             case "multi_select":
                 return self::checkboxValue($value);
