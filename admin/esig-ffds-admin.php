@@ -156,6 +156,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 $submit_type = esigget('underline_data',$esigFeed);
             }
 
+            update_option('$esigFluentFormdata',$esigFluentFormdata);
+
             $ff_value = esigFluentSetting::get_value($esigFluentFormdata,$label,$formid,$field_id, $display, $option,$submit_type);
             
             if (!$ff_value) return false;
@@ -181,7 +183,13 @@ if (!class_exists('ESIG_FFDS_Admin')) :
     
             $html .= '<option value="all">Insert all fields</option>';
             
+
+            
+
             foreach ($formFields as $fieldlabel=>$fieldname) {
+                if(empty($fieldname)){
+                    continue;
+                }
                 $abel = "'".$fieldlabel."'";
                 $html .= '<option data-id='.$abel .' value=' . $fieldname . '>' . $fieldlabel . '</option>';
             }

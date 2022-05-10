@@ -212,7 +212,7 @@ class esigFluentSetting {
         $items = '';
         foreach ($value as $item) {
             if ($item) {
-                $items .=  $item;
+                $items .=  $item . ' ';
             }
         }
         return $items; 
@@ -241,14 +241,15 @@ class esigFluentSetting {
 
     public static function fileValue($value,$style)
     {
+        
         $items = '';
-            foreach ($value as $item) {
+            foreach ($value as $item) {               
                 if ($item) {
                     $items .=  $item;  
                 }
             }
                            
-        return "<a style=".$style." href=".$items.">".basename($items)."</a>";
+        return "<a href=".$items." style=".$style." >".basename($items)."</a>";
     }
 
     public static function generateValue($data,$fieldId,$formId,$displayType)
@@ -275,17 +276,17 @@ class esigFluentSetting {
                 break;
             case "html_codes":
                 return self::getHtmlFieldsValue($formId, 'html_codes');
-                break;
+                break;            
             case "email":
                 return '<a style="'.$style.'" href="mailto:' . $value . '" target="_blank">' . $value . '</a>' ;
                 break;  
             case "url":
                 return '<a style="'.$style.'" href="' . $value . '" target="_blank">' . $value . '</a>' ;
                 break;
-            case "file-upload":
+            case "file-upload":            
                 return self::fileValue($value,$style);
                 break;   
-            case "image-upload":
+            case "image-upload":            
                 return self::fileValue($value,$style);
                 break;     
             default:
