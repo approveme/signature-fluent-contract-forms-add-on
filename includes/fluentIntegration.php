@@ -1,22 +1,30 @@
 <?php
 
 namespace esigFluentIntegration;
+
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
+use ESIG_FFDS;
+use ESIG_FFFDS;
+use esig_fluentform_document_view;
+use esig_sad_document;
 use FluentForm\App\Helpers\Helper;
 use FluentForm\App\Services\ConditionAssesor;
 use FluentForm\App\Services\Integrations\IntegrationManager;
 use FluentForm\Framework\Foundation\Application;
 use FluentForm\Framework\Helpers\ArrayHelper;
+use WP_E_Common;
+use WP_E_invitationsController;
 
 class esigFluent extends IntegrationManager
 {
     public $category = 'wp_core';
     public $disableGlobalSettings = 'yes';
+    protected $form;
 
-    public function __construct(Application $app)
+    public function __construct(Application $app )
     {
         parent::__construct(
             $app,
@@ -27,20 +35,25 @@ class esigFluent extends IntegrationManager
             1
         );
 
+        $plugin = ESIG_FFDS::get_instance();
+        
+        $this->plugin_slug = $plugin->get_plugin_slug();
+
+        $this->document_view = new esig_fluentform_document_view();
+
         //$this->userApi = new UserRegistrationApi;
 
-        $this->logo = ESIG_FLUENT_ADDON_URL . "assets/images/e-signature-logo.svg"; //$this->app->url('public/img/integrations/user_registration.png');
+        $this->logo = ESIG_FLUENT_ADDON_URL . "admin/assets/images/e-signature-logo.svg"; //$this->app->url('public/img/integrations/user_registration.png');
 
-        $this->description = 'Create signature document when when a form is submitted.';
+        $this->description = 'This add-on makes it possible to automatically email or redirect WP E-Signature document after the user has succesfully submitted a Fluent Forms';
 
-       // add_filter('fluentform_notifying_async_UserRegistration', '__return_false');
-
-       // add_filter('fluentform_save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
-
-       // add_filter('fluentform_validation_user_registration_errors', [$this, 'validateSubmittedForm'], 10, 3);
-
-        $this->registerAdminHooks();
+        add_filter('fluentform_save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
+      
+       $this->registerAdminHooks();
     }
+
+
+
 
     public function pushIntegration($integrations, $formId)
     {
@@ -49,7 +62,7 @@ class esigFluent extends IntegrationManager
             'category'                => 'wp_core',
             'disable_global_settings' => 'yes',
             'logo'                    => $this->logo,
-            'title'                   => $this->title . ' Integration test',
+            'title'                   => $this->title,
             'is_active'               => $this->isConfigured()
         ];
 
@@ -85,14 +98,46 @@ class esigFluent extends IntegrationManager
 
     public function getSettingsFields($settings, $formId = null)
     {
+        //echo $formId . "testing";
+        //update_option("rupom", $formId);
+        $SadFieldOptions = [];
+        foreach (esigFluentSetting::get_sad_documents() as $key => $column) {
+            $SadFieldOptions[$key] = $column;
+        }
         
         $fields = apply_filters('fluentform_wpesignature_feed_fields', [
+           
+            [
+                'key'         => 'enable_esig',
+                'label'       => 'E-Signature Integration',
+                'required'    => true,
+                'placeholder' => 'Your Feed Name',
+                'component'   => 'checkbox-single',
+                'checkbox_label' => __('Enable E-Signature for this contract form', 'esig'),
+            ],
+           
             [
                 'key'         => 'name',
                 'label'       => 'Name',
                 'required'    => true,
                 'placeholder' => 'Your Feed Name',
                 'component'   => 'text'
+            ],
+            [
+                'key'          => 'signer_name',
+                'required' => true,
+                'label'        => __('Signer Name', 'esig'),
+                'placeholder'  => __('Signer Name', 'esig'),
+                'component'    => 'value_text',
+                'input_options' => 'all',
+            ],
+            [
+                'key'          => 'signer_email',
+                'required' => true,
+                'label'        => __('Signer Email', 'esig'),
+                'placeholder'  => __('Signer Email', 'esig'),
+                'component'    => 'value_text',
+                'input_options' => 'emails',
             ],
             [
                 'key'         => 'signing_logic',
@@ -105,31 +150,17 @@ class esigFluent extends IntegrationManager
                     'redirect' => 'Redirect user to Contract/Agreement after Submission',
                     'email' => 'Send User an Email Requesting their Signature after Submission',
                 ]
-            ],
+            ],   
             [
-                'key'                => 'CustomFields',
-                'require_list'       => false,
-                'label'              => 'Map Fields',
-                'tips'               => 'Associate your user registration fields to the appropriate Fluent Form fields by selecting the appropriate form field from the list.',
-                'component'          => 'map_fields',
-                'field_label_remote' => 'WP E-Signature Field',
-                'field_label_local'  => 'Form Field',
-                'primary_fileds'     => [
-                    [
-                        'key'           => 'signerEmail',
-                        'label'         => 'Email Address',
-                        'required'      => true,
-                        'input_options' => 'emails'
-                    ],
-                    [
-                        'key'       => 'signerName',
-                        'label'     => 'Signer Name',
-                        'required'      => true,
-                        'input_options' => 'all',
-                        'help_text' => 'Keep empty if you want the username and user email is the same',
-                    ],
-                ]
-            ],
+                'key'         => 'select_sad_doc',
+                'label'       => 'Select Document',
+                'tips'      => 'If you would like to can create new document',
+                'required'    =>  true, // true/false
+                'component'   => 'select', //  component type
+                'placeholder' => 'Select Sad document',
+                'options'     => $SadFieldOptions
+            ],           
+           
             [
                 'key'         => 'underline_data',
                 'label'       => 'Display Type',
@@ -137,10 +168,42 @@ class esigFluent extends IntegrationManager
                 'component'   => 'select', //  component type
                 'placeholder' => 'Select your desired display type',
                 'options'     => [
-                    'redirect' => 'Underline the data That was submitted from this Formidable form',
-                    'email' => 'Do not underline the data that was submitted from the Formidable Form',
+                    'underline' => 'Underline the data That was submitted from this Fluent form',
+                    'notunderline' => 'Do not underline the data that was submitted from the Fluent form',
                 ]
             ],
+            [
+                'key'         => 'signing_reminder',
+                'label'       => 'Signing Reminder Email',
+                'required'    => false,               
+                'component'   => 'checkbox-single',
+                'checkbox_label' => __('Enabling signing reminder email. If/When user has not sign the document', 'esig'),
+                
+            ],
+
+            [
+                'key'         => 'reminder_email',
+                'label'       => 'First Reminder',
+                'required'    => false,
+                'component'   => 'number',               
+                'tips'         => 'Send the First Reminder to the signer after Number of days',
+            ],
+
+            [
+                'key'         => 'first_reminder_send',
+                'label'       => 'Second Reminder',
+                'required'    => false,
+                'tips'         => 'Send the Second Reminder to the signer after Number of days',
+                'component'   => 'number'
+            ],
+            [
+                'key'         => 'expire_reminder',
+                'label'       => 'Expire Reminder',
+                'required'    => false,
+                'tips'         => 'Send the Last Reminder to the signer after Number of days',
+                'component'   => 'number'
+            ],
+            
             
         ], $formId);
 
@@ -153,83 +216,35 @@ class esigFluent extends IntegrationManager
 
     public function validate($settings, $integrationId, $formId)
     {
-        $parseSettings = $this->userApi->validate(
-            $settings,
-            $this->getSettingsFields($settings)
-        );
+        $errors = [];
+        
+        $settingsFields = $this->getSettingsFields($settings);
+        foreach ($settingsFields['fields'] as $field) {
+          
+            if(empty($settings[$field['key']]) && wp_validate_boolean($field['required']))
+            {
+                $errors[$field['key']] = $field['label'] . ' is required.';
+            }elseif($field['key'] == 'reminder_email' || $field['key'] == 'first_reminder_send' || $field['key'] == 'expire_reminder'){
+                
+                $reminderValue = $test = $settings[$field['key']];
 
-        Helper::setFormMeta($formId, '_has_user_registration', 'yes');
+                if(strpos($reminderValue, '-') !== false || $reminderValue == '0' || preg_match("/[a-z]/i", $reminderValue)){
+                    $errors[$field['key']] = 'Please enter a valid value for '. $field['label'];
+                }               
 
-        return $parseSettings;
-    }
-
-    public function validateSubmittedForm($errors, $data, $form)
-    {
-        $feeds = wpFluent()->table('fluentform_form_meta')
-            ->where('form_id', $form->id)
-            ->where('meta_key', 'user_registration_feeds')
-            ->get();
-
-        if (!$feeds) {
-            return $errors;
-        }
-
-        foreach ($feeds as $feed) {
-            $parsedValue = json_decode($feed->value, true);
-
-            if (!ArrayHelper::isTrue($parsedValue, 'validateForUserEmail')) {
-                continue;
-            }
-
-            if ($parsedValue && ArrayHelper::isTrue($parsedValue, 'enabled')) {
-                // Now check if conditions matched or not
-                $isConditionMatched = $this->checkCondition($parsedValue, $data);
-                if (!$isConditionMatched) {
-                    continue;
-                }
-                $email = ArrayHelper::get($data, $parsedValue['Email']);
-                if (!$email) {
-                    continue;
-                }
-
-                if (email_exists($email)) {
-                    if (!isset($errors['restricted'])) {
-                        $errors['restricted'] = [];
-                    }
-                    $errors['restricted'][] = __('This email is already registered. Please choose another one.', 'fluentformpro');
-                    return $errors;
-                }
-
-                if (!empty($parsedValue['username'])) {
-                    $userName = ArrayHelper::get($data, $parsedValue['username']);
-                    if ($userName) {
-                        if (username_exists($userName)) {
-                            if (!isset($errors['restricted'])) {
-                                $errors['restricted'] = [];
-                            }
-                            $errors['restricted'][] = __('This username is already registered. Please choose another one.', 'fluentformpro');
-                            return $errors;
-                        }
-                    }
-                }
             }
         }
 
-        return $errors;
-    }
+        if ($errors) {
+            wp_send_json_error([
+                'message' => array_shift($errors),
+                'errors' => $errors
+            ], 422);
+        }
 
-    /*
-     * Form Submission Hooks Here
-     */
-    public function notify($feed, $formData, $entry, $form)
-    {
-        $this->userApi->registerUser(
-            $feed,
-            $formData,
-            $entry,
-            $form,
-            $this->integrationKey
-        );
+        Helper::setFormMeta($formId, '_has_wpesignature', 'yes');
+
+        return $settings;
     }
 
     // There is no global settings, so we need
@@ -266,4 +281,6 @@ class esigFluent extends IntegrationManager
 
         return ConditionAssesor::evaluate($parsedValue, $formData);
     }
+
+    
 }
