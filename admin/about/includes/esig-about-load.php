@@ -87,10 +87,10 @@ if (!class_exists('esig_Addon_About')) :
 
                 if (empty($GLOBALS['admin_page_hooks']['esign'])) {
                     add_menu_page('E-Signature', 'E-Signature', 'read', 'esign-' . strtolower($this->_name) . '-about', array($this, 'about_page'), plugins_url('../../assets/images/pen_icon.svg', __FILE__));
-                    add_submenu_page('esign-' . strtolower($this->_name) . '-about', $this->_name . " E-signature",$this->_name . " E-signature", 'read', 'esign-' . strtolower($this->_name) . '-about', array($this, 'about_page'));
+                    add_submenu_page('esign-' . strtolower($this->_name) . '-about', $this->_name . " E-Signature",$this->_name . " E-Signature", 'read', 'esign-' . strtolower($this->_name) . '-about', array($this, 'about_page'));
                 }
                 else{
-                    add_submenu_page('esign-' . strtolower($this->_name) . '-about',$this->_name . " E-signature", $this->_name . " E-signature", 'read', 'esign-' . strtolower($this->_name) . '-about', array($this, 'about_page'));
+                    add_submenu_page('esign-' . strtolower($this->_name) . '-about',$this->_name . " E-Signature", $this->_name . " E-Signature", 'read', 'esign-' . strtolower($this->_name) . '-about', array($this, 'about_page'));
                 }
                 
                 return;

@@ -28,7 +28,7 @@ class esigFluent extends IntegrationManager
     {
         parent::__construct(
             $app,
-            'WP E-signature',
+            'WP E-Signature',
             'wpesignature',
             '_fluentform_wpesignature_settings',
             'wpesignature_feeds',
@@ -45,7 +45,7 @@ class esigFluent extends IntegrationManager
 
         $this->logo = ESIG_FLUENT_ADDON_URL . "admin/assets/images/e-signature-logo.svg"; //$this->app->url('public/img/integrations/user_registration.png');
 
-        $this->description = 'This add-on makes it possible to automatically email or redirect WP E-Signature document after the user has succesfully submitted a Fluent Forms';
+        $this->description = 'This add-on allows you to redirect your form-filler or email an individual to review and sign an electronic document.';
 
         add_filter('fluentform_save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
       
@@ -113,7 +113,7 @@ class esigFluent extends IntegrationManager
                 'required'    => true,
                 'placeholder' => 'Your Feed Name',
                 'component'   => 'checkbox-single',
-                'checkbox_label' => __('Enable E-Signature for this contract form', 'esig'),
+                'checkbox_label' => __('Enable E-Signature for this contact form', 'esig'),
             ],
            
             [
@@ -130,6 +130,7 @@ class esigFluent extends IntegrationManager
                 'placeholder'  => __('Signer Name', 'esig'),
                 'component'    => 'value_text',
                 'input_options' => 'all',
+                
             ],
             [
                 'key'          => 'signer_email',
@@ -177,7 +178,7 @@ class esigFluent extends IntegrationManager
                 'label'       => 'Signing Reminder Email',
                 'required'    => false,               
                 'component'   => 'checkbox-single',
-                'checkbox_label' => __('Enabling signing reminder email. If/When user has not sign the document', 'esig'),
+                'checkbox_label' => __('Enable signing reminders to automatically email the signer if they have not signed.', 'esig'),
                 
             ],
 
@@ -186,21 +187,21 @@ class esigFluent extends IntegrationManager
                 'label'       => 'First Reminder',
                 'required'    => false,
                 'component'   => 'number',               
-                'tips'         => 'Send the First Reminder to the signer after Number of days',
+                'tips'         => 'Send the first reminder to the signer after this many days.',
             ],
 
             [
                 'key'         => 'first_reminder_send',
                 'label'       => 'Second Reminder',
                 'required'    => false,
-                'tips'         => 'Send the Second Reminder to the signer after Number of days',
+                'tips'         => 'Send the second reminder to the signer after this many days.',
                 'component'   => 'number'
             ],
             [
                 'key'         => 'expire_reminder',
-                'label'       => 'Expire Reminder',
+                'label'       => 'Third Reminder',
                 'required'    => false,
-                'tips'         => 'Send the Last Reminder to the signer after Number of days',
+                'tips'         => 'Send the final reminder to the signer after this many days.',
                 'component'   => 'number'
             ],
             
