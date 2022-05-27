@@ -158,7 +158,7 @@ class esigFluent extends IntegrationManager
                 'tips'      => 'If you would like to can create new document',
                 'required'    =>  true, // true/false
                 'component'   => 'select', //  component type
-                'placeholder' => 'Select Sad document',
+                'placeholder' => 'Select document',
                 'options'     => $SadFieldOptions
             ],           
            
