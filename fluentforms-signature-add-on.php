@@ -37,7 +37,7 @@ add_action('init',"loadEsigFluentIntegration",11);
 require_once(plugin_dir_path(__FILE__) . 'includes/fluentEsigSettings.php');
 function loadEsigFluentIntegration()
 {
-    if (function_exists('wpFluentForm')) {
+    if (function_exists('wpFluentForm') && class_exists("IntegrationManager")) {
               
         
         require_once(plugin_dir_path(__FILE__) . 'includes/fluentIntegration.php');
