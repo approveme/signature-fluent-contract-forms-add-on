@@ -53,8 +53,11 @@ function fluentforms_message($esigStatus,$pluginName)
                   break;
                 case 'wpe_active_pro':
 
-                  if (!function_exists('wpFluentForm')) {// Notice about add-on dependent 3rd party plugin if not installed
-                  // return '<span class="esig-icon-esig-alert"></span><h4>Fluent forms plugin is not installed. Please install Fluent forms version 2.0 or greater - <a href="https://wordpress.org/plugins/fluentform/">Get it here now</a></h4>';
+                  if (!check_plugin_installed('fluentform/fluentform.php')) {// Notice about add-on dependent 3rd party plugin if not installed
+                  return '<span class="esig-icon-esig-alert"></span><h4>Fluent forms plugin is not installed. Please install Fluent forms version 4.3.0 or greater - <a href="https://wordpress.org/plugins/fluentform/">Get it here now</a></h4>';
+                  }
+                  elseif (!function_exists('wpFluentForm') && check_plugin_installed('fluentform/fluentform.php')) {// Notice about add-on dependent 3rd party plugin if not installed
+                   return '<span class="esig-icon-esig-alert"></span><h4>Fluent forms plugin is not activated. Please install Fluent forms version 4.3.0 or greater - <a href="https://wordpress.org/plugins/fluentform/">Get it here now</a></h4>';
                   }
                   elseif(!class_exists('ESIG_SAD_Admin')){// Notice about stand alone documents if not enabled
                     return '<span class="esig-icon-esig-alert"></span><h4>WP E-Signature <a href="https://www.approveme.com/downloads/stand-alone-documents/?utm_source=wprepo&utm_medium=link&utm_campaign=ninjaforms" target="_blank">"Stand Alone Documents"</a> Add-on is not active. Please enable WP E-Signature Stand Alone Documents  <a class="about-button" href="'. admin_url("admin.php?page=esign-addons&tab=disable&esig_action=enable&plugin_url=esig-stand-alone-docs%2Fesig-sad.php&plugin_name=WP%20E-Signature%20-%20Stand%20Alone%20Documents") .'">Enable it now </a> </h4>';
@@ -69,6 +72,13 @@ function fluentforms_message($esigStatus,$pluginName)
                   break;
               }
         }
+
+
+        function check_plugin_installed( $plugin_slug ){
+          $installed_plugins = get_plugins();
+          return array_key_exists( $plugin_slug, $installed_plugins ) || in_array( $plugin_slug, $installed_plugins, true );
+        }
+        
 
   /**
   *  Remove all admin notices from e-signature pages. 
