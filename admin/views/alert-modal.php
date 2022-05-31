@@ -19,8 +19,8 @@ switch ($esigStatus){
     echo '<div class="bangBar error"> <h4>*Your WP E-Signature install is missing the Pro Add-Ons. Advanced functionality will not work without these add-ons installed. <a href="https://www.approveme.com/profile/">Install Pro Add-Ons</a></h4></div>';
   case 'wpe_active_pro':
     
-    if(!class_exists('Ninja_Forms')) {// Notice about add-on dependent 3rd party plugin if not installed
-      echo '<div class="error ' . $esigStatus . '"><span class="esig-icon-esig-alert"></span><h4>Fluent forms plugin is not installed. Please install Fluent forms version 2.0 or greater - <a href="https://wordpress.org/plugins/fluentform/">Get it here now</a></h4></div>';
+    if(!class_exists('wpFluentForm')) {// Notice about add-on dependent 3rd party plugin if not installed
+     echo '<div class="error ' . $esigStatus . '"><span class="esig-icon-esig-alert"></span><h4>Fluent forms plugin is not installed. Please install Fluent forms version 2.0 or greater - <a href="https://wordpress.org/plugins/fluentform/">Get it here now</a></h4></div>';
     }elseif(!class_exists('ESIG_SAD_Admin')){// Notice about stand alone documents if not enabled
       echo '<div class="error ' . $esigStatus . '"><span class="esig-icon-esig-alert"></span><h4>WP E-Signature <a href="https://www.approveme.com/downloads/stand-alone-documents/?utm_source=wprepo&utm_medium=link&utm_campaign=ninjaforms" target="_blank">"Stand Alone Documents"</a> Add-on is not installed. Please install WP E-Signature Stand Alone Documents - version 1.2.5 or greater.  </h4></div>';
     }
