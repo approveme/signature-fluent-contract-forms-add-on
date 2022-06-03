@@ -99,12 +99,12 @@ if (!class_exists('esig_Addon_About')) :
 
         public function about_page() {
             
-            include_once(constant("ESIGN_FLUENTFORM_ABOUT_PATH") . "/views/esig-addon-about.php");
+            include_once(constant("ESIGN_". strtoupper($this->_name) ."_ABOUT_PATH") . "/views/esig-addon-about.php");
         }
 
         public function core_page() {
 
-            include_once(constant("ESIGN_FLUENTFORM_ABOUT_PATH") . "/views/core-about.php");
+            include_once(constant("ESIGN_". strtoupper($this->_name) ."_ABOUT_PATH") . "/views/core-about.php");
         }
         
     }
