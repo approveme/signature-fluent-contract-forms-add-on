@@ -136,7 +136,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
         public function adminmenu() {
             $esigAbout = new esig_Addon_About("Fluentform");
-            add_submenu_page('fluent_forms', __('E-signature', 'esig'), __('E-signature', 'esig'), 'read', 'esign-fluentform-about', array($esigAbout, 'about_page'));
+            add_submenu_page('fluent_forms', __('E-Signature', 'esig'), __('E-Signature', 'esig'), 'read', 'esign-fluentform-about', array($esigAbout, 'about_page'));
         }
         
         public function render_shortcode_esigfluent($atts) {
@@ -247,14 +247,26 @@ if (!class_exists('ESIG_FFDS_Admin')) :
     
         public function enqueue_admin_scripts() {
     
-    
             
             $screen = get_current_screen();
+           
             $admin_screens = array(
                 'admin_page_esign-add-document',
                 'admin_page_esign-edit-document',
                 'e-signature_page_esign-view-document',
+                'toplevel_page_fluent_forms',
             );
+
+            $fluent_setting_screens = array(               
+                'toplevel_page_fluent_forms',
+            );
+
+            if (in_array(esigFluentSetting::esigget("id",$screen), $fluent_setting_screens)) {              
+
+                wp_enqueue_script('jquery');
+                wp_enqueue_script('fluentform-setting-script', plugins_url('assets/js/esig-fluentform-setting-control.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.0.1', true);
+
+            }
     
             if (in_array(esigFluentSetting::esigget("id",$screen), $admin_screens)) {
                 
@@ -265,6 +277,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             if (esigFluentSetting::esigget("id",$screen) != "plugins") {
                 wp_enqueue_script('fluentform-add-admin-script', plugins_url('assets/js/esig-fluentform-control.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.1.0', true);
             }
+
+            
     
         }
     

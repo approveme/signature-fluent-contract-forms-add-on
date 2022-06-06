@@ -47,7 +47,7 @@ Well, there’s not much you could do.
 
 Digital security is crucial to your business.  You need to protect yourself from anything that could call your forms into question.
 
-**The ApproveMe WordPress E-signature Plugin turns your WordPress site into a court recognized document signing app.**
+**The ApproveMe WordPress E-Signature Plugin turns your WordPress site into a court recognized document signing app.**
 
 If you’re a WP Forms user, you know how powerful their plugin can be to help automate a number of tasks on your website.  HOWEVER, signing legally binding contracts is NOT their primary focus.  That’s where we come in.
 
@@ -96,7 +96,7 @@ TEXT FIELD 3 = SIGNERS EMAIL ADDRESS
 
 You would insert these WP Field values in your WP esignature contract in the proper places or paragraphs that pertain to this information.
  
-You would choose the option “Email this contract whenever this form is submitted.”
+You would choose the option “Email this contact whenever this form is submitted.”
 
  Now, whenever you fill out this WPForm, your contract will be automatically generated with the custom terms from your WP Form submission and then a signer invitation email will be sent to the signer email address that was given in the WP Form submission.
 
@@ -254,7 +254,7 @@ Free ebook:
 ###How WPForms Digital Signature Pad Add-On by WP esignature Works:###
 
 
-*The plugin for WPForms is very simple to setup. With an active ApproveMe business license, you can instantly produce a legally binding (court accepted) contract utilizing completed WP Forms data and require your WP Forms submitter to add their signature on your WordPress E-signature generated contract.*
+*The plugin for WPForms is very simple to setup. With an active ApproveMe business license, you can instantly produce a legally binding (court accepted) contract utilizing completed WP Forms data and require your WP Forms submitter to add their signature on your WordPress E-Signature generated contract.*
 
 This plugin is amazing for Freelancers, Web Designers, Photographers and Small Business owners who want to simplify their contract generation process.
 
@@ -429,10 +429,10 @@ Please feel free to contact us at anytime with any additional questions you migh
 1. **Add New Document:** Once you’ve installed the WP esignature, you will need to draft up a new “Stand Alone Document”
 
 
-2. **FluentForms Data** If you click the Signer Input Fields icon you will see the option “WP Forms Data.” Click this to connect a WP Form to this contract.
+2. **FluentForms Data** If you click the Signer Input Fields icon you will see the option “WP Forms Data.” Click this to connect a WP Form to this contact.
 
 
-3. **Select Your WP Forms:** If you already have your WP Form created you can easily insert dynamic field data (from the WP Form that is being submitted/triggering this contract) by selecting the WP Form.
+3. **Select Your WP Forms:** If you already have your WP Form created you can easily insert dynamic field data (from the WP Form that is being submitted/triggering this contact) by selecting the WP Form.
 
 4. **Choose Your WP Forms Fields:** After selecting your WP Form you will see the available field options from this particular WP Form. You can easily insert data from your WP Form anywhere in this new contract.
 
