@@ -124,21 +124,28 @@ class esigFluent extends IntegrationManager
                 'component'   => 'text'
             ],
             [
-                'key'          => 'signer_name',
-                'required' => true,
-                'label'        => __('Signer Name', 'esig'),
-                'placeholder'  => __('Signer Name', 'esig'),
-                'component'    => 'value_text',
-                'input_options' => 'all',
-                
-            ],
-            [
-                'key'          => 'signer_email',
-                'required' => true,
-                'label'        => __('Signer Email', 'esig'),
-                'placeholder'  => __('Signer Email', 'esig'),
-                'component'    => 'value_text',
-                'input_options' => 'emails',
+                'key'                => 'signer_info',
+                'require_list'       => false,
+                'label'              => 'Signer Details',
+                'tips'               => 'Please Select fields for signer name and signer email',
+                'component'          => 'map_fields',
+                'field_label_remote' => 'Use for',
+                'field_label_local'  => 'Form Field',
+                'primary_fileds'     => [
+                    [
+                        'key'           => 'signer_name',
+                        'label'         => __('Signer Name', 'esig'),
+                        'required'      => true,
+                        'input_options' => 'all'
+                    ],
+                    [
+                        'key'           => 'signer_email',
+                        'label'         => __('Signer Email', 'esig'),
+                        'required'      => true,
+                        'input_options' => 'emails'
+                    ],
+
+                ]
             ],
             [
                 'key'         => 'signing_logic',
