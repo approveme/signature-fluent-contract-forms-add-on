@@ -44,16 +44,19 @@ if(!function_exists('esig_get_activation_state')) {
 
             }
 
-            if( is_plugin_active("e-signature-business-add-ons/e-signature-business-add-ons.php" ) ){
+            if (file_exists(WP_PLUGIN_DIR . '/wpesignature-add-ons/wpesignature-add-ons.php') && is_plugin_active("wpesignature-add-ons/wpesignature-add-ons.php")) {
 
                 return 'wpe_active_pro';  // wp e-signature is installed, active, AND has pro addons
 
-            }
-            else if(file_exists(WP_PLUGIN_DIR . '/e-signature-business-add-ons/e-signature-business-add-ons.php') && !is_plugin_active("e-signature-business-add-ons/e-signature-business-add-ons.php" )){
+            } else if (!function_exists("esig_business_pack_activate")) {
 
-                return "wpe_inactive_pro" ; // wp e-signature is installed , pro installed but not active but user has active license    
+                return "wpe_inactive_pro"; // wp e-signature is installed , pro installed but not active but user has active license    
 
-            }
+            } else if (file_exists(WP_PLUGIN_DIR . '/e-signature-business-add-ons/e-signature-business-add-ons.php') && is_plugin_active("e-signature-business-add-ons/e-signature-business-add-ons.php")) {
+
+                return 'wpe_active_pro';  // wp e-signature is installed, active, AND has pro addons
+
+            } 
             else{
 
                 return 'wpe_active_basic'; // wp e-signature is installed, active, does not have pro addons
