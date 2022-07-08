@@ -66,7 +66,16 @@ if (!class_exists('esigFluentFilters')):
                 if ($fieldId) {
                     
                     $fluentValue = esigFluentSetting::get_submission_value($docId,$formId,$fieldId);
-                    $docTitle = str_replace("{{esig_ff_field_id-" . $fieldId . "}}", $fluentValue, $docTitle);
+                    $value = '';
+                    if(is_array($fluentValue)){
+                        foreach( $fluentValue as $val){
+                            $value .= $value.' ';
+                        }           
+                    }else{
+                        $value = $fluentValue;
+                    }
+                    
+                    $docTitle = str_replace("{{esig_ff_field_id-" . $fieldId . "}}", $value, $docTitle);
                 }
             }
             
