@@ -178,6 +178,15 @@ class esigFluentSetting {
         WP_E_Sig()->meta->add($document_id, "esig_fluent_forms_submission_value", json_encode($formData));
     }
 
+    public static function get_submission_value($document_id, $form_id, $field_id) 
+    {
+        $fluent_value = json_decode(WP_E_Sig()->meta->get($document_id, "esig_fluent_forms_submission_value"), true);
+        if (is_array($fluent_value)) 
+        {
+            return esigget($field_id, $fluent_value);
+        }
+    }
+
     public static function checkboxValue($value)
     {
         if(!is_array($value)) return false;
@@ -530,6 +539,12 @@ class esigFluentSetting {
             }
             return rtrim($result);
         }
+
+        public static function getBrowserFluent()
+         {
+             $browser = get_browser(); 
+             return 'esig_fluent_' . esig_get_ip() . $browser->browser . $browser->version . "_entryid" ; 
+         }
 
     
 }
