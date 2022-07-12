@@ -299,28 +299,25 @@ if (!class_exists('ESIG_FFDS_Admin')) :
           
          //  $ArrayHelper = new ArrayHelper();
          //  $signer_name = $ArrayHelper->get($feedValue, 'signer_name');
-           $signer_email = esigget('signer_email',$feedValue);
-            
-            //$edShortcode = new FluentForm\App\Services\FormBuilder\EditorShortcode();
-            $signer_email = ArrayHelper::get($formData, esigFluentSetting::parseInput($signer_email));
-           if (!is_email($signer_email)) return false;
-    
-           $signing_logic = esigget('signing_logic',$feedValue);
+            $email_field = esigget('signer_email',$feedValue);
+            $name_field = esigget('signer_name',$feedValue);    
 
+            $signer_email = esigget($email_field,$formData);           
+            $signer_name = esigget($name_field,$formData);   
+
+            $signing_logic = esigget('signing_logic',$feedValue);
             $sad_page_id = esigget('select_sad_doc', $feedValue);
-            
-            $signer_name = ArrayHelper::get($formData, esigFluentSetting::parseInput(esigget('signer_name', $feedValue)));
 
-            if(!is_array($signer_name)) return false;
 
-            $signerName = esigFluentSetting::prepareNames($signer_name);
+            if(is_array($signer_name)){
+                $signerName = esigFluentSetting::prepareNames($signer_name);
+            }           
            
-           $document_id = $sad->get_sad_id($sad_page_id);
-                
-           $docStatus  = WP_E_Sig()->document->getStatus($document_id);
+            $document_id = $sad->get_sad_id($sad_page_id);                    
+            $docStatus  = WP_E_Sig()->document->getStatus($document_id);
                 
             if($docStatus !="stand_alone") return false;
-    
+            
             if (!is_email($signer_email)) return false;
             //sending email invitation / redirecting .
             self::esig_invite_document($document_id, $signer_email, $signerName, $formId,$insertId, $signing_logic,$formData,$feedValue,$form);
