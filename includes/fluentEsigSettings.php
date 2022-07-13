@@ -542,8 +542,12 @@ class esigFluentSetting {
 
         public static function getBrowserFluent()
          {
-             $browser = get_browser(); 
-             return 'esig_fluent_' . esig_get_ip() . $browser->browser . $browser->version . "_entryid" ; 
+            if (empty($_SERVER['HTTP_USER_AGENT'])) {
+                return 'esig_fluent_' . esig_get_ip() . "_entryid";
+            } else {
+                $key = md5($_SERVER['HTTP_USER_AGENT']);
+                return 'esig_fluent_' . esig_get_ip() . $key . "_entryid";
+            }           
          }
 
     
