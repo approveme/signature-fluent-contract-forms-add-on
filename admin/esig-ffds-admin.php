@@ -300,7 +300,11 @@ if (!class_exists('ESIG_FFDS_Admin')) :
          //  $ArrayHelper = new ArrayHelper();
          //  $signer_name = $ArrayHelper->get($feedValue, 'signer_name');
             $email_field = esigget('signer_email',$feedValue);
-            $name_field = esigget('signer_name',$feedValue);    
+            $name_field = esigget('signer_name',$feedValue); 
+            
+            if(strpos($name_field, "names") !== false){
+                $name_field = "names";
+            }
 
             $signer_email = esigget($email_field,$formData);           
             $signer_name = esigget($name_field,$formData);   
@@ -310,7 +314,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
 
             if(is_array($signer_name)){
-                $signerName = esigFluentSetting::prepareNames($signer_name);
+                $signer_name = esigFluentSetting::prepareNames($signer_name);
             }           
            
             $document_id = $sad->get_sad_id($sad_page_id);                    
@@ -320,7 +324,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             
             if (!is_email($signer_email)) return false;
             //sending email invitation / redirecting .
-            self::esig_invite_document($document_id, $signer_email, $signerName, $formId,$insertId, $signing_logic,$formData,$feedValue,$form);
+            self::esig_invite_document($document_id, $signer_email, $signer_name, $formId,$insertId, $signing_logic,$formData,$feedValue,$form);
     
         }
 
