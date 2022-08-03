@@ -43,7 +43,7 @@ function fluentforms_message($esigStatus,$pluginName)
                   return '<span class="esig-icon-esig-alert"></span><h4> ' . $asterisk . 'WP E-Signature is not activated. Please activate WP E-Signature to finish setting up your integration. <a class="about-button" href="'. esig_plugin_activation_link("e-signature/e-signature.php") .'">Activate WP E-Signature</a></h4>';
                   break;
                 case 'wpe_expired':
-                  return '<span class="esig-icon-esig-alert"></span><h4>' . $asterisk . 'You willl need to activate your WP E-Signature license to run the Fluent forms Signature add-on.  <a class="about-button" href="admin.php?page=esign-licenses-general">Enter your license here</a> </h4>';
+                  return '<span class="esig-icon-esig-alert"></span><h4>' . $asterisk . 'You willl need to activate your WP E-Signature license to run the Fluent Forms Signature add-on.  <a class="about-button" href="admin.php?page=esign-licenses-general">Enter your license here</a> </h4>';
                   break;
                 case 'wpe_active_basic':
                   return '<span class="esig-icon-esig-alert"></span><h4>' . $asterisk . 'Your WP E-Signature install is missing the Pro Add-Ons. Advanced functionality will not work without these add-ons installed. <a class="about-button" href="'. admin_url("admin.php?page=esign-addons") .'">Install Pro Add-Ons</a></h4>';
@@ -54,10 +54,10 @@ function fluentforms_message($esigStatus,$pluginName)
                 case 'wpe_active_pro':
 
                   if (!check_plugin_installed('fluentform/fluentform.php')) {// Notice about add-on dependent 3rd party plugin if not installed
-                  return '<span class="esig-icon-esig-alert"></span><h4>Fluent forms plugin is not installed. Please install Fluent forms version 4.3.0 or greater - <a href="https://wordpress.org/plugins/fluentform/">Get it here now</a></h4>';
+                  return '<span class="esig-icon-esig-alert"></span><h4>Fluent Forms plugin is not installed. Please install Fluent Forms version 4.3.0 or greater - <a href="https://wordpress.org/plugins/fluentform/">Get it here now</a></h4>';
                   }
                   elseif (!function_exists('wpFluentForm') && check_plugin_installed('fluentform/fluentform.php')) {// Notice about add-on dependent 3rd party plugin if not installed
-                   return '<span class="esig-icon-esig-alert"></span><h4>Fluent forms plugin is not activated. Please activate Fluent forms version 4.3.0 or greater - <a href='.generatePluginActivationLinkUrl().'>Click here to Activate the Plugin</a></h4>';
+                   return '<span class="esig-icon-esig-alert"></span><h4>Fluent Forms plugin is not activated. Please activate Fluent Forms version 4.3.0 or greater - <a href='.generatePluginActivationLinkUrl().'>Click here to Activate the Plugin</a></h4>';
                   }
                   elseif(!class_exists('ESIG_SAD_Admin')){// Notice about stand alone documents if not enabled
                     return '<span class="esig-icon-esig-alert"></span><h4>WP E-Signature <a href="https://www.approveme.com/downloads/stand-alone-documents/?utm_source=wprepo&utm_medium=link&utm_campaign=ninjaforms" target="_blank">"Stand Alone Documents"</a> Add-on is not active. Please enable WP E-Signature Stand Alone Documents  <a class="about-button" href="'. admin_url("admin.php?page=esign-addons&tab=disable&esig_action=enable&plugin_url=esig-stand-alone-docs%2Fesig-sad.php&plugin_name=WP%20E-Signature%20-%20Stand%20Alone%20Documents") .'">Enable it now </a> </h4>';
@@ -65,7 +65,7 @@ function fluentforms_message($esigStatus,$pluginName)
 
                   break;
                 case 'no_wpe':
-                    return '<span class="esig-icon-esig-alert"></span> <h4>' . $asterisk . 'WP E-Signature is not installed. It is required to run the Fluent forms Signature add-on. &nbsp; <span class="button-container"><a class="about-button" href="https://www.approveme.com/ninja-forms-signature-special/?utm_campaign=wprepo&&utm_campaign=ninjaforms">Get your WP E-Signature license</a></span></h4>';
+                    return '<span class="esig-icon-esig-alert"></span> <h4>' . $asterisk . 'WP E-Signature is not installed. It is required to run the Fluent Forms Signature add-on. &nbsp; <span class="button-container"><a class="about-button" href="https://www.approveme.com/ninja-forms-signature-special/?utm_campaign=wprepo&&utm_campaign=ninjaforms">Get your WP E-Signature license</a></span></h4>';
                     break;
                 default:
                   return false;

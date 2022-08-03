@@ -9,24 +9,24 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
-Instantly produce a legally binding PDF WordPress contract from a WP Forms contact form submission. Digital Signature Pad. Proposal. UETA/ESIGN Compliant.
+Instantly produce a legally binding PDF WordPress contract from a Fluent Forms contact form submission. Digital Signature Pad. Proposal. UETA/ESIGN Compliant.
 
 
 == Description ==
 
 
-**[Try FluentForms Signature Demo Here](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms)**
+**[Try FluentForms Signature Demo Here](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)**
 
 
 [youtube http://www.youtube.com/watch?v=ih0C9W4ql0I]
 
 
-*Please note you will need the following plugins installed to completely automate the process of collection of contracts using WP Forms and WP esignature.*
-1. [FluentForms](https://wordpress.org/plugins/wpforms-lite/)
+*Please note you will need the following plugins installed to completely automate the process of collection of contracts using Fluent Forms and WP esignature.*
+1. [FluentForms](https://wordpress.org/plugins/fluentform/)
 2. [WP esignature](http://aprv.me/2lIyMBx) (Plus and Elite)
 3. [Stand Alone Document](http://aprv.me/2ko4HGU) (comes with above licenses)
 
-*An Plust or Elite license license is required and can be purchased at [www.approveme.com](https://www.approveme.com/email-limited-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms)
+*An Plust or Elite license license is required and can be purchased at [www.approveme.com](https://www.approveme.com/email-limited-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)
 
 
 **What would you do if you discover the contracts you used in running your online business were not legally binding?**
@@ -41,7 +41,7 @@ Well, there’s not much you could do.
 
 **The electronic document industry has very strict rules and regulations for legal contracts, invoices, employee agreements and any other legally binding document you may use in your business.**
 
-**Fluent Forms is a terrific WordPress Form Plugin!** It is quite possibly one of the best ways to automate any number of tasks using a WordPress website (and of course their renowned contact forms plugin). However, *signing legally binding contracts is NOT WPForms primary focus* (it is however ApproveMe’s WP esignature sole focus). We have invested many years building a system that adheres to the strictest [UETA and ESIGN](http://aprv.me/2lIEKSE) nationwide and foreign document signing regulations.   
+**Fluent Forms is a terrific WordPress Form Plugin!** It is quite possibly one of the best ways to automate any number of tasks using a WordPress website (and of course their renowned contact forms plugin). However, *signing legally binding contracts is NOT Fluent Forms primary focus* (it is however ApproveMe’s WP esignature sole focus). We have invested many years building a system that adheres to the strictest [UETA and ESIGN](http://aprv.me/2lIEKSE) nationwide and foreign document signing regulations.   
 
 *This Signature Pad Plugin fills the gap between a WordPress Form plugin and an esignature solution that is compliant with the UETA/ESIGN guidelines.*
 
@@ -49,9 +49,9 @@ Digital security is crucial to your business.  You need to protect yourself from
 
 **The ApproveMe WordPress E-Signature Plugin turns your WordPress site into a court recognized document signing app.**
 
-If you’re a WP Forms user, you know how powerful their plugin can be to help automate a number of tasks on your website.  HOWEVER, signing legally binding contracts is NOT their primary focus.  That’s where we come in.
+If you’re a Fluent Forms user, you know how powerful their plugin can be to help automate a number of tasks on your website.  HOWEVER, signing legally binding contracts is NOT their primary focus.  That’s where we come in.
 
-The WP Forms Digital Signature Add-On ensures that every contact form, contract, or invoice submitted with the WP Form plugin is 100% UETA/ESIGN compliant.
+The Fluent Forms Digital Signature Add-On ensures that every contact form, contract, or invoice submitted with the WP Form plugin is 100% UETA/ESIGN compliant.
 
 No more second-guessing the legality of your contracts or needing to use a third-party signing service.
 
@@ -60,9 +60,9 @@ We’ve invested years into building a system that adheres the strictest nationw
 You get a 100% legally compliant signature on file to protect you and the customer, without having to worry about users getting distracted or being unsecure on third party sites.
 
 
-**[Click Here to Try WP Forms Signature Demo](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms)**
+**[Click Here to Try Fluent Forms Signature Demo](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)**
 
-**How this esignature & WordPress Contract Plugin is different than a typical WPForms WordPress signature pad addon** 
+**How this esignature & WordPress Contract Plugin is different than a typical Fluent Forms WordPress signature pad addon** 
 Most signature pad plugins simply record signature details and submit the data to a web server where it is converted to a PNG or JPEG file.  This graphic file then gets saved on your FTP server.
 
 This image file of your client’s hand-written legal signature — the same one used to buy houses, sign up for credit cards, and obtain business loans — is easily accessible to any FTP intruders.
@@ -75,17 +75,17 @@ If the legality of your contract were to ever come into question, you wouldn’t
 
 **ApproveMe’s brand new signature add-on found at [ApproveMe.com](http://aprv.me/2ko4gfL) it is the connection point between a WordPress forms plugin and having a UETA / ESIGN compliant WordPress contract plugin that runs on your WordPress site.**
 
-**Check out the video clip above to find out ways to save time and money by fully automating legal contracts for your website design, digital photography, freelance or consulting business making use of our WP Forms Digital Signature Add-On.**
+**Check out the video clip above to find out ways to save time and money by fully automating legal contracts for your website design, digital photography, freelance or consulting business making use of our Fluent Forms Digital Signature Add-On.**
 
 =MORE ON HOW THIS UETA/ESIGN COMPLIANT WORDPRESS FORM SIGNATURE PLUGIN WORKS=
 
-**[ApproveMe’s Signature Add-On for WP Forms](https://www.approveme.com/esign-integrations?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms) generates a UETA/ESIGN compliant court recognized contract with (optional) details/field values inserted anywhere you want them inserted in the contract.  These dynamic field values are taken from the submitted form of your end user.
+**[ApproveMe’s Signature Add-On for Fluent Forms](https://www.approveme.com/esign-integrations?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) generates a UETA/ESIGN compliant court recognized contract with (optional) details/field values inserted anywhere you want them inserted in the contract.  These dynamic field values are taken from the submitted form of your end user.
 
 Your form submitter can either draw or type their legal  signature using their mouse, trackpad, tablet or smartphone.  All of this magic happens the instant an end user submits a WP Form by either emailing a signer specific invitation to their contract or immediately redirecting the end users.**
 
 Another highly popular use case is pre-filling contract data that might change from contract to contract. Say for instance, you are a Web Design agency and you have a standard contract you send out that varies ever so slightly every time you bring on a new client. Maybe you have optional packages available that need to be noted in your contract. But creating a new contract from scratch is incredibly time consuming.
  
-With this WP Forms Signature Add-On + ApproveMe’s WP esignature (business license) you can create a WP Form with the fields and sections of the contract that vary and add an additional field for the “Signers Name” + “Signers Email.” 
+With this Fluent Forms Signature Add-On + ApproveMe’s WP esignature (business license) you can create a WP Form with the fields and sections of the contract that vary and add an additional field for the “Signers Name” + “Signers Email.” 
 
 Your WPForm would look something like:
 
@@ -101,7 +101,7 @@ You would choose the option “Email this contact whenever this form is submitte
  Now, whenever you fill out this WPForm, your contract will be automatically generated with the custom terms from your WP Form submission and then a signer invitation email will be sent to the signer email address that was given in the WP Form submission.
 
 
-*Additional benefits of ApproveMe’s WP eSign Plugin and this for WP Forms Signature Add-On is that you are able to instantly create a legal contract for your clients to sign depending on their form information from a WPForm.*
+*Additional benefits of ApproveMe’s WP eSign Plugin and this for Fluent Forms Signature Add-On is that you are able to instantly create a legal contract for your clients to sign depending on their form information from a WPForm.*
 
 
 **And that’s just the beginning. When a client signs…**
@@ -119,21 +119,21 @@ You would choose the option “Email this contact whenever this form is submitte
  
 * Ideal for anyone who wants to automate signature collection on proposals, quotes, timesheets, service terms agreements, new client legal contracts, waiver forms and much more using a WordPress form! *
 
-Immediately redirect your site visitors to sign a legally binding contract after submitting a WordPress Form that was created using WP Forms. 
+Immediately redirect your site visitors to sign a legally binding contract after submitting a WordPress Form that was created using Fluent Forms. 
 
 “I agree to terms” checkboxes have the legal standing of a limp handshake. **Do the smart thing. Don’t get caught in a courtroom with a document that’s not legally binding.**
 
-**The Powerful Features of ApproveMe’s Digital Signature Add-On for WP Forms:**
+**The Powerful Features of ApproveMe’s Digital Signature Add-On for Fluent Forms:**
 
 
 **ADDON FEATURES THAT YOU CAN CUSTOMIZE**
-WP esignature offers an incredibly in depth eSignature add-on collection with several easy to customize [WP Forms esignature automations](https://www.approveme.com/WP-forms-signature-contract-automation/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms) and [third-party integrations](https://www.approveme.com/esign-integrations?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms) to even further improve your personalized document signing requirements.
+WP esignature offers an incredibly in depth eSignature add-on collection with several easy to customize [Fluent Forms esignature automations](https://www.approveme.com/WP-forms-signature-contract-automation/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) and [third-party integrations](https://www.approveme.com/esign-integrations?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) to even further improve your personalized document signing requirements.
 
 
 =The WordPress contract plugin operates on every leading PC and web browsers for smart phones. For example Chrome, FireFox, Opera, Safari, Android, iOS, and WebOS.=
 
 
-*Besides being user friendly, ApproveMe’s WP Forms WordPress Signature Plugin is able to instantly enter details which was posted from a WP Form into a UETA/ESIGN compliant and courtroom accepted contract form utilizing your own WordPress website.*
+*Besides being user friendly, ApproveMe’s Fluent Forms WordPress Signature Plugin is able to instantly enter details which was posted from a WP Form into a UETA/ESIGN compliant and courtroom accepted contract form utilizing your own WordPress website.*
 
 
 Therefore if you have a dropdown list of options in your WP Form named “Web Design Package” and you provide various products (different price points for each) it is possible to easily produce a legal contract which includes the package features of an order in the written agreement which is then sent to the end-user of your WP Form.
@@ -142,10 +142,10 @@ Therefore if you have a dropdown list of options in your WP Form named “Web De
 **Instantly Trigger Contracts To Be Sent** As soon as a client inputs data into and submits a WP form (that is connected to a WP esignature contract using this add-on) it is possible to instantly generate a Contract to be delivered either by email or by redirecting the signer to the contract immediately as the “thank you page.”
 
 
-**Connect Fluent Forms Digital Signature With WP eSignature** This WP Forms Add-On will blend the powerful automation attributes of WP forms with the eSignature features and peace of mind offered with WP eSignature.
+**Connect Fluent Forms Digital Signature With WP eSignature** This Fluent Forms Add-On will blend the powerful automation attributes of WP forms with the eSignature features and peace of mind offered with WP eSignature.
 
 
-**Include Fluent Form Field Values Inside A WP Esignature Contract**  With WP esignature’s WP Forms Electronic Signature Add-On, you are able to input submitted form information into a legal contract that is activated immediately as soon as a client submits a WP Form.
+**Include Fluent Form Field Values Inside A WP Esignature Contract**  With WP esignature’s Fluent Forms Electronic Signature Add-On, you are able to input submitted form information into a legal contract that is activated immediately as soon as a client submits a WP Form.
 
 
 **Redirect a User to a Electronic Signature Contract after Submitting a WP Form**  After a user successfully submits a WP Form they can be immediately be rerouted to the contract of your choosing by using this E Signature add-on.
@@ -157,12 +157,12 @@ Therefore if you have a dropdown list of options in your WP Form named “Web De
 **Signing Reminder Emails triggered by your Contact Form** In the event that a customer has not yet electrically signed the contract which you were requesting them to sign after sending in your WP form, it is possible to instantly trigger signing reminder emails where you can choose the trigger date, the frequency of reminder emails, and the expiration date of the signing reminder emails.
 
 
-=**[Try a Free WP Forms Signature Demo](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms)**=
+=**[Try a Free Fluent Forms Signature Demo](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)**=
 
 = eSignature WordPress Contract Plugin Features =
-Whether you're operating a wedding photography business a membership based website, or a just a small web design agency in need of clients signing your website terms of service WP Digital esignature has you covered. You can read all about ‘WP Digital esignature’ features on the [ApproveMe website](https://www.approveme.com/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms).
+Whether you're operating a wedding photography business a membership based website, or a just a small web design agency in need of clients signing your website terms of service WP Digital esignature has you covered. You can read all about ‘WP Digital esignature’ features on the [ApproveMe website](https://www.approveme.com/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms).
 
-= UETA/ESIGN Compliance & WPForms =
+= UETA/ESIGN Compliance & Fluent Forms =
 Our plugin is 100% compliant and kept up to date with the most current rules and regulations regarding electronic signatures and legally binding contracts.  Rest easy knowing that your documents will stand up in any court.*
 
 = Encrypted Data Storage =
@@ -188,7 +188,7 @@ If your client has not yet signed, send automatic reminder emails to make sure t
 = Zero Monthly Fees Per User + Unlimited Users =
 Let everyone on your team use the plugin, and create as many contracts as you want.  No limits or hidden fees, ever.
 
-**Secure your contracts and rest easy.  [click here for a demo](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms)**
+**Secure your contracts and rest easy.  [click here for a demo](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)**
 
 
 
@@ -199,9 +199,9 @@ In an effort to provide better service and to prevent support tickets getting lo
 
 **There is no support offered on the wordpress.org forum.**
 
-Log into your account to start a support ticket [www.approveme.com/support](https://www.approveme.com/support/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms) and we will immediately help solve any problems you may have.
+Log into your account to start a support ticket [www.approveme.com/support](https://www.approveme.com/support/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) and we will immediately help solve any problems you may have.
 
-Do you have a non-support related question about ApproveMe’s WP esignature?  Please feel free to contact us with with any pre-sale questions at our [contact form page](https://www.approveme.com/contact/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms).
+Do you have a non-support related question about ApproveMe’s WP esignature?  Please feel free to contact us with with any pre-sale questions at our [contact form page](https://www.approveme.com/contact/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms).
 
 
 
@@ -211,17 +211,17 @@ Free ebook:
 [7 Ways to Protect Your Company from Contracts That Aren’t Binding](http://aprv.me/2kI68Mr)
 
 
-To see WP Forms to WP esignature in action see the demo video below:
+To see Fluent Forms to WP esignature in action see the demo video below:
 [youtube http://www.youtube.com/watch?v=ih0C9W4ql0I]
 
 
-**[Try WP Forms + WP esignature Demo Here](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms)**
+**[Try Fluent Forms + WP esignature Demo Here](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)**
 
 
 == Additional Info ==
 
 
-##Additional important PDF capabilities and workflows for WP Forms Signature Add-On##
+##Additional important PDF capabilities and workflows for Fluent Forms Signature Add-On##
 
 
 *  Fully automate the signature collection procedure for your individual or small company
@@ -240,7 +240,7 @@ Free ebook:
 [7 Ways to Protect Your Company from Contracts That Aren’t Binding](http://aprv.me/2kI68Mr)
 
 
-*An active WP esignature business license is necessary for the WP Forms Signature plugin to function. To get yours, you can simply buy a copy at (www.approveme.com)*
+*An active WP esignature business license is necessary for the Fluent Forms Signature plugin to function. To get yours, you can simply buy a copy at (www.approveme.com)*
 
 
 **Zero Monthly Expenses • UETA & ESIGN Compliant • Legally Binding • 100% Money Back Guarantee**
@@ -251,27 +251,27 @@ Free ebook:
 
 [youtube http://www.youtube.com/watch?v=ih0C9W4ql0I]
 
-###How WPForms Digital Signature Pad Add-On by WP esignature Works:###
+###How Fluent Forms Digital Signature Pad Add-On by WP esignature Works:###
 
 
-*The plugin for WPForms is very simple to setup. With an active ApproveMe business license, you can instantly produce a legally binding (court accepted) contract utilizing completed WP Forms data and require your WP Forms submitter to add their signature on your WordPress E-Signature generated contract.*
+*The plugin for Fluent Forms is very simple to setup. With an active ApproveMe business license, you can instantly produce a legally binding (court accepted) contract utilizing completed Fluent Forms data and require your Fluent Forms submitter to add their signature on your WordPress E-Signature generated contract.*
 
 This plugin is amazing for Freelancers, Web Designers, Photographers and Small Business owners who want to simplify their contract generation process.
 
 
-###Get started by following these simple WP Forms WordPress E-Signature Plugin setup steps###
+###Get started by following these simple Fluent Forms WordPress E-Signature Plugin setup steps###
 
 
 **Step 1:**
-ApproveMe's WP E Signature requires a few more plugins/add-ons to help you release the full power and automate WP Forms as well as Digital Signatures that are legally binding. The following plugins are required:
+ApproveMe's WP E Signature requires a few more plugins/add-ons to help you release the full power and automate Fluent Forms as well as Digital Signatures that are legally binding. The following plugins are required:
 
 
-1. [WPForms Lite](https://wordpress.org/plugins/wpforms-lite/)
+1. [Fluent Forms Lite](https://wordpress.org/plugins/fluentform/)
 2. [WP E Signature](http://aprv.me/2lIyMBx) (ultimate, business or pro license)
 3. [esignature Business Pack](http://aprv.me/2ko4HGU) (comes with your license above)
 4. [Signature Add-On by ApproveMe](this plugin)
 
-*A ultimate, business or pro license is required and can be purchased at [www.approveme.com](https://www.approveme.com/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms)
+*A ultimate, business or pro license is required and can be purchased at [www.approveme.com](https://www.approveme.com/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)
 
 **Step 2:**
 *Input your ApproveMe license*
@@ -296,13 +296,13 @@ Find out more about Stand Alone Documents by visiting [documentation page](http:
 
 
 **Step 5:**
-*(optional) Input WPForms User Details into a Contract*
+*(optional) Input Fluent Forms User Details into a Contract*
 
 
 This step will be different depending on the desired outcome you want. Approve Me's Digital Signature is triggered once a WP Form is submitted. This add-on gives you the power to incorporate WP Form user info (which was inputted from the customer once the form was submitted) into a brand new contract form which will either be emailed to the customer or shown to the customer after they submit the form.
 
 
-**How to use WP Forms to add form fields details into a contract**
+**How to use Fluent Forms to add form fields details into a contract**
 
 
 Go to the Signer Input Fields/Custom Fields symbol and choose "WP Form Data".
@@ -317,7 +317,7 @@ A shortcode is created using this data. Don’t worry — your customer will onl
 This is an example of the auto-generated shortcode which will get placed in the document you are producing when you select your desired field value from your WP Form.
 
 
-[esig wpformid="3" field_id="1" ]
+[esig fluentform id="3" field_id="1" ]
 
 
 You can easily transfer the shortcode to any place in your contract form.  It will show the customer’s provided info anywhere the shortcode is found.
@@ -326,17 +326,17 @@ You can easily transfer the shortcode to any place in your contract form.  It wi
 **Step 6:**
 *Select your document preferences and save settings*
 
-When you have inserted all of your required contract text and have linked your preferred WP Forms field data to your Stand Alone Document, you’re ready to choose your document settings.
+When you have inserted all of your required contract text and have linked your preferred Fluent Forms field data to your Stand Alone Document, you’re ready to choose your document settings.
 
 Note: Before you can post your contract form, you also have to link your Stand Alone Document with the blank WordPress webpage you made previously for your contract. Do this by looking for and choosing the webpage from the "Display on this page" drop down option list found under the "Document Options" area. We decided NOT to include this page in your nav menu since it will be connected to a WP Form and will not work properly unless it has the field values of that submitted WP Form.
 
 
 **Step 7:**
 *Almost there… (halfway done)*
-Once you've published your Stand Alone Document, you’re halfway done. In the next step you have to pick your "trigger" and "action" selections for this document in WP Forms.
+Once you've published your Stand Alone Document, you’re halfway done. In the next step you have to pick your "trigger" and "action" selections for this document in Fluent Forms.
 
 
-Select LET'S GO NOW! to establish those final WP Forms preferences.
+Select LET'S GO NOW! to establish those final Fluent Forms preferences.
 
 
 **Step 8:**
@@ -352,8 +352,8 @@ Choose the "esignature" choice within the contact form options and specify the r
 
 Now You're done!
 
-To see a live demo of the WP Forms to WP esignature by visiting:
-[Try WP Forms + WP esignature Demo Here](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms)
+To see a live demo of the Fluent Forms to WP esignature by visiting:
+[Try Fluent Forms + WP esignature Demo Here](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)
 
 
 ##WORDPRESS CONTRACT PLUGIN INSTALLATION COMPLETE!##
@@ -362,10 +362,10 @@ To see a live demo of the WP Forms to WP esignature by visiting:
 Every signed document could be saved as a PDF, placed in an email, instantly synced to a Dropbox account and much more! You choose exactly how you want it to work! 
 
 
-*An up to date [Ultimate, Business or Pro License](https://www.approveme.com/email-limited-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms) is needed for ApproveMe’s  WP Forms Signature plugin to run smoothly*
+*An up to date [Ultimate, Business or Pro License](https://www.approveme.com/email-limited-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) is needed for ApproveMe’s  Fluent Forms Signature plugin to run smoothly*
 
 
-**[Get Your ApproveMe Business License Now](https://www.approveme.com/email-limited-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms)**
+**[Get Your ApproveMe Business License Now](https://www.approveme.com/email-limited-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)**
 
 
 = Where do I go for help on additional pre-sale questions? =
@@ -379,7 +379,7 @@ Please feel free to contact us at anytime with any additional questions you migh
 
 = Can I collect legally binding court recognized Digital Signature from my WordPress website when someone submits a WordPress Form? =
 
-With the WP Forms Digital Signature Add-on by ApproveMe, along with a [WP esignature](https://www.approveme.com/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms) license you can easily collect [UETA/ESIGN compliant](https://www.approveme.com/ueta-and-esign-act?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms) signatures from your visitors or website customers after they submit a WP Form on your website.
+With the Fluent Forms Digital Signature Add-on by ApproveMe, along with a [WP esignature](https://www.approveme.com/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) license you can easily collect [UETA/ESIGN compliant](https://www.approveme.com/ueta-and-esign-act?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) signatures from your visitors or website customers after they submit a WP Form on your website.
 
 **You can even pass details from the submitted WP Form into your document using this WordPress contract plugin.**
 
@@ -395,17 +395,17 @@ The appropriation of the European Directive 1999/93/EC of 13 December 1999 estab
 
 = Will I Need to Renew my ApproveMe WordPress E-Signature License? =
 
-Yes you will (unless you have an Ultimate License). Each license key is valid for one calendar year from the purchase date. An active license key is needed for access to automatic/critical updates, plugin support and access to our growing [eSignature add-on library](https://www.approveme.com/esign-features/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms).  
+Yes you will (unless you have an Ultimate License). Each license key is valid for one calendar year from the purchase date. An active license key is needed for access to automatic/critical updates, plugin support and access to our growing [eSignature add-on library](https://www.approveme.com/esign-features/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms).  
 
 = Where Can I Find My ApproveMe WP esign License Key? =
 
-If you’ve already purchased a license key and need to retrieve the license number, you can do that on the [support site here](https://www.approveme.com/profile/) or follow [these detailed steps](https://www.approveme.com/wp-digital-signature-plugin-docs/article/install-and-activate-plugins-extensions/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms). Once you’ve successfully logged into the support site (using the credentials emailed to you at the time of purchase), your active license key(s) will be listed at the bottom of the page.
+If you’ve already purchased a license key and need to retrieve the license number, you can do that on the [support site here](https://www.approveme.com/profile/) or follow [these detailed steps](https://www.approveme.com/wp-digital-signature-plugin-docs/article/install-and-activate-plugins-extensions/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms). Once you’ve successfully logged into the support site (using the credentials emailed to you at the time of purchase), your active license key(s) will be listed at the bottom of the page.
 
 = What do I get with my ApproveMe WordPress Signature license =
 
-Your license grants you access to all of our support resources, documentation, product downloads and basic and advanced add-ons like Stand Alone Documents, Document Templates, Unlimited Sender Roles and others, (which are required for this WP Forms Wordpress e-signature Plugin) for one calendar year from your purchase date.
+Your license grants you access to all of our support resources, documentation, product downloads and basic and advanced add-ons like Stand Alone Documents, Document Templates, Unlimited Sender Roles and others, (which are required for this Fluent Forms Wordpress e-signature Plugin) for one calendar year from your purchase date.
 
-[You can get a business here](https://www.approveme.com/pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms)
+[You can get a business here](https://www.approveme.com/pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)
 
 = How much does it cost to renew my license? =
 
@@ -423,18 +423,18 @@ Renewing your license provides an additional year of support and software update
 = Where do I go for help on additional pre-sale questions? =
 
 
-Please feel free to contact us at anytime with any additional questions you might have at our [contact form page](https://www.approveme.com/contact/?utm_source=wprepo&utm_medium=link&utm_campaign=wpforms).
+Please feel free to contact us at anytime with any additional questions you might have at our [contact form page](https://www.approveme.com/contact/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms).
 
 == Screenshots ==
 1. **Add New Document:** Once you’ve installed the WP esignature, you will need to draft up a new “Stand Alone Document”
 
 
-2. **FluentForms Data** If you click the Signer Input Fields icon you will see the option “WP Forms Data.” Click this to connect a WP Form to this contact.
+2. **FluentForms Data** If you click the Signer Input Fields icon you will see the option “Fluent Forms Data.” Click this to connect a WP Form to this contact.
 
 
-3. **Select Your WP Forms:** If you already have your WP Form created you can easily insert dynamic field data (from the WP Form that is being submitted/triggering this contact) by selecting the WP Form.
+3. **Select Your Fluent Forms:** If you already have your WP Form created you can easily insert dynamic field data (from the WP Form that is being submitted/triggering this contact) by selecting the WP Form.
 
-4. **Choose Your WP Forms Fields:** After selecting your WP Form you will see the available field options from this particular WP Form. You can easily insert data from your WP Form anywhere in this new contract.
+4. **Choose Your Fluent Forms Fields:** After selecting your WP Form you will see the available field options from this particular WP Form. You can easily insert data from your WP Form anywhere in this new contract.
 
 
 5. **Document Signing Options (optional):** The powerful WP eSignature tool by ApproveMe features plenty of customizable options including: Signing reminder Emails, Attach PDF to emails, Dropbox Sync, Auto Register WordPress Users, and TONS more. To read all about the available add-on features (which come with the business license) please see: [https://www.approveme.com/esign-integrations](http://aprv.me/2lNRp2C)
@@ -447,10 +447,10 @@ Important: Do NOT include this page in your Nav menu since all of the magic actu
 7. **Click “LET’S GO NOW”:**After you have published your contract, you just need to connect your Stand Alone Document to your WP Form. This is pretty straight forward. Just click the button “LET’S GO NOW!” to be redirected to the actions/trigger tab for your specific WP Form.
 
 
-8. **Define Your Signing Logic:** This is the page (inside of WP Forms) that needs to be customized. Please choose the Signer’s Full Name and the Signer’s Email address along with any other additional eSignature settings you’d like to include with your contract.
+8. **Define Your Signing Logic:** This is the page (inside of Fluent Forms) that needs to be customized. Please choose the Signer’s Full Name and the Signer’s Email address along with any other additional eSignature settings you’d like to include with your contract.
 
 
-9. **User Submits a WP Forms** Once a user submits the WP Form that you connected to your WP eSignature contract, they will either be immediately redirected to the contract or emailed an unique invitation to sign their contract.  All submitted details from WP Forms will be included.
+9. **User Submits a Fluent Forms** Once a user submits the WP Form that you connected to your WP eSignature contract, they will either be immediately redirected to the contract or emailed an unique invitation to sign their contract.  All submitted details from Fluent Forms will be included.
 
 
 10. **Review & eSign:** Your users will review the contract before finalizing the contract with their signature.

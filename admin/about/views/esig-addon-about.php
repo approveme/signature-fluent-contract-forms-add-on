@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 $steps = esig_load_template(__DIR__ . '/fluent-esign-about-steps');
 
 $about_options = array(
-    'pluginName'        => 'Fluent forms',
+    'pluginName'        => 'Fluent Forms',
     'setupVidImage'     => plugins_url('../assets/images/getting-started-video-thumb.jpg', __FILE__),
     'setupVidURL'       => 'https://www.youtube.com/embed/y6gE7bXQOMY?&autoplay=1&rel=0&theme=light&hd=1&autohide=1&showinfo=0&color=white&showinfo=0?TB_iframe=true&width=700&height=540',
     'stepContent'       => $steps
