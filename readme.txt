@@ -4,7 +4,7 @@ Donate link: http://aprv.me/1LgWgTW
 Tags:   Fluent Forms, Fluent Form, FluentForms, contract, proposal, digital signature, esignature, esign, contact form, signature pad, wordpress form, wordpress e-signature, wordpress signature
 Requires at least: 5.6
 Tested up to: 5.9
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -471,4 +471,9 @@ Important: Do NOT include this page in your Nav menu since all of the magic actu
 
 
 == Changelog ==
-Version 1.0.0
+
+Version 1.0.1 - August, 16th, 2022
+FIX: Updated plugin naming convention for WP repo compliance and clarity
+
+Version 1.0.0 - August, 16th, 2022
+Live version submitted to WordPress.org
