@@ -283,8 +283,8 @@ function esig_generate_about_page(array $about_options = array())
                         <!-- END Sub-text -->
 
                         <!-- Start About card -->
-                        <section class="gf-card">
-                            <img src="<?php echo plugins_url('../assets/images/gf-girl-on-laptop-small.png', __FILE__); ?>" class="gf-laptop-girl-img" alt="Laptop girl" />
+                        <section class="fluent-card">
+                            <img src="<?php echo plugins_url('../assets/images/gf-girl-on-laptop-small.png', __FILE__); ?>" class="fluent-laptop-girl-img" alt="Laptop girl" />
                             <p class="text">Automatically collect digital signatures on contracts, after your visitors submit a form using ApproveMe's WP E-Signature. <a href="<?php echo $about_options['main-cta']; ?>#compliant" target="blank">UETA/ESIGN Compliant</a>, legally binding contracts with WordPress.</p>
                         </section>
                         <!-- End About card -->
@@ -323,7 +323,7 @@ function esig_generate_about_page(array $about_options = array())
 
 
                         <!-- Start The Solution -->
-                        <section class="gf-card">
+                        <section class="fluent-card">
                             <img src="<?php echo plugins_url('../assets/images/gf-magic-hat.png', __FILE__); ?>" class="gf-magic-hat-img" alt="magic hat" />
                             <div>
                                 <h5 class="card-title">Your all-in-one eSignature solution</h5>
@@ -378,7 +378,7 @@ function esig_generate_about_page(array $about_options = array())
 
                             <!-- Start Talk to advisor -->
                             <section class="footer-container">
-                                <img class="gf-advisor-img" src="<?php echo plugins_url('../assets/images/gf-advisor.png', __FILE__); ?>">
+                                <img class="fluent-advisor-img" src="<?php echo plugins_url('../assets/images/gf-advisor.png', __FILE__); ?>">
 
                                 <div>
                                     <p class="medium-text">We're here to help! </br>

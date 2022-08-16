@@ -65,7 +65,7 @@ function fluentforms_message($esigStatus,$pluginName)
 
                   break;
                 case 'no_wpe':
-                    return '<span class="esig-icon-esig-alert"></span> <h4>' . $asterisk . 'WP E-Signature is not installed. It is required to run the Fluent Forms Signature add-on. &nbsp; <span class="button-container"><a class="about-button" href="https://www.approveme.com/fluent-forms-signature-special/?utm_campaign=wprepo&&utm_campaign=ninjaforms">Get your WP E-Signature license</a></span></h4>';
+                    return '<span class="esig-icon-esig-alert"></span> <h4>' . $asterisk . 'WP E-Signature is not installed. Fluent Form Fluent Forms Signature add-on. &nbsp; <span class="button-container"><a class="about-button" href="https://www.approveme.com/fluent-forms-signature-special/?utm_campaign=wprepo&&utm_campaign=ninjaforms">Get your WP E-Signature license</a></span></h4>';
                     break;
                 default:
                   return false;

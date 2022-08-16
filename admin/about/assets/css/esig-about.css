@@ -212,7 +212,7 @@ a.approveme-mini-btn.outlined:hover {
 p.approveme-mini-btn {
   margin: 2em 0px 1.2em;
 }
-.gf-shortcode-wrap {
+.fluent-shortcode-wrap {
   background-color: #ffffff;
   padding: 7px 20px;
   margin: 5px 0 0;
@@ -668,12 +668,12 @@ img.gf-preview-wedsite-img {
   object-fit: contain;
 }
 
-img.gf-team-contracts-img {
+img.fluent-team-contracts-img {
   width: 483px;
   height: 427px;
   object-fit: contain;
 }
-img.gf-completed-steps-img {
+img.fluent-completed-steps-img {
   width: 489px;
   height: 305px;
   object-fit: contain;
@@ -685,7 +685,7 @@ img.gf-count-on-us-img {
   object-fit: contain;
 }
 
-img.gf-laptop-girl-img {
+img.fluent-laptop-girl-img {
   width: 174px;
   height: 123px;
   object-fit: contain;
@@ -698,7 +698,7 @@ img.gf-magic-hat-img {
   margin-right: 10px;
 }
 
-img.gf-advisor-img {
+img.fluent-advisor-img {
   width: 279px;
   height: 360px;
   object-fit: contain;
@@ -837,7 +837,7 @@ a.button-purple:hover {
     0 5px 10px rgba(121, 104, 255, 0.22);
 }
 
-section.gf-card {
+section.fluent-card {
   position: relative;
   margin: 1rem auto;
   display: flex;
@@ -853,7 +853,7 @@ section.gf-card {
   justify-content: space-between;
 }
 
-section.gf-card p.text {
+section.fluent-card p.text {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 22px;
   font-weight: normal;
@@ -862,7 +862,7 @@ section.gf-card p.text {
   line-height: 1.36;
   color: #272d34;
 }
-section.gf-card h5.card-title {
+section.fluent-card h5.card-title {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 34px;
   font-weight: 600;
@@ -874,16 +874,16 @@ section.gf-card h5.card-title {
   padding: 0;
 }
 
-section.gf-card a.link {
+section.fluent-card a.link {
   color: #7968ff;
   text-decoration: underline;
 }
-section.gf-card ul.small-inline {
+section.fluent-card ul.small-inline {
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
-section.gf-card ul.small-inline li {
+section.fluent-card ul.small-inline li {
   font-size: 15px;
   font-weight: 300;
 }
@@ -978,7 +978,7 @@ section.company-support img {
     text-align: center;
     align-items: center;
   }
-  section.gf-card {
+  section.fluent-card {
     width: fit-content;
     flex-wrap: wrap;
     justify-content: center;
@@ -1031,7 +1031,7 @@ section.company-support img {
     max-width: 300px;
     height: auto;
   }
-  img.gf-advisor-img {
+  img.fluent-advisor-img {
     margin-right: 0px;
   }
   .footer-container {
@@ -1042,7 +1042,7 @@ section.company-support img {
   p {
     text-align: center;
   }
-  section.gf-card {
+  section.fluent-card {
     width: fit-content;
     flex-wrap: wrap;
     justify-content: center;
