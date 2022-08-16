@@ -18,7 +18,7 @@ Instantly produce a legally binding PDF WordPress contract from a Fluent Forms c
 **[Try FluentForms Signature Demo Here](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)**
 
 
-[youtube http://www.youtube.com/watch?v=ih0C9W4ql0I]
+[youtube https://www.youtube.com/watch?v=a1wMJ589084]
 
 
 *Please note you will need the following plugins installed to completely automate the process of collection of contracts using Fluent Forms and WP esignature.*
@@ -212,7 +212,7 @@ Free ebook:
 
 
 To see Fluent Forms to WP esignature in action see the demo video below:
-[youtube http://www.youtube.com/watch?v=ih0C9W4ql0I]
+[youtube https://www.youtube.com/watch?v=a1wMJ589084]
 
 
 **[Try Fluent Forms + WP esignature Demo Here](http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)**
@@ -249,7 +249,7 @@ Free ebook:
 == Installation ==
 
 
-[youtube http://www.youtube.com/watch?v=ih0C9W4ql0I]
+[youtube https://www.youtube.com/watch?v=a1wMJ589084]
 
 ###How Fluent Forms Digital Signature Pad Add-On by WP esignature Works:###
 
