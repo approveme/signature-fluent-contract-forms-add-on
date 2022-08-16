@@ -29,9 +29,7 @@ if (!class_exists('esigFluentFilters')):
             global $esig_fluent_document_id, $esigFluentInsertId; 
             $esig_fluent_document_id = $new_doc_id; 
             if(is_null($esigFluentInsertId) && !is_numeric($esigFluentInsertId)) return $content;
-            set_transient(esigFluentSetting::getBrowserFluent() , $esigFluentInsertId, 5 * MINUTE_IN_SECONDS);
             $newContent=  esig_do_unique_shortcode($content,["esigfluent"]);
-            delete_transient(esigFluentSetting::getBrowserFluent());
             return $newContent;
         }
 

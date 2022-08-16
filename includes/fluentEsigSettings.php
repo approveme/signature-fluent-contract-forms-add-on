@@ -6,6 +6,18 @@ use WP_E_Invite;
 
 class esigFluentSetting {
 
+
+    private static $entryValue = null;
+
+    public static function setFluentValue($value)
+    {
+        self::$entryValue = $value;
+    }
+    public static function getFluentValue()
+    {
+        return self::$entryValue;
+    }
+
         
     public static function get_sad_documents()
     {
@@ -539,16 +551,5 @@ class esigFluentSetting {
             }
             return rtrim($result);
         }
-
-        public static function getBrowserFluent()
-         {
-            if (empty($_SERVER['HTTP_USER_AGENT'])) {
-                return 'esig_fluent_' . esig_get_ip() . "_entryid";
-            } else {
-                $key = md5($_SERVER['HTTP_USER_AGENT']);
-                return 'esig_fluent_' . esig_get_ip() . $key . "_entryid";
-            }           
-         }
-
     
 }

@@ -155,6 +155,10 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 $esigFeed = esigFluentSetting::getEsigFeedSettings($formid);           
                 $submit_type = esigget('underline_data',$esigFeed);
             }
+            $getValue = esigFluentSetting::getFluentValue();
+            if($getValue){
+                $esigFluentFormdata = $getValue;
+            }
             $ff_value = esigFluentSetting::get_value($esigFluentFormdata,$label,$formid,$field_id, $display, $option,$submit_type);
             
             if (!$ff_value) return false;
@@ -331,11 +335,13 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
             /* make it a basic document and then send to sign */
             $old_doc = WP_E_Sig()->document->getDocument($old_doc_id);
-    
+            esigFluentSetting::setFluentValue($formData);
             global $esigFluentInsertId , $esigFluentFormdata;
             $esigFluentInsertId = $insertId;
             $esigFluentFormdata = $formData;
-            // Copy the document
+            // Copy the document 
+            
+            
             $doc_id = WP_E_Sig()->document->copy($old_doc_id);
     
             WP_E_Sig()->meta->add($doc_id, 'esig_ff_form_id', $form_id);
