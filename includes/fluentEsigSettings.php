@@ -331,7 +331,7 @@ class esigFluentSetting {
             if($display == "label_value") return $label  . ": " . $displayValue;
 
             return false;
-s
+
         }
         
         
