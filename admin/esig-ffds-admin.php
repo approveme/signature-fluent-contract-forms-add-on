@@ -385,11 +385,6 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 'document' => $doc,
                 'old_doc_id' => $old_doc_id,
             ));
-    
-    
-            // Enable reminder from cf7 e-signature settings. 
-          //  self::enableReminder($form_id,$doc_id);
-         
 
             if(isset($feedValue['signing_reminder'])){
                self::enableReminder($feedValue,$doc_id);
@@ -432,8 +427,6 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                
                 $invite_url = WP_E_Invite::get_invite_url($invite_hash, $doc->document_checksum);   
                 WP_E_Sig()->meta->add($doc_id, "esig_fluent_forms_invite_url", wp_sanitize_redirect(urldecode( $invite_url)));
-                
-               // esigFluentSetting::save_invite_url($invite_hash, $doc->document_checksum);
             }
         }
 
