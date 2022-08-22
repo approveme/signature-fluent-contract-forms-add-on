@@ -278,9 +278,13 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             }
 
             if (esigFluentSetting::esigget("id",$screen) == 'fluent-forms_page_esign-fluentform-about'){
+                
+                wp_enqueue_script('esign-iframe-script', plugins_url('assets/js/esign-iframe.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.0.1', true);
+                
                 wp_register_style( 'esig_fluent_enqueue_style', plugins_url('about/assets/css/esig-about.css', __FILE__), false, '1.0.0' );
                 wp_enqueue_style( 'esig_fluent_enqueue_style' );
                 wp_enqueue_style( 'esig-google-fonts', 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap', false );
+                wp_enqueue_style( 'esig-snip-styles', plugins_url('about/assets/css/snip-styles.css', __FILE__), false, '0.0.1' );
             }
 
             

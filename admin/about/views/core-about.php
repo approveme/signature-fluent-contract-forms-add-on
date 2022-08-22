@@ -394,48 +394,7 @@ function esig_generate_about_page(array $about_options = array())
                     </div>
                 </div>
                 <!-----------------approveme snip load here ------------------------>
-                <div id="approveme-iframe-wrapper">
-
-                    <script>
-                        if (window.addEventListener) {
-                            window.addEventListener("message", approvemehandlePostMessages, false);
-                        } else {
-                            window.attachEvent('onmessage', approvemehandlePostMessages);
-                        }
-
-                        function approvemehandlePostMessages(event) {
-                            var event_data = {}
-                            try {
-                                var event_data = JSON && JSON.parse(event.data) || $.parseJSON(event.data);
-                            } catch (err) {
-                                return;
-                            }
-                            if (event_data.type == "approveme-iframe-close-request") {
-                                jQuery("#approve-me-bar").remove();
-                            }
-
-                        }
-                    </script>
-
-                    <iframe name="approveme-snify" src="https://www.approveme.com/apps/snip/gravityforms?pluginName=<?php echo urlencode($about_options['pluginName']); ?>" id="approve-me-bar">
-                    </iframe>
-                    <script>
-                        jQuery(document).ready(function($) {
-                            var headerwrap = $('#header-wrapper');
-                            $(window).scroll(function() {
-                                var scroll = $(this).scrollTop();
-                                var topDist = 10;
-
-                                if (scroll > topDist) {
-                                    headerwrap.addClass('sticky');
-                                } else {
-                                    headerwrap.removeClass('sticky');
-                                }
-                            });
-                        });
-                    </script>
-                </div>
-
+                    <?php include('esign-iframe.php'); ?>               
                 <!---------------------- Approveme snip loads end here  ----------------------------->
 
             </div><!-- wpbody-content -->
