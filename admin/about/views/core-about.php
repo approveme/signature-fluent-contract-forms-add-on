@@ -134,11 +134,11 @@ function esig_generate_about_page(array $about_options = array())
                                     <div class="section__action">
                                         <div class="m-cta-whiskers-container">
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
                                             <a href="<?php echo esc_attr( $heroCTAUrl ); ?>" class="button-purple"><?php echo $heroCTAText; ?></a>
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
                                         </div>
                                         <?php echo $extraCTA; ?>
@@ -154,11 +154,11 @@ function esig_generate_about_page(array $about_options = array())
                                     <div class="section__action">
                                         <div class="m-cta-whiskers-container">
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
                                             <a href="<?php echo esc_attr( $heroCTAUrl ); ?>" class="button-purple"><?php echo $heroCTAText; ?></a>
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
                                         </div>
                                         <?php echo $extraCTA; ?>
@@ -173,15 +173,15 @@ function esig_generate_about_page(array $about_options = array())
                                     <div class="section__action">
                                         <div class="m-cta-whiskers-container">
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
                                           <a href="<?php  echo esc_attr($heroCTAUrl); ?>" class="button-purple"><?php echo $heroCTAText; ?></a>
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
                                         </div>
                                         <?php echo $extraCTA; ?>
-                                        <section class="watch-demo">or<a href="<?php echo $about_options['setupVidURL']; ?>" class="watch-demo-link thickbox">Watch getting started video</a></section>
+                                        <section class="watch-demo">or<a href="<?php echo esc_attr($about_options['setupVidURL']); ?>" class="watch-demo-link thickbox">Watch getting started video</a></section>
                                     </div>
                                 <?php
                                     break;
@@ -193,11 +193,11 @@ function esig_generate_about_page(array $about_options = array())
                                     <div class="section__action">
                                         <div class="m-cta-whiskers-container">
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
                                             <a href="<?php echo esc_attr($heroCTAUrl); ?>" class="button-purple"><?php echo $heroCTAText; ?></a>
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
                                         </div>
                                         <?php echo $extraCTA; ?>
@@ -222,11 +222,11 @@ function esig_generate_about_page(array $about_options = array())
                                     <div class="section__action">
                                         <div class="m-cta-whiskers-container">
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
                                             <a href="<?php echo esc_attr($heroCTAUrl); ?>" class="button-purple"><?php echo $heroCTAText; ?></a>
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
                                         </div>
                                         <div class="m-cta-whiskers-container">
@@ -248,11 +248,11 @@ function esig_generate_about_page(array $about_options = array())
                                             <p class="small">Sign up today and save up to <a href="<?php echo esc_attr($about_options['main-cta']); ?>" target="blank" title="save 50% off">50% off.</a></p>
                                             <div class="m-cta-whiskers-container">
                                                 <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                    <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                    <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                                 </figure>
                                                 <a href="<?php echo esc_attr($about_options['main-cta']); ?>" target="_blank" class="button-purple">Start eSigning in WordPress</a>
                                                 <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                    <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                                    <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                                 </figure>
                                             </div>
                                             <section class="watch-demo">or<a href="<?php echo esc_attr($about_options['setupVidURL']); ?>" class="watch-demo-link thickbox">Watch a Demo</a></section>
@@ -284,7 +284,7 @@ function esig_generate_about_page(array $about_options = array())
                         <!-- Start About card -->
                         <section class="fluent-card">
                             <img src="<?php echo plugins_url('../assets/images/fluent-girl-on-laptop-small.png', __FILE__); ?>" class="fluent-laptop-girl-img" alt="Laptop girl" />
-                            <p class="text">Automatically collect digital signatures on contracts, after your visitors submit a form using ApproveMe's WP E-Signature. <a href="<?php echo $about_options['main-cta']; ?>#compliant" target="blank">UETA/ESIGN Compliant</a>, legally binding contracts with WordPress.</p>
+                            <p class="text">Automatically collect digital signatures on contracts, after your visitors submit a form using ApproveMe's WP E-Signature. <a href="<?php echo esc_attr($about_options['main-cta']); ?>#compliant" target="blank">UETA/ESIGN Compliant</a>, legally binding contracts with WordPress.</p>
                         </section>
                         <!-- End About card -->
 
@@ -314,7 +314,7 @@ function esig_generate_about_page(array $about_options = array())
                             <p align="center">
                                 <?php add_thickbox(); ?>
                                 <a class="thickbox" href="<?php echo esc_attr($about_options['setupVidURL']); ?>" class="thickbox">
-                                    <img src="<?php echo $about_options['setupVidImage']; ?>" align="center" width="70%">
+                                    <img src="<?php echo esc_attr($about_options['setupVidImage']); ?>" align="center" width="70%">
                                 </a>
                             </p>
                         </div>
@@ -340,11 +340,11 @@ function esig_generate_about_page(array $about_options = array())
                         <!-- Start whiskers Button -->
                         <div class="m-cta-whiskers-container">
                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded" /><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded" /><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                             </figure>
                             <a href="<?php echo esc_attr($about_options['main-cta']); ?>" target="_blank" class="button-purple small">Get My WP E-Sign License</a>
                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                <img src="<?php echo $ctaWhisker; ?>" alt="" class="lazyloaded" data-ll-status="loaded" /><noscript><img src="<?php echo $ctaWhisker; ?>" alt="whiskers" /></noscript>
+                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded" /><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                             </figure>
                         </div>
                         <!-- END whiskers Button -->
