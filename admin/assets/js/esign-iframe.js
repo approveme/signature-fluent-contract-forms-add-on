@@ -84,8 +84,13 @@ function updateContent(pluginName){
     document.getElementById("profileName").setAttribute("href", ctaURL);
 }
 
-const pluginName = getPluginName();
+jQuery(document).ready(function () {
 
-updateContent(pluginName);
+    const pluginName = getPluginName();
+    updateContent(pluginName);
 
-
+    var cookieValue = getCookie('approve-me-close-bar');
+    if(!cookieValue) {
+        jQuery("#snipComponent").show();
+    }
+});
