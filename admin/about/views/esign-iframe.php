@@ -4,11 +4,11 @@
                                     <img src="<?php echo esc_attr(plugins_url('../assets/images/monster-support.png', __FILE__)); ?>" alt="monster-support" >
                                 </div>
                                 <div class="main-wrapper">
-                                    <a href="https://www.approveme.com/?utm_campaign=wprepo&utm_medium=snipbar&utm_source=gravityforms" id="profileName" class="text-link" target="_blank" style="color: rgb(34, 34, 34);">Approve Me</a>
+                                    <a href="https://www.approveme.com/?utm_campaign=wprepo&utm_medium=snipbar&utm_source=<?php echo esc_attr($about_options['pluginName']); ?>" id="profileName" class="text-link" target="_blank" style="color: rgb(34, 34, 34);">Approve Me</a>
                                     <div id="messageText" >Got a question about a custom Gravity Forms to WPESign™ workflow?</div>
                                 </div>
                                 <div class="button-wrapper">
-                                    <a href="https://www.approveme.com/?utm_campaign=wprepo&utm_medium=snipbar&utm_source=gravityforms" class="button-purple" id="buttonAction" target="_blank" rel="nofollow">Ask Your Question</a>
+                                    <a href="https://www.approveme.com/?utm_campaign=wprepo&utm_medium=snipbar&utm_source=<?php echo esc_attr($about_options['pluginName']); ?>" class="button-purple" id="buttonAction" target="_blank" rel="nofollow">Ask Your Question</a>
                                 </div>
                                 <a href="#" id="minimizeToggle" onClick="closeToolbar(this, event)" class="animated close-button" style="color: rgb(34, 34, 34);">×</a>
                             </div>

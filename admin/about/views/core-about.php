@@ -64,7 +64,7 @@ function esig_generate_about_page(array $about_options = array())
                 <div id="header-wrapper">
                     <h1 class="alert-target"></h1>
                     <header class="about-header-container">
-                        <img src="<?php echo plugins_url('../assets/images/approveme-wp-logo.png', __FILE__); ?>" alt="ApproveMe" class="approveme-logo" />
+                        <img src="<?php echo esc_attr(plugins_url('../assets/images/approveme-wp-logo.png', __FILE__)); ?>" alt="ApproveMe" class="approveme-logo" />
                         <div class="right-section">
                             <?php
 
@@ -117,7 +117,7 @@ function esig_generate_about_page(array $about_options = array())
                     <!-- Start Website-preview -->
                     <div class="flex-container">
                         <div class="left-col">
-                            <img class="fluent-preview-wedsite-img" src="<?php echo plugins_url('../assets/images/fluent-preview-webpage.png', __FILE__); ?>">
+                            <img class="fluent-preview-wedsite-img" src="<?php echo esc_attr(plugins_url('../assets/images/fluent-preview-webpage.png', __FILE__)); ?>">
                         </div>
 
                         <div class="right-col">
@@ -278,12 +278,12 @@ function esig_generate_about_page(array $about_options = array())
                         <!-- End Website-preview -->
 
                         <!-- Start Sub-text -->
-                        <h4 class="sub-text">Create your powerful (and secure) eSignature workflow with <?php echo $about_options['pluginName']; ?> & WP E-Signature</h4>
+                        <h4 class="sub-text">Create your powerful (and secure) eSignature workflow with <?php echo esc_attr($about_options['pluginName']); ?> & WP E-Signature</h4>
                         <!-- END Sub-text -->
 
                         <!-- Start About card -->
                         <section class="fluent-card">
-                            <img src="<?php echo plugins_url('../assets/images/fluent-girl-on-laptop-small.png', __FILE__); ?>" class="fluent-laptop-girl-img" alt="Laptop girl" />
+                            <img src="<?php echo esc_attr(plugins_url('../assets/images/fluent-girl-on-laptop-small.png', __FILE__)); ?>" class="fluent-laptop-girl-img" alt="Laptop girl" />
                             <p class="text">Automatically collect digital signatures on contracts, after your visitors submit a form using ApproveMe's WP E-Signature. <a href="<?php echo esc_attr($about_options['main-cta']); ?>#compliant" target="blank">UETA/ESIGN Compliant</a>, legally binding contracts with WordPress.</p>
                         </section>
                         <!-- End About card -->
@@ -292,14 +292,14 @@ function esig_generate_about_page(array $about_options = array())
                         <section class="company-support">
                             <h6>JOIN 1,000,000+ PROFESSIONALS USING APPROVEME FOR DOCUMENT SIGNING</h6>
                             <div class="trustedList">
-                                <img src="<?php echo plugins_url('../assets/images/companies/HBO_Latino_Logo.svg', __FILE__); ?>" alt="HBO Latino" />
-                                <img src="<?php echo plugins_url('../assets/images/companies/Bulletproof.svg', __FILE__); ?>" alt="Bulletproof" />
-                                <img src="<?php echo plugins_url('../assets/images/companies/NC_State_University.svg', __FILE__); ?>" alt="NC State University" />
-                                <img src="<?php echo plugins_url('../assets/images/companies/UCLA.svg', __FILE__); ?>" alt="UCLA" />
-                                <img src="<?php echo plugins_url('../assets/images/companies/Paypal.svg', __FILE__); ?>" alt="Paypal" />
-                                <img src="<?php echo plugins_url('../assets/images/companies/NBA.svg', __FILE__); ?>" alt="NBA" />
-                                <img src="<?php echo plugins_url('../assets/images/companies/PhoenixSuns.svg', __FILE__); ?>" alt="Phoenix Suns" />
-                                <img src="<?php echo plugins_url('../assets/images/companies/Habbits-for-humanity.svg', __FILE__); ?>" alt="Habbits for humanity" />
+                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/HBO_Latino_Logo.svg', __FILE__)); ?>" alt="HBO Latino" />
+                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/Bulletproof.svg', __FILE__)); ?>" alt="Bulletproof" />
+                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/NC_State_University.svg', __FILE__)); ?>" alt="NC State University" />
+                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/UCLA.svg', __FILE__)); ?>" alt="UCLA" />
+                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/Paypal.svg', __FILE__)); ?>" alt="Paypal" />
+                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/NBA.svg', __FILE__)); ?>" alt="NBA" />
+                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/PhoenixSuns.svg', __FILE__)); ?>" alt="Phoenix Suns" />
+                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/Habbits-for-humanity.svg', __FILE__)); ?>" alt="Habbits for humanity" />
                             </div>
                         </section>
                         <!-- End Company supporters -->
@@ -323,7 +323,7 @@ function esig_generate_about_page(array $about_options = array())
 
                         <!-- Start The Solution -->
                         <section class="fluent-card">
-                            <img src="<?php echo plugins_url('../assets/images/fluent-magic-hat.png', __FILE__); ?>" class="fluent-magic-hat-img" alt="magic hat" />
+                            <img src="<?php echo esc_attr(plugins_url('../assets/images/fluent-magic-hat.png', __FILE__)); ?>" class="fluent-magic-hat-img" alt="magic hat" />
                             <div>
                                 <h5 class="card-title">Your all-in-one eSignature solution</h5>
                                 <p class="text">If you’re looking to reduce paperwork headaches… you should discover WP E-Signature, the #1 WordPress document signing software that agencies, freelancers and organizations use to take control of the eSignature experience™ </p>
@@ -355,7 +355,7 @@ function esig_generate_about_page(array $about_options = array())
                         <!-- Start Website-preview -->
                         <div class="flex-container">
                             <div class="left-col">
-                                <img class="fluent-count-on-us-img" src="<?php echo plugins_url('../assets/images/fluent-count-on-us.png', __FILE__); ?>">
+                                <img class="fluent-count-on-us-img" src="<?php echo esc_attr(plugins_url('../assets/images/fluent-count-on-us.png', __FILE__)); ?>">
                             </div>
                             <div class="right-col center">
                                 <h4 class="title">You can count on us</h4>
@@ -377,14 +377,14 @@ function esig_generate_about_page(array $about_options = array())
 
                             <!-- Start Talk to advisor -->
                             <section class="footer-container">
-                                <img class="fluent-advisor-img" src="<?php echo plugins_url('../assets/images/fluent-advisor.png', __FILE__); ?>">
+                                <img class="fluent-advisor-img" src="<?php echo esc_attr(plugins_url('../assets/images/fluent-advisor.png', __FILE__)); ?>">
 
                                 <div>
                                     <p class="medium-text">We're here to help! </br>
                                         Ask us anything.
                                     </p>
                                     <a href="<?php echo esc_attr($about_options['main-cta']); ?>&utm_medium=talktoadvisor#letschat" class="button-pink" title="let's chat">
-                                        <img src="<?php echo plugins_url('../assets/images/chat-icon.svg', __FILE__); ?>" alt="Chat Icon" class="button-right-icon" /> Talk to Advisor
+                                        <img src="<?php echo esc_attr(plugins_url('../assets/images/chat-icon.svg', __FILE__)); ?>" alt="Chat Icon" class="button-right-icon" /> Talk to Advisor
                                     </a>
                                 </div>
                             </section>
