@@ -10,14 +10,14 @@ function esig_generate_about_page(array $about_options = array())
     require_once(dirname(__DIR__) . '/includes/esig-activations-states.php');
 
     if (empty($about_options)) {
-        echo 'plugin about page load failed';
+        echo esc_attr('plugin about page load failed');
         return;
     } else {
         if (
             !array_key_exists('pluginName', $about_options) ||
             !array_key_exists('stepContent', $about_options)
         ) {
-            echo 'plugin about page missing information, load failed';
+            echo esc_attr('plugin about page missing information, load failed');
             return;
         }
     }
@@ -81,8 +81,8 @@ function esig_generate_about_page(array $about_options = array())
                                 $headerTwoURL = $about_options['main-cta'] . '#letschat/';
                             }
                             ?>
-                            <a href='<?php echo $headerOneURL; ?>' class='button-purple' target='blank' title='<?php echo $headerOneText; ?>'><?php echo $headerOneText; ?></a>
-                            <a href='<?php echo $headerTwoURL; ?>' target='blank' class='button-border-block small' title='<?php echo $headerTwoText; ?>'><?php echo $headerTwoText; ?></a>
+                            <a href='<?php echo esc_url($headerOneURL); ?>' class='button-purple' target='blank' title='<?php echo $headerOneText; ?>'><?php echo $headerOneText; ?></a>
+                            <a href='<?php echo esc_url($headerTwoURL); ?>' target='blank' class='button-border-block small' title='<?php echo $headerTwoText; ?>'><?php echo $headerTwoText; ?></a>
 
                         </div>
                     </header>
@@ -97,18 +97,18 @@ function esig_generate_about_page(array $about_options = array())
                         switch ($esigStatus) {
 
                             case 'wpe_inactive':
-                                echo 'Excellent work! You have WP E-Signature installed.<br> <a href="' . esig_plugin_activation_link("e-signature/e-signature.php") . '">Activate it now so you can get started.</a>';
+                                echo esc_html('Excellent work! You have WP E-Signature installed.<br> <a href="' . esig_plugin_activation_link("e-signature/e-signature.php") . '">Activate it now so you can get started.</a>');
                                 break;
                             case 'wpe_expired':
-                                echo 'WP E-Signature requires a valid license for critical security updates.';
+                                echo esc_html('WP E-Signature requires a valid license for critical security updates.');
                                 break;
                             case 'wpe_active_pro':
-                                echo 'Excellent work! You have WP E-Signature installed and you\'re ready to automate your contracts.';
+                                echo esc_html('Excellent work! You have WP E-Signature installed and you\'re ready to automate your contracts.');
                                 break;
                             case 'wpe_active_basic':
                             case 'no_wpe':
                             default:
-                                echo 'Connect your ' . esc_attr($single_name) . 's with the #1 document signing tool built for WordPress websites.';
+                                echo esc_html('Connect your ' . esc_attr($single_name) . 's with the #1 document signing tool built for WordPress websites.');
                                 break;
                         }
                         ?>
@@ -156,7 +156,7 @@ function esig_generate_about_page(array $about_options = array())
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
                                                 <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
-                                            <a href="<?php echo esc_attr( $heroCTAUrl ); ?>" class="button-purple"><?php echo $heroCTAText; ?></a>
+                                            <a href="<?php echo esc_attr( $heroCTAUrl ); ?>" class="button-purple"><?php echo esc_attr($heroCTAText); ?></a>
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
                                                 <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
@@ -226,13 +226,13 @@ function esig_generate_about_page(array $about_options = array())
                                             </figure>
                                             <a href="<?php echo esc_attr($heroCTAUrl); ?>" class="button-purple"><?php echo $heroCTAText; ?></a>
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
+                                                <img src="<?php echo esc_url($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
                                         </div>
                                         <div class="m-cta-whiskers-container">
-                                            <?php echo $extraCTA; ?>
+                                            <?php echo esc_attr($extraCTA); ?>
                                         </div>
-                                            <section class="watch-demo">or<a href="<?php echo esc_attr($about_options['setupVidURL']); ?>" class="watch-demo-link thickbox">Watch getting started video</a></section>
+                                            <section class="watch-demo">or<a href="<?php echo esc_url($about_options['setupVidURL']); ?>" class="watch-demo-link thickbox">Watch getting started video</a></section>
                                         </div>
                                     <?php
                                     break;
@@ -248,14 +248,14 @@ function esig_generate_about_page(array $about_options = array())
                                             <p class="small">Sign up today and save up to <a href="<?php echo esc_attr($about_options['main-cta']); ?>" target="blank" title="save 50% off">50% off.</a></p>
                                             <div class="m-cta-whiskers-container">
                                                 <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                    <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
+                                                    <img src="<?php echo esc_url($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                                 </figure>
-                                                <a href="<?php echo esc_attr($about_options['main-cta']); ?>" target="_blank" class="button-purple">Start eSigning in WordPress</a>
+                                                <a href="<?php echo esc_url($about_options['main-cta']); ?>" target="_blank" class="button-purple">Start eSigning in WordPress</a>
                                                 <figure class="wp-block-image m-cta-whiskers__whisker">
-                                                    <img src="<?php echo esc_attr($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
+                                                    <img src="<?php echo esc_url($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_attr($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                                 </figure>
                                             </div>
-                                            <section class="watch-demo">or<a href="<?php echo esc_attr($about_options['setupVidURL']); ?>" class="watch-demo-link thickbox">Watch a Demo</a></section>
+                                            <section class="watch-demo">or<a href="<?php echo esc_url($about_options['setupVidURL']); ?>" class="watch-demo-link thickbox">Watch a Demo</a></section>
                                         </div>
                                 <?php
                                     break;
@@ -283,7 +283,7 @@ function esig_generate_about_page(array $about_options = array())
 
                         <!-- Start About card -->
                         <section class="fluent-card">
-                            <img src="<?php echo esc_attr(plugins_url('../assets/images/fluent-girl-on-laptop-small.png', __FILE__)); ?>" class="fluent-laptop-girl-img" alt="Laptop girl" />
+                            <img src="<?php echo esc_url(plugins_url('../assets/images/fluent-girl-on-laptop-small.png', __FILE__)); ?>" class="fluent-laptop-girl-img" alt="Laptop girl" />
                             <p class="text">Automatically collect digital signatures on contracts, after your visitors submit a form using ApproveMe's WP E-Signature. <a href="<?php echo esc_attr($about_options['main-cta']); ?>#compliant" target="blank">UETA/ESIGN Compliant</a>, legally binding contracts with WordPress.</p>
                         </section>
                         <!-- End About card -->
@@ -292,14 +292,14 @@ function esig_generate_about_page(array $about_options = array())
                         <section class="company-support">
                             <h6>JOIN 1,000,000+ PROFESSIONALS USING APPROVEME FOR DOCUMENT SIGNING</h6>
                             <div class="trustedList">
-                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/HBO_Latino_Logo.svg', __FILE__)); ?>" alt="HBO Latino" />
-                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/Bulletproof.svg', __FILE__)); ?>" alt="Bulletproof" />
-                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/NC_State_University.svg', __FILE__)); ?>" alt="NC State University" />
-                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/UCLA.svg', __FILE__)); ?>" alt="UCLA" />
-                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/Paypal.svg', __FILE__)); ?>" alt="Paypal" />
-                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/NBA.svg', __FILE__)); ?>" alt="NBA" />
-                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/PhoenixSuns.svg', __FILE__)); ?>" alt="Phoenix Suns" />
-                                <img src="<?php echo esc_attr(plugins_url('../assets/images/companies/Habbits-for-humanity.svg', __FILE__)); ?>" alt="Habbits for humanity" />
+                                <img src="<?php echo esc_url(plugins_url('../assets/images/companies/HBO_Latino_Logo.svg', __FILE__)); ?>" alt="HBO Latino" />
+                                <img src="<?php echo esc_url(plugins_url('../assets/images/companies/Bulletproof.svg', __FILE__)); ?>" alt="Bulletproof" />
+                                <img src="<?php echo esc_url(plugins_url('../assets/images/companies/NC_State_University.svg', __FILE__)); ?>" alt="NC State University" />
+                                <img src="<?php echo esc_url(plugins_url('../assets/images/companies/UCLA.svg', __FILE__)); ?>" alt="UCLA" />
+                                <img src="<?php echo esc_url(plugins_url('../assets/images/companies/Paypal.svg', __FILE__)); ?>" alt="Paypal" />
+                                <img src="<?php echo esc_url(plugins_url('../assets/images/companies/NBA.svg', __FILE__)); ?>" alt="NBA" />
+                                <img src="<?php echo esc_url(plugins_url('../assets/images/companies/PhoenixSuns.svg', __FILE__)); ?>" alt="Phoenix Suns" />
+                                <img src="<?php echo esc_url(plugins_url('../assets/images/companies/Habbits-for-humanity.svg', __FILE__)); ?>" alt="Habbits for humanity" />
                             </div>
                         </section>
                         <!-- End Company supporters -->

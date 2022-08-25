@@ -59,7 +59,7 @@ if (!class_exists('esig_Addon_About')) :
             if($message)
             {
                 $this->loadCss();
-                echo '<div class="bangBar error ' . strtolower($this->_name) . '  ">' . $message . '</div>';
+                echo esc_html('<div class="bangBar error ' . strtolower($this->_name) . '  ">' . $message . '</div>');
             }
             
         }
