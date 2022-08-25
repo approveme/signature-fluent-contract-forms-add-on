@@ -43,7 +43,7 @@ class esigFluent extends IntegrationManager
 
         //$this->userApi = new UserRegistrationApi;
 
-        $this->logo = ESIG_FLUENT_ADDON_URL . "admin/assets/images/e-signature-logo.svg"; //$this->app->url('public/img/integrations/user_registration.png');
+        $this->logo = ESIGNATURE_FLUENT_ADDON_URL . "admin/assets/images/e-signature-logo.svg"; //$this->app->url('public/img/integrations/user_registration.png');
 
         $this->description = 'This add-on allows you to redirect your form-filler or email an individual to review and sign an electronic document.';
 

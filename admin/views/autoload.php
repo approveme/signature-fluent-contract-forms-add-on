@@ -10,11 +10,9 @@
  // About page directory path
             $pluginName = "fluentforms" ; 
 
-            if (!defined('ESIGN_FLUENTFORM_ABOUT_PATH'))
-                    define('ESIGN_FLUENTFORM_ABOUT_PATH', dirname(__FILE__));
+            if (!defined('ESIGNATURE_FLUENTFORM_ABOUT_PATH'))
+            define('ESIGNATURE_FLUENTFORM_ABOUT_PATH', dirname(__FILE__));
             
-            if (!defined('ESIGN_'. strtoupper(preg_replace("/\s+/", "", $pluginName)) . '_ABOUT_URL'))
-                    define('ESIGN_'. strtoupper(preg_replace("/\s+/", "", $pluginName)) . '_ABOUT_URL', plugins_url("/", __FILE__));
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-activations-states.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-about-load.php' );
@@ -93,7 +91,7 @@ function generatePluginActivationLinkUrl()
   */
  add_action('in_admin_header', function () {
 
-        $page  = isset($_GET['page']) ? $_GET['page'] : false ;
+        $page  = esigget('page');
 
       if (empty($page)) 
       {

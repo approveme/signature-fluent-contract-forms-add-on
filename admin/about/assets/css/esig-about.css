@@ -662,7 +662,7 @@ img.approveme-logo {
   height: 72px;
   object-fit: contain;
 }
-img.gf-preview-wedsite-img {
+img.fluent-preview-wedsite-img {
   width: 541px;
   height: 475px;
   object-fit: contain;
@@ -679,7 +679,7 @@ img.fluent-completed-steps-img {
   object-fit: contain;
   margin-top: 2rem;
 }
-img.gf-count-on-us-img {
+img.fluent-count-on-us-img {
   width: 494px;
   height: 394px;
   object-fit: contain;
@@ -691,7 +691,7 @@ img.fluent-laptop-girl-img {
   object-fit: contain;
   margin-right: 10px;
 }
-img.gf-magic-hat-img {
+img.fluent-magic-hat-img {
   width: 195px;
   height: 178px;
   object-fit: contain;
@@ -1023,7 +1023,7 @@ section.company-support img {
   img.approveme-logo {
     height: 50px;
   }
-  img.gf-preview-wedsite-img {
+  img.fluent-preview-wedsite-img {
     width: 270px;
     height: 238px;
   }
@@ -1052,7 +1052,7 @@ section.company-support img {
     position: static;
   }
 
-  img.gf-count-on-us-img {
+  img.fluent-count-on-us-img {
     height: auto;
   }
   h4.title {
