@@ -9,7 +9,7 @@
  * Version:           1.0.1
  * Author:            ApproveMe.com
  * Author URI:        https://www.approveme.com/
- * Text Domain:       esig-ff
+ * Text Domain:       esig-esff
  * Domain Path:       /languages
  */
 
@@ -18,8 +18,8 @@ if (!defined('WPINC')) {
     die;
 }
 
-if (!defined("ESIGNATURE_FLUENT_ADDON_URL")) {
-    define('ESIGNATURE_FLUENT_ADDON_URL', plugins_url("/", __FILE__));
+if (!defined("ESIG_ESFF_ADDON_URL")) {
+    define('ESIG_ESFF_ADDON_URL', plugins_url("/", __FILE__));
 }
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-ffds.php' );
