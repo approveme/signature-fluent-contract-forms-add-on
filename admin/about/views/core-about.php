@@ -97,18 +97,18 @@ function esig_generate_about_page(array $about_options = array())
                         switch ($esigStatus) {
 
                             case 'wpe_inactive':
-                                echo esc_html('Excellent work! You have WP E-Signature installed.<br> <a href="' . esig_plugin_activation_link("e-signature/e-signature.php") . '">Activate it now so you can get started.</a>');
+                                echo 'Excellent work! You have WP E-Signature installed.<br> <a href="' . esc_url(esig_plugin_activation_link("e-signature/e-signature.php")) . '">Activate it now so you can get started.</a>';
                                 break;
                             case 'wpe_expired':
-                                echo esc_html('WP E-Signature requires a valid license for critical security updates.');
+                                echo 'WP E-Signature requires a valid license for critical security updates.';
                                 break;
                             case 'wpe_active_pro':
-                                echo esc_html('Excellent work! You have WP E-Signature installed and you\'re ready to automate your contracts.');
+                                echo 'Excellent work! You have WP E-Signature installed and you\'re ready to automate your contracts.';
                                 break;
                             case 'wpe_active_basic':
                             case 'no_wpe':
                             default:
-                                echo esc_html('Connect your ' . esc_attr($single_name) . 's with the #1 document signing tool built for WordPress websites.');
+                                echo 'Connect your ' . esc_attr($single_name) . 's with the #1 document signing tool built for WordPress websites.';
                                 break;
                         }
                         ?>
