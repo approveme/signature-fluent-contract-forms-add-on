@@ -27,14 +27,14 @@ if (!function_exists('esig_esff_get')) {
 
         if (is_array($array)) {
             if (isset($array[$name])) {
-                return sanitize_text_field(wp_unslash($array[$name]));
+                return wp_unslash($array[$name]);
             }
             return false;
         }
 
         if (is_object($array)) {
             if (isset($array->$name)) {
-                return sanitize_text_field(wp_unslash($array->$name));
+                return wp_unslash($array->$name);
             }
             return false;
         }

@@ -252,7 +252,7 @@ class esigFluentSetting {
         }
 
         if(!is_array($data)) return false;
-        $value  = esig_esff_get($fieldId,$data);
+        $value  = sanitize_text_field(esig_esff_get($fieldId,$data));
         switch($fieldId){
             case "checkbox":
                 return self::checkboxValue($value);
@@ -273,10 +273,10 @@ class esigFluentSetting {
                 return self::getHtmlFieldsValue($formId, 'html_codes');
                 break;            
             case "email":
-                return '<a style="'.$style.'" href="mailto:' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
+                return '<a style="'.$style.'" href="mailto:' . $value . '" target="_blank">' . $value . '</a>' ;
                 break;  
             case "url":
-                return '<a style="'.$style.'" href="' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
+                return '<a style="'.$style.'" href="' . $value . '" target="_blank">' . $value . '</a>' ;
                 break;
             case "file-upload":            
                 return self::fileValue($value,$style);
@@ -316,7 +316,7 @@ class esigFluentSetting {
 
             $result = '';
             if ($submit_type == "underline") {
-                $result .= '<u>' . esc_attr($ff_value) . '</u>';
+                $result .= '<u>' . $ff_value . '</u>';
             } else {
                 $result .= $ff_value;
             }
@@ -327,7 +327,7 @@ class esigFluentSetting {
         {
             $results = preg_replace('/^{(.*)}$/', '$1', $string);
             $array = explode(".", $results);
-            return esig_esff_get("1",$array);
+            return sanitize_text_field(esig_esff_get("1",$array));
         }
 
         public static function prepareNames($names)
