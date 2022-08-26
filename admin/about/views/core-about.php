@@ -136,7 +136,7 @@ function esig_generate_about_page(array $about_options = array())
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
                                                 <img src="<?php echo esc_url($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_url($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
-                                            <a href="<?php echo esc_url( $heroCTAUrl ); ?>" class="button-purple"><?php echo $heroCTAText; ?></a>
+                                            <a href="<?php echo esc_url( $heroCTAUrl ); ?>" class="button-purple"><?php echo esc_attr($heroCTAText); ?></a>
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
                                                 <img src="<?php echo esc_url($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_url($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
@@ -175,7 +175,7 @@ function esig_generate_about_page(array $about_options = array())
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
                                                 <img src="<?php echo esc_url($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_url($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
-                                          <a href="<?php  echo esc_attr($heroCTAUrl); ?>" class="button-purple"><?php echo esc_html($heroCTAText); ?></a>
+                                          <a href="<?php  echo esc_attr($heroCTAUrl); ?>" class="button-purple"><?php echo esc_attr($heroCTAText); ?></a>
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
                                                 <img src="<?php echo esc_url($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_url($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
@@ -195,7 +195,7 @@ function esig_generate_about_page(array $about_options = array())
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
                                                 <img src="<?php echo esc_url($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_url($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
-                                            <a href="<?php echo esc_url($heroCTAUrl); ?>" class="button-purple"><?php echo esc_html($heroCTAText); ?></a>
+                                            <a href="<?php echo esc_url($heroCTAUrl); ?>" class="button-purple"><?php echo esc_attr($heroCTAText); ?></a>
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
                                                 <img src="<?php echo esc_url($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_url($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
@@ -224,7 +224,7 @@ function esig_generate_about_page(array $about_options = array())
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
                                                 <img src="<?php echo esc_url($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_url($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
-                                            <a href="<?php echo esc_url($heroCTAUrl); ?>" class="button-purple"><?php echo esc_html($heroCTAText); ?></a>
+                                            <a href="<?php echo esc_url($heroCTAUrl); ?>" class="button-purple"><?php echo esc_attr($heroCTAText); ?></a>
                                             <figure class="wp-block-image m-cta-whiskers__whisker">
                                                 <img src="<?php echo esc_url($ctaWhisker); ?>" alt="" class="lazyloaded" data-ll-status="loaded"><noscript><img src="<?php echo esc_url($ctaWhisker); ?>" alt="whiskers" /></noscript>
                                             </figure>
