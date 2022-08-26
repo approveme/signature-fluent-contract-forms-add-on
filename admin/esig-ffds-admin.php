@@ -189,7 +189,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                     continue;
                 }
                 $abel = "'".$fieldlabel."'";
-                $html .= '<option data-id='.$abel .' value=' . $fieldname . '>' . $fieldlabel . '</option>';
+                $html .= '<option data-id='.esc_attr($abel) .' value=' . esc_attr($fieldname) . '>' . esc_attr($fieldlabel) . '</option>';
             }
             echo $html;
     

@@ -38,16 +38,16 @@ function fluentforms_message($esigStatus,$pluginName)
             switch ($esigStatus){
 
                 case 'wpe_inactive':
-                  return '<span class="esig-icon-esig-alert"></span><h4> ' . $asterisk . 'WP E-Signature is not activated. Please activate WP E-Signature to finish setting up your integration. <a class="about-button" href="'. esig_plugin_activation_link("e-signature/e-signature.php") .'">Activate WP E-Signature</a></h4>';
+                  return '<span class="esig-icon-esig-alert"></span><h4> ' . esc_attr($asterisk). 'WP E-Signature is not activated. Please activate WP E-Signature to finish setting up your integration. <a class="about-button" href="'. esig_plugin_activation_link("e-signature/e-signature.php") .'">Activate WP E-Signature</a></h4>';
                   break;
                 case 'wpe_expired':
-                  return '<span class="esig-icon-esig-alert"></span><h4>' . $asterisk . 'You willl need to activate your WP E-Signature license to run the Fluent Forms Signature add-on.  <a class="about-button" href="admin.php?page=esign-licenses-general">Enter your license here</a> </h4>';
+                  return '<span class="esig-icon-esig-alert"></span><h4>' . esc_attr($asterisk). 'You willl need to activate your WP E-Signature license to run the Fluent Forms Signature add-on.  <a class="about-button" href="admin.php?page=esign-licenses-general">Enter your license here</a> </h4>';
                   break;
                 case 'wpe_active_basic':
-                  return '<span class="esig-icon-esig-alert"></span><h4>' . $asterisk . 'Your WP E-Signature install is missing the Pro Add-Ons. Advanced functionality will not work without these add-ons installed. <a class="about-button" href="'. admin_url("admin.php?page=esign-addons") .'">Install Pro Add-Ons</a></h4>';
+                  return '<span class="esig-icon-esig-alert"></span><h4>' . esc_attr($asterisk). 'Your WP E-Signature install is missing the Pro Add-Ons. Advanced functionality will not work without these add-ons installed. <a class="about-button" href="'. admin_url("admin.php?page=esign-addons") .'">Install Pro Add-Ons</a></h4>';
                   break;
                 case 'wpe_inactive_pro':
-                  return '<span class="esig-icon-esig-alert"></span><h4 style="font-size:0.95em;">' . $asterisk . 'Your WP E-Signature Pro Add-Ons are installed but not enabled.  Advanced functionality will not work without these add-ons enabled. <a class="about-button" href="'. esig_plugin_activation_link("e-signature-business-add-ons/e-signature-business-add-ons.php") .'">Enable Pro Add-Ons</a></h4>';
+                  return '<span class="esig-icon-esig-alert"></span><h4 style="font-size:0.95em;">' . esc_attr($asterisk). 'Your WP E-Signature Pro Add-Ons are installed but not enabled.  Advanced functionality will not work without these add-ons enabled. <a class="about-button" href="'. esig_plugin_activation_link("e-signature-business-add-ons/e-signature-business-add-ons.php") .'">Enable Pro Add-Ons</a></h4>';
                   break;
                 case 'wpe_active_pro':
 
@@ -63,7 +63,7 @@ function fluentforms_message($esigStatus,$pluginName)
 
                   break;
                 case 'no_wpe':
-                    return '<span class="esig-icon-esig-alert"></span> <h4>' . $asterisk . 'WP E-Signature is not installed. Fluent Form Fluent Forms Signature add-on. &nbsp; <span class="button-container"><a class="about-button" href="https://www.approveme.com/fluent-forms-signature-special/?utm_campaign=wprepo&&utm_campaign=ninjaforms">Get your WP E-Signature license</a></span></h4>';
+                    return '<span class="esig-icon-esig-alert"></span> <h4>' . esc_attr($asterisk). 'WP E-Signature is not installed. Fluent Form Fluent Forms Signature add-on. &nbsp; <span class="button-container"><a class="about-button" href="https://www.approveme.com/fluent-forms-signature-special/?utm_campaign=wprepo&&utm_campaign=ninjaforms">Get your WP E-Signature license</a></span></h4>';
                     break;
                 default:
                   return false;

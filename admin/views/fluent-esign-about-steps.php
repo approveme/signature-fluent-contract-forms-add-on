@@ -38,7 +38,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
         <div class="approveme-column-2">
             <h4><span class="esig-step">2</span> Enter your ApproveMe license</h4>
             <?php $licenseUrl = (function_exists("WP_E_Sig")) ? '<a href="admin.php?page=esign-licenses-general">enter your license key</a>' : 'enter your license key'; ?>
-            <p>Once you have purchased an Ultimate or Pro licenses from ApproveMe you will need to <?php echo $licenseUrl ;?> to activate updates and support.</p>
+            <p>Once you have purchased an Ultimate or Pro licenses from ApproveMe you will need to <?php echo esc_url($licenseUrl) ;?> to activate updates and support.</p>
 
             <p>To view your license key you can log into your <a href="https://www.approveme.com/sign-in/?utm_source=wprepo&utm_medium=link&utm_campaign=fluentforms">ApproveMe account here</a> (password was emailed with your receipt)</p>
 
@@ -53,7 +53,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
         <div class="approveme-column-2">
             <h4><span class="esig-step">3</span> Create a blank WordPress page</h4>
             <?php $settingsUrl =  ($isEsignatureActive) ? '<a href="admin.php?page=esign-settings">settings are saved</a>' : 'settings are saved'; ?>
-            <p>After your WP E-Signature plugins are installed and your <?php echo $settingsUrl; ?>, you will need to create a blank WordPress page for each stand alone document that you will be creating. To start, create one blank WordPress page, give it a title, and publish it with the content blank.</p>
+            <p>After your WP E-Signature plugins are installed and your <?php echo esc_url($settingsUrl); ?>, you will need to create a blank WordPress page for each stand alone document that you will be creating. To start, create one blank WordPress page, give it a title, and publish it with the content blank.</p>
 
             <?php if ($isEsigAndProActive) : ?>
                 <div class="approveme-btn">

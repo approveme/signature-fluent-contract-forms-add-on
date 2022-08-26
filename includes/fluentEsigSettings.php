@@ -162,7 +162,7 @@ class esigFluentSetting {
         $items = '';
         foreach ($value as $item) {
             if ($item) {
-                $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">' . $item . '</li>';
+                $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">' . esc_attr($item) . '</li>';
             }
         }
         return  "<ul class='esig-checkbox-tick'>$items</ul>";
@@ -175,7 +175,7 @@ class esigFluentSetting {
         $items = '';
         foreach ($value as $key => $item) {
             foreach ($item as $newItem) {
-                $items .= '<li>'.$key.' - <input type="checkbox" onclick="return false;" readonly checked="checked">' . $newItem . '</li>';
+                $items .= '<li>'.$key.' - <input type="checkbox" onclick="return false;" readonly checked="checked">' . esc_attr($newItem) . '</li>';
             }
 
         }
@@ -273,10 +273,10 @@ class esigFluentSetting {
                 return self::getHtmlFieldsValue($formId, 'html_codes');
                 break;            
             case "email":
-                return '<a style="'.$style.'" href="mailto:' . $value . '" target="_blank">' . $value . '</a>' ;
+                return '<a style="'.$style.'" href="mailto:' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;  
             case "url":
-                return '<a style="'.$style.'" href="' . $value . '" target="_blank">' . $value . '</a>' ;
+                return '<a style="'.$style.'" href="' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;
             case "file-upload":            
                 return self::fileValue($value,$style);
@@ -316,7 +316,7 @@ class esigFluentSetting {
 
             $result = '';
             if ($submit_type == "underline") {
-                $result .= '<u>' . $ff_value . '</u>';
+                $result .= '<u>' . esc_attr($ff_value) . '</u>';
             } else {
                 $result .= $ff_value;
             }

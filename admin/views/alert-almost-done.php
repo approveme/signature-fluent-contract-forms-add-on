@@ -13,7 +13,7 @@
 		    $wpid = get_current_user_id();
 		    
 		    $users = $esig_user->getUserByWPID($wpid); 
-		    echo $users->first_name . ","; 
+		    echo esc_attr($users->first_name) . ","; 
 		   
 		   ?>
 		   
@@ -29,7 +29,7 @@
         <div class="esig-updater-button">
 
 		  <span> <a href="#" class="button esig-secondary-btn"  id="esig-fluent-setting-later"> <?php _e('I\'LL DO THIS LATER','esig-nf');?> </a></span>
-                  <span> <a href="admin.php?page=fluent_forms&form_id=<?php echo $data['form_id']; ?>&route=settings&sub_route=form_settings#/all-integrations" class="button esig-dgr-btn" id="esig-fluent-lets-go"> <?php _e('LET\'S GO NOW!','esig-nf');?> </a></span>
+                  <span> <a href="admin.php?page=fluent_forms&form_id=<?php echo esc_attr($data['form_id']); ?>&route=settings&sub_route=form_settings#/all-integrations" class="button esig-dgr-btn" id="esig-fluent-lets-go"> <?php _e('LET\'S GO NOW!','esig-nf');?> </a></span>
 
 		</div>
 

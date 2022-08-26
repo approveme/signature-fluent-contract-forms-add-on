@@ -59,7 +59,7 @@ if (!class_exists('esig_esff_Addon_About')) :
             if($message)
             {
                 $this->loadCss();
-                echo esc_html('<div class="bangBar error ' . strtolower($this->_name) . '  ">' . $message . '</div>');
+                echo '<div class="bangBar error ' . esc_attr(strtolower($this->_name)) . '  ">' . esc_attr($message) . '</div>';
             }
             
         }

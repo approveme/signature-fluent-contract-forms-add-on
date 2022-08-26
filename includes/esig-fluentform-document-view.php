@@ -51,7 +51,7 @@ class esig_fluentform_document_view {
         	    $more_option_page .= '<div id="esig-fluentform-option" class="esign-form-panel" style="display:none;">
         	        
         	        
-                	               <div align="center"><img src="' . $assets_dir .'/images/logo.png" width="200px" height="45px" alt="Sign Documents using WP E-Signature" width="100%" style="text-align:center;"></div>
+                	               <div align="center"><img src="' . esc_url($assets_dir) .'/images/logo.png" width="200px" height="45px" alt="Sign Documents using WP E-Signature" width="100%" style="text-align:center;"></div>
                     			
                                     
                     				<div id="esig-fluentform-form-first-step">
