@@ -78,7 +78,7 @@ class esig_fluentform_document_view {
 												{
 												
 												
-													$more_option_page .=	'<option value="'. $form['id'] . '">'.$form['title'] .'</option>';
+													$more_option_page .=	'<option value="'. $form['id'] . '">'. $form['title'] .'</option>';
 												}
                                             }
                                             

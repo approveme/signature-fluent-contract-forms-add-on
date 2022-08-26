@@ -21,6 +21,7 @@ if (!defined('WPINC')) {
 if (!defined("ESIG_ESFF_ADDON_URL")) {
     define('ESIG_ESFF_ADDON_URL', plugins_url("/", __FILE__));
 }
+
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esff-common-function.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-ffds.php' );
 register_activation_hook( __FILE__, array( 'ESIG_FFDS', 'activate' ) );
@@ -34,8 +35,6 @@ require_once(plugin_dir_path(__FILE__) . 'includes/fluentEsigSettings.php');
 function loadEsigFluentIntegration()
 {
     if (function_exists('wpFluentForm')) {
-              
-        
         require_once(plugin_dir_path(__FILE__) . 'includes/fluentIntegration.php');
         new esigFluentIntegration\esigFluent(wpFluentForm());
     }

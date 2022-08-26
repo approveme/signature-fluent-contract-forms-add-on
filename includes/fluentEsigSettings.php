@@ -10,7 +10,7 @@ class esigFluentSetting {
     public static function get_sad_documents()
     {
         if (!function_exists('WP_E_Sig'))
-        return;
+                return;
 
         $api = WP_E_Sig();
 
@@ -175,7 +175,7 @@ class esigFluentSetting {
         $items = '';
         foreach ($value as $key => $item) {
             foreach ($item as $newItem) {
-                $items .= '<li>'.$key.' - <input type="checkbox" onclick="return false;" readonly checked="checked">' . esc_attr($newItem) . '</li>';
+                $items .= '<li>'. $key .' - <input type="checkbox" onclick="return false;" readonly checked="checked">' . esc_attr($newItem) . '</li>';
             }
 
         }
@@ -252,7 +252,7 @@ class esigFluentSetting {
         }
 
         if(!is_array($data)) return false;
-        $value  = sanitize_text_field(esig_esff_get($fieldId,$data));
+        $value  = esig_esff_get($fieldId,$data);
         switch($fieldId){
             case "checkbox":
                 return self::checkboxValue($value);
@@ -273,10 +273,10 @@ class esigFluentSetting {
                 return self::getHtmlFieldsValue($formId, 'html_codes');
                 break;            
             case "email":
-                return '<a style="'.$style.'" href="mailto:' . $value . '" target="_blank">' . $value . '</a>' ;
+                return '<a style="'. esc_attr($style) .'" href="mailto:' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;  
             case "url":
-                return '<a style="'.$style.'" href="' . $value . '" target="_blank">' . $value . '</a>' ;
+                return '<a style="'. esc_attr($style) .'" href="' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;
             case "file-upload":            
                 return self::fileValue($value,$style);
@@ -327,7 +327,7 @@ class esigFluentSetting {
         {
             $results = preg_replace('/^{(.*)}$/', '$1', $string);
             $array = explode(".", $results);
-            return sanitize_text_field(esig_esff_get("1",$array));
+            return esig_esff_get("1",$array);
         }
 
         public static function prepareNames($names)
