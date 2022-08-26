@@ -136,7 +136,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
         }
 
         public function adminmenu() {
-            $esigAbout = new esig_Addon_About("Fluentform");
+            $esigAbout = new esig_esff_Addon_About("Fluentform");
             add_submenu_page('fluent_forms', __('E-Signature', 'esig'), __('E-Signature', 'esig'), 'read', 'esign-fluentform-about', array($esigAbout, 'about_page'));
         }
         

@@ -6,9 +6,9 @@
  * and open the template in the editor.
  */
 
-if (!class_exists('esig_Addon_About')) :
+if (!class_exists('esig_esff_Addon_About')) :
     
-    class esig_Addon_About {
+    class esig_esff_Addon_About {
     
         
         
@@ -98,12 +98,12 @@ if (!class_exists('esig_Addon_About')) :
 
         public function about_page() {
             
-            include_once(constant("ESIGNATURE_". strtoupper($this->_name) ."_ABOUT_PATH") . "/views/esig-addon-about.php");
+            include_once( ESIGN_ESFF_ABOUT_PATH . "/views/esig-addon-about.php");
         }
 
         public function core_page() {
 
-            include_once(constant("ESIGNATURE_". strtoupper($this->_name) ."_ABOUT_PATH") . "/views/core-about.php");
+            include_once( ESIGN_ESFF_ABOUT_PATH . "/views/core-about.php");
         }
         
     }

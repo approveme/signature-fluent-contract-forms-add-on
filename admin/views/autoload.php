@@ -10,8 +10,8 @@
  // About page directory path
             $pluginName = "fluentforms" ; 
 
-            if (!defined('ESIGNATURE_FLUENTFORM_ABOUT_PATH'))
-            define('ESIGNATURE_FLUENTFORM_ABOUT_PATH', dirname(__FILE__));
+            if (!defined('ESIGN_ESFF_ABOUT_PATH'))
+            define('ESIGN_ESFF_ABOUT_PATH', dirname(__FILE__));
             
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-activations-states.php' );
@@ -19,7 +19,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-about-load.php' );
 
 
 
-$esigAbout = new esig_Addon_About($pluginName);
+$esigAbout = new esig_esff_Addon_About($pluginName);
 $esigAbout->hooks();
 
 add_action('admin_notices', array($esigAbout, 'requirement'));

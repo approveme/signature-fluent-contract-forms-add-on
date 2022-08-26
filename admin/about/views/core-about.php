@@ -38,7 +38,7 @@ function esig_generate_about_page(array $about_options = array())
 
     $single_name = substr($about_options['pluginName'], -1) == 's' ?  substr($about_options['pluginName'], 0, -1) :  $about_options['pluginName'];
     $single_name_without_space = preg_replace('/\s+/', '', $about_options['pluginName']);
-    $ctaWhisker = ESIGNATURE_FLUENT_ADDON_URL . "admin/assets/images/cta-whisker.svg";
+    $ctaWhisker = ESIG_ESFF_ADDON_URL . "admin/assets/images/cta-whisker.svg";
 ?>
   
 
