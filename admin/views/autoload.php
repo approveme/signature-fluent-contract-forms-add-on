@@ -91,7 +91,7 @@ function generatePluginActivationLinkUrl()
   */
  add_action('in_admin_header', function () {
 
-        $page  = esigget('page');
+        $page  = esig_esff_get('page');
 
       if (empty($page)) 
       {

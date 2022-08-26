@@ -150,29 +150,6 @@ class esigFluentSetting {
                 
     }
 
-    public static function esigget($name, $array = null) {
-
-        if (!isset($array) && function_exists('ESIG_GET')) {
-            return ESIG_GET($name);
-        }
-
-        if (is_array($array)) {
-            if (isset($array[$name])) {
-                return wp_unslash($array[$name]);
-            }
-            return false;
-        }
-
-        if (is_object($array)) {
-            if (isset($array->$name)) {
-                return wp_unslash($array->$name);
-            }
-            return false;
-        }
-
-        return false;
-    }
-
     public static function save_submission_value($document_id, $form_id, $formData) 
     {
         WP_E_Sig()->meta->add($document_id, "esig_fluent_forms_submission_value", json_encode($formData));
@@ -275,7 +252,7 @@ class esigFluentSetting {
         }
 
         if(!is_array($data)) return false;
-        $value  = esigget($fieldId,$data);
+        $value  = esig_esff_get($fieldId,$data);
         switch($fieldId){
             case "checkbox":
                 return self::checkboxValue($value);
@@ -350,7 +327,7 @@ class esigFluentSetting {
         {
             $results = preg_replace('/^{(.*)}$/', '$1', $string);
             $array = explode(".", $results);
-            return esigget("1",$array);
+            return esig_esff_get("1",$array);
         }
 
         public static function prepareNames($names)
