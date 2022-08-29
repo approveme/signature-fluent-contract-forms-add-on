@@ -32,7 +32,7 @@ if (!class_exists('esig_esff_Addon_About')) :
 
         private function isAllowedScreen()
         {
-            $page = sanitize_text_field(esig_esff_get('page'));
+            $page = esig_esff_get('page');
 
             $screens = array("esign-licenses-general");
 
@@ -66,7 +66,7 @@ if (!class_exists('esig_esff_Addon_About')) :
     
         final function loadCss(){
             
-                $page  = sanitize_text_field(esig_esff_get('page'));
+                $page  = esig_esff_get('page');
 
                 if(!empty($page)  && preg_match("/esign-/i",$page)){
                   return false;
