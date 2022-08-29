@@ -471,9 +471,8 @@ Important: Do NOT include this page in your Nav menu since all of the magic actu
 
 
 == Changelog ==
-
-Version 1.0.1 - August, 16th, 2022
+Version 1.0.1
 FIX: Updated plugin naming convention for WP repo compliance and clarity
 
-Version 1.0.0 - August, 16th, 2022
+Version 1.0.0
 Live version submitted to WordPress.org
