@@ -2,7 +2,7 @@
 
 if (!function_exists('ESFF_GET')) {
 
-    function ESFF_GET($key, $array = false) {
+    function ESFF_GET($key) {
         $value = filter_input(INPUT_GET, $key, FILTER_DEFAULT);
         return sanitize_text_field($value);
     }
