@@ -17,7 +17,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
 
         <div class="approveme-column-2 approveme-center">
             <div class="approveme-image">
-                <p><br> <img src="<?php echo plugins_url('../assets/images/ff-add-on-step-1.png', __FILE__); ?>" class="esig-fluent-pic-border" width="100%">
+                <p><br> <img src="<?php echo esc_url(plugins_url('../assets/images/ff-add-on-step-1.png', __FILE__)); ?>" class="esig-fluent-pic-border" width="100%">
 
                 </p>
             </div>
@@ -31,7 +31,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
     <div class="approveme-row">
         <div class="approveme-column-2">
             <div class="approveme-image">
-                <p><br> <img src="<?php echo plugins_url('../assets/images/ff-add-on-step-2.jpg', __FILE__); ?>" class="esig-fluent-pic-border" width="100%"></p>
+                <p><br> <img src="<?php echo esc_url(plugins_url('../assets/images/ff-add-on-step-2.jpg', __FILE__)); ?>" class="esig-fluent-pic-border" width="100%"></p>
             </div>
         </div>
 
@@ -65,7 +65,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
 
         <div class="approveme-column-2 approveme-center">
             <div class="approveme-image">
-                <p><br> <img src="<?php echo plugins_url('../assets/images/ff-add-on-step-3.png', __FILE__); ?>" class="esig-fluent-pic-border" width="100%">
+                <p><br> <img src="<?php echo esc_url(plugins_url('../assets/images/ff-add-on-step-3.png', __FILE__)); ?>" class="esig-fluent-pic-border" width="100%">
 
                 </p>
             </div>
@@ -79,7 +79,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
     <div class="approveme-row">
         <div class="approveme-column-2">
             <div class="approveme-image">
-                <p><br> <img src="<?php echo plugins_url('../assets/images/ff-add-on-step-4.png', __FILE__); ?>" class="esig-fluent-pic-border" width="100%"></p>
+                <p><br> <img src="<?php echo esc_url(plugins_url('../assets/images/ff-add-on-step-4.png', __FILE__)); ?>" class="esig-fluent-pic-border" width="100%"></p>
             </div>
         </div>
 
@@ -124,17 +124,17 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
             <p><em>This is an example of the auto-generated shortcode that will get inserted into the document you are creating after you select your desired field data from your Fluent Forms.</em> <br><span class="ff-shortcode-wrap">[esigfluent formid="3" field_id="1" ]</span></p>
 
             <p>You can move the shortcode that gets generated automatically, anywhere in your contract and it will display the user's submitted data wherever you have the shortcode located in your contract.</p>
-            <img src="<?php echo plugins_url('../assets/images/fluent-team-contracts.png', __FILE__); ?>" class="fluent-team-contracts-img" alt="Team Contracts" />
+            <img src="<?php echo esc_url(plugins_url('../assets/images/fluent-team-contracts.png', __FILE__)); ?>" class="fluent-team-contracts-img" alt="Team Contracts" />
 
         </div>
 
         <div class="approveme-column-2 approveme-center">
             <div class="approveme-image">
-                <p><br> <img src="<?php echo plugins_url('../assets/images/ff-add-on-step-5a.jpg', __FILE__); ?>" class="esig-fluent-pic-border" width="100%">
+                <p><br> <img src="<?php echo esc_url(plugins_url('../assets/images/ff-add-on-step-5a.jpg', __FILE__)); ?>" class="esig-fluent-pic-border" width="100%">
 
-                    <img src="<?php echo plugins_url('../assets/images/ff-add-on-5a-1.png', __FILE__); ?>" class="esig-fluent-pic-border" width="100%">
+                    <img src="<?php echo esc_url(plugins_url('../assets/images/ff-add-on-5a-1.png', __FILE__)); ?>" class="esig-fluent-pic-border" width="100%">
 
-                    <img src="<?php echo plugins_url('../assets/images/ff-add-on-5a-2.png', __FILE__); ?>" class="esig-fluent-pic-border" width="100%">
+                    <img src="<?php echo esc_url(plugins_url('../assets/images/ff-add-on-5a-2.png', __FILE__)); ?>" class="esig-fluent-pic-border" width="100%">
 
                 </p>
             </div>
@@ -148,7 +148,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
     <div class="approveme-row">
         <div class="approveme-column-2">
             <div class="approveme-image">
-                <p><br> <img src="<?php echo plugins_url('../assets/images/ff-add-on-5a-3.png', __FILE__); ?>" class="esig-fluent-pic-border" width="100%"></p>
+                <p><br> <img src="<?php echo esc_url(plugins_url('../assets/images/ff-add-on-5a-3.png', __FILE__)); ?>" class="esig-fluent-pic-border" width="100%"></p>
             </div>
         </div>
 
@@ -177,12 +177,12 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
                                              margin: 0 10px;
                                              text-transform: uppercase;
                                              font-weight: 400;">Let's Go Now!</strong> to define those last fluentforms settings. If you do not see this screen, you can open your fluent form in editing mode, visit the actions tab, and add action.</p>
-            <img src="<?php echo plugins_url('../assets/images/fluent-completed-steps.png', __FILE__); ?>" class="fluent-completed-steps-img" alt="Completed Steps" />
+            <img src="<?php echo esc_url(plugins_url('../assets/images/fluent-completed-steps.png', __FILE__)); ?>" class="fluent-completed-steps-img" alt="Completed Steps" />
         </div>
 
         <div class="approveme-column-2 approveme-center">
             <div class="approveme-image">
-                <p><br> <img src="<?php echo plugins_url('../assets/images/ff-add-on-step-6.png', __FILE__); ?>" class="esig-fluent-pic-border" width="100%">
+                <p><br> <img src="<?php echo esc_url(plugins_url('../assets/images/ff-add-on-step-6.png', __FILE__)); ?>" class="esig-fluent-pic-border" width="100%">
 
                 </p>
             </div>
@@ -196,7 +196,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
     <div class="approveme-row">
         <div class="approveme-column-2">
             <div class="approveme-image">
-                <p><br> <img src="<?php echo plugins_url('../assets/images/ff-add-on-step-7.png', __FILE__); ?>" class="esig-fluent-pic-border" width="100%"></p>
+                <p><br> <img src="<?php echo esc_url(plugins_url('../assets/images/ff-add-on-step-7.png', __FILE__)); ?>" class="esig-fluent-pic-border" width="100%"></p>
             </div>
         </div>
 

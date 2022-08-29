@@ -23,7 +23,7 @@
 		</div>
         
 
-         <div > <img src="<?php echo plugins_url("fluent-forms-screenshot.png",__FILE__) ; ?>" style="border: 1px solid #efefef; width: 550px; height:148px" /> </div>
+         <div > <img src="<?php echo esc_url(plugins_url("fluent-forms-screenshot.png",__FILE__)); ?>" style="border: 1px solid #efefef; width: 550px; height:148px" /> </div>
 
         
         <div class="esig-updater-button">
