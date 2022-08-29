@@ -1,6 +1,6 @@
 <?php
 /**
- * @package   	      Signature Fluent Contract Forms Add-On
+ * @package   	      Electronic Signature Add-on for Fluent Forms
  * @contributors      Kevin Michael Gray (Approve Me), Abu Sohib (Approve Me)
  * @wordpress-plugin
  * Plugin Name:       Electronic Signature Add-on for Fluent Forms

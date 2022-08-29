@@ -1,4 +1,4 @@
-=== Signature Contract Add-on for Fluent Forms === 
+=== Electronic Signature Add-on for Fluent Forms === 
 Contributors: approveme
 Donate link: http://aprv.me/1LgWgTW
 Tags: Fluent Forms, Fluent Form, Fluent Forms, contract, proposal, digital signature, esignature, esign, contact form, signature pad, wordpress form, wordpress e-signature, wordpress signature
@@ -31,7 +31,7 @@ Instantly produce a legally binding PDF WordPress contract from a Fluent Forms c
 
 **What would you do if you discover the contracts you used in running your online business were not legally binding?**
 
-= Fluent Forms Digital Signature Add-On =
+= Electronic Signature Add-on for Fluent Forms =
 
 Imagine being in a courtroom with an estranged client who’s claiming that they never agreed to your contract.  You pull up the contract and after a brief review, the judge announces that the esignature used in the contract was not legally valid.  He then asks if you have anything else to support your case.
 
@@ -85,7 +85,7 @@ Your form submitter can either draw or type their legal  signature using their m
 
 Another highly popular use case is pre-filling contract data that might change from contract to contract. Say for instance, you are a Web Design agency and you have a standard contract you send out that varies ever so slightly every time you bring on a new client. Maybe you have optional packages available that need to be noted in your contract. But creating a new contract from scratch is incredibly time consuming.
  
-With this Fluent Forms Signature Add-On + ApproveMe’s WP E-Signature (business license) you can create a WP Form with the fields and sections of the contract that vary and add an additional field for the “Signers Name” + “Signers Email.” 
+With this Electronic Signature Add-on for Fluent Forms + ApproveMe’s WP E-Signature (business license) you can create a WP Form with the fields and sections of the contract that vary and add an additional field for the “Signers Name” + “Signers Email.” 
 
 Your WPForm would look something like:
 
@@ -101,7 +101,7 @@ You would choose the option “Email this contact whenever this form is submitte
  Now, whenever you fill out this WPForm, your contract will be automatically generated with the custom terms from your WP Form submission and then a signer invitation email will be sent to the signer email address that was given in the WP Form submission.
 
 
-*Additional benefits of ApproveMe’s WP eSign Plugin and this for Fluent Forms Signature Add-On is that you are able to instantly create a legal contract for your clients to sign depending on their form information from a WPForm.*
+*Additional benefits of ApproveMe’s WP eSign Plugin and this for Electronic Signature Add-on for Fluent Forms is that you are able to instantly create a legal contract for your clients to sign depending on their form information from a WPForm.*
 
 
 **And that’s just the beginning. When a client signs…**
@@ -221,7 +221,7 @@ To see Fluent Forms to WP E-Signature in action see the demo video below:
 == Additional Info ==
 
 
-##Additional important PDF capabilities and workflows for Fluent Forms Signature Add-On##
+##Additional important PDF capabilities and workflows for Electronic Signature Add-on for Fluent Forms##
 
 
 *  Fully automate the signature collection procedure for your individual or small company
