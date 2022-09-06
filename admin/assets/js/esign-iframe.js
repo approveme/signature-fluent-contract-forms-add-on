@@ -45,7 +45,7 @@ function closeToolbar(link, event) {
 function getPluginName(){
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    let pluginName = "Gravity Forms"; // default to gravity forms if we don't know
+    let pluginName = "Fluent Forms"; // default to Fluent forms if we don't know
     if( urlParams.has('page') ){
         pluginName = urlParams.get('page');
     }    

@@ -13,7 +13,7 @@ switch ($esigStatus){
   
   case 'wpe_inactive':
   case 'wpe_expired':
-    echo '<div class="bangBar error"> <h4>*You willl need to activate your WP E-Signature license to run the Gravity Forms Signature add-on. <a href="admin.php?page=esign-licenses-general">Enter your license here</a></h4></div>';
+    echo '<div class="bangBar error"> <h4>*You willl need to activate your WP E-Signature license to run the Fluent Forms Signature add-on. <a href="admin.php?page=esign-licenses-general">Enter your license here</a></h4></div>';
     break;
   case 'wpe_active_basic':
     echo '<div class="bangBar error"> <h4>*Your WP E-Signature install is missing the Pro Add-Ons. Advanced functionality will not work without these add-ons installed. <a href="https://www.approveme.com/profile/">Install Pro Add-Ons</a></h4></div>';
@@ -27,7 +27,7 @@ switch ($esigStatus){
     break;
   case 'no_wpe':
   default:
-    echo '<div class="bangBar error"> <h4>*WP E-Signature is not active. &nbsp; It is required to run the Fluent Forms Signature add-on. &nbsp;<a href="https://www.approveme.com/ninja-forms-signature-plugin">Get your business license now</a></h4></div>';
+    echo '<div class="bangBar error"> <h4>*WP E-Signature is not active. &nbsp; It is required to run the Fluent Forms Signature add-on. &nbsp;<a href="https://aprv.me/fluentforms">Get your business license now</a></h4></div>';
     break;
 }
 
