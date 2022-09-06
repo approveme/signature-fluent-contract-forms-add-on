@@ -86,7 +86,7 @@ Another highly popular use case is pre-filling contract data that might change f
  
 With this Electronic Signature Add-on for Fluent Forms + ApproveMe’s WP E-Signature (business license) you can create a WP Form with the fields and sections of the contract that vary and add an additional field for the “Signers Name” + “Signers Email.” 
 
-Your WPForm would look something like:
+Your Fluent Form would look something like:
 
 DROPDOWN FIELD 1  = Dropdown of available packages
 PARAGRAPH FIELD 2 = Classes or terms that vary from contract to contract
@@ -97,7 +97,7 @@ You would insert these WP Field values in your WP E-Signature contract in the pr
  
 You would choose the option “Email this contact whenever this form is submitted.”
 
- Now, whenever you fill out this WPForm, your contract will be automatically generated with the custom terms from your WP Form submission and then a signer invitation email will be sent to the signer email address that was given in the WP Form submission.
+ Now, whenever you fill out this Fluent, your contract will be automatically generated with the custom terms from your WP Form submission and then a signer invitation email will be sent to the signer email address that was given in the WP Form submission.
 
 
 *Additional benefits of ApproveMe’s WP eSign Plugin and this for Electronic Signature Add-on for Fluent Forms is that you are able to instantly create a legal contract for your clients to sign depending on their form information from a WPForm.*
