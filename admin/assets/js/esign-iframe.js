@@ -78,7 +78,7 @@ function pluginNameLookup(pluginName){
 function updateContent(pluginName){
     const pluginNameSanitized = pluginName.toLowerCase().replace(" ", "-");
     const pluginNameUTM = pluginNameSanitized.replace("-", "");
-    const ctaURL = "https://www.approveme.com/"+pluginNameSanitized+"-signature-special?utm_campaign=wprepo&utm_medium=snipbar&utm_source="+pluginNameUTM+"#letschat";      
+    const ctaURL = "https://www.approveme.com/"+pluginNameSanitized+"-signature-special?utm_source=wprepo&utm_medium=snipbar&utm_source="+pluginNameUTM+"#letschat";      
     document.getElementById("messageText").textContent = "Got a question about a custom "+pluginName+" to WP E-Sign workflow?";
     document.getElementById("buttonAction").setAttribute("href",ctaURL);
     document.getElementById("profileName").setAttribute("href", ctaURL);

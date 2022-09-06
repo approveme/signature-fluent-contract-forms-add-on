@@ -22,7 +22,7 @@ switch ($esigStatus){
     if(!class_exists('wpFluentForm')) {// Notice about add-on dependent 3rd party plugin if not installed
      echo '<div class="error ' . esc_attr($esigStatus) . '"><span class="esig-icon-esig-alert"></span><h4>Fluent Forms plugin is not installed. Please install Fluent Forms version 2.0 or greater - <a href="https://wordpress.org/plugins/fluentform/">Get it here now</a></h4></div>';
     }elseif(!class_exists('ESIG_SAD_Admin')){// Notice about stand alone documents if not enabled
-      echo '<div class="error ' . esc_attr($esigStatus) . '"><span class="esig-icon-esig-alert"></span><h4>WP E-Signature <a href="https://www.approveme.com/downloads/stand-alone-documents/?utm_source=wprepo&utm_medium=link&utm_campaign=fluentforms" target="_blank">"Stand Alone Documents"</a> Add-on is not installed. Please install WP E-Signature Stand Alone Documents - version 1.2.5 or greater.  </h4></div>';
+      echo '<div class="error ' . esc_attr($esigStatus) . '"><span class="esig-icon-esig-alert"></span><h4>WP E-Signature <a href="https://www.approveme.com/downloads/stand-alone-documents/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms" target="_blank">"Stand Alone Documents"</a> Add-on is not installed. Please install WP E-Signature Stand Alone Documents - version 1.2.5 or greater.  </h4></div>';
     }
     break;
   case 'no_wpe':
