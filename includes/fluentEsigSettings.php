@@ -6,6 +6,18 @@ use WP_E_Invite;
 
 class esigFluentSetting {
 
+
+    private static $entryValue = null;
+
+    public static function setFluentValue($value)
+    {
+        self::$entryValue = $value;
+    }
+    public static function getFluentValue()
+    {
+        return self::$entryValue;
+    }
+
         
     public static function get_sad_documents()
     {
@@ -153,6 +165,15 @@ class esigFluentSetting {
     public static function save_submission_value($document_id, $form_id, $formData) 
     {
         WP_E_Sig()->meta->add($document_id, "esig_fluent_forms_submission_value", json_encode($formData));
+    }
+
+    public static function get_submission_value($document_id, $form_id, $field_id) 
+    {
+        $fluent_value = json_decode(WP_E_Sig()->meta->get($document_id, "esig_fluent_forms_submission_value"), true);
+        if (is_array($fluent_value)) 
+        {
+            return esigget($field_id, $fluent_value);
+        }
     }
 
     public static function checkboxValue($value)
@@ -340,6 +361,5 @@ class esigFluentSetting {
             }
             return rtrim($result);
         }
-
     
 }

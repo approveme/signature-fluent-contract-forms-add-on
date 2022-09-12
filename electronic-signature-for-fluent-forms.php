@@ -32,6 +32,7 @@ require_once(plugin_dir_path(__FILE__) . 'admin/about/autoload.php');
 
 add_action('init',"loadEsigFluentIntegration",11);
 require_once(plugin_dir_path(__FILE__) . 'includes/fluentEsigSettings.php');
+
 function loadEsigFluentIntegration()
 {
     if (function_exists('wpFluentForm')) {
@@ -42,3 +43,5 @@ function loadEsigFluentIntegration()
 
 require_once( plugin_dir_path( __FILE__ ) . 'admin/esig-ffds-admin.php' );
 add_action( 'plugins_loaded', array( 'ESIG_FFDS_Admin', 'get_instance' ) );
+require_once( plugin_dir_path( __FILE__ ) . 'admin/esig-fluent-filters.php' );
+add_action( 'plugins_loaded', array( 'esigFluentFilters', 'instance' ) );
