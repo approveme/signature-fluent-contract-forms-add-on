@@ -1,15 +1,15 @@
 <?php
 /**
- * @package   	      Fluent Forms Signature Contract Add-on
+ * @package   	      Electronic Signature Add-on for Fluent Forms
  * @contributors      Kevin Michael Gray (Approve Me), Abu Sohib (Approve Me)
  * @wordpress-plugin
- * Plugin Name:       Fluent Forms Signature Contract Add-on by ApproveMe.com
+ * Plugin Name:       Electronic Signature Add-on for Fluent Forms
  * Plugin URI:        http://aprv.me/2lfrDYG
  * Description:       This add-on makes it possible to automatically email a WP E-Signature document (or redirect a user to a document) after the user has succesfully submitted a Fluent Forms. You can also insert data from the submitted Fluent Form into the WP E-Signature document.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            ApproveMe.com
  * Author URI:        https://www.approveme.com/
- * Text Domain:       esig-ffds
+ * Text Domain:       esig-esff
  * Domain Path:       /languages
  */
 
@@ -18,14 +18,11 @@ if (!defined('WPINC')) {
     die;
 }
 
-// define constant 
-if (!defined("ESIG_FLUENT_ADDON_PATH")) {
-    define('ESIG_FLUENT_ADDON_PATH', dirname(__FILE__));
-}
-if (!defined("ESIG_FLUENT_ADDON_URL")) {
-    define('ESIG_FLUENT_ADDON_URL', plugins_url("/", __FILE__));
+if (!defined("ESIG_ESFF_ADDON_URL")) {
+    define('ESIG_ESFF_ADDON_URL', plugins_url("/", __FILE__));
 }
 
+require_once( plugin_dir_path( __FILE__ ) . 'includes/esff-function.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-ffds.php' );
 register_activation_hook( __FILE__, array( 'ESIG_FFDS', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'ESIG_FFDS', 'deactivate' ) );
@@ -39,8 +36,6 @@ require_once(plugin_dir_path(__FILE__) . 'includes/fluentEsigSettings.php');
 function loadEsigFluentIntegration()
 {
     if (function_exists('wpFluentForm')) {
-              
-        
         require_once(plugin_dir_path(__FILE__) . 'includes/fluentIntegration.php');
         new esigFluentIntegration\esigFluent(wpFluentForm());
     }

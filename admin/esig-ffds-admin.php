@@ -60,6 +60,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             add_action('admin_init', array($this, 'esig_almost_done_fluentform_settings'));
             add_filter('show_sad_invite_link', array($this, 'show_sad_invite_link'), 10, 3);
        
+        
         }
 
         final function show_sad_invite_link($show, $doc, $page_id)
@@ -135,7 +136,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
         }
 
         public function adminmenu() {
-            $esigAbout = new esig_Addon_About("Fluentform");
+            $esigAbout = new esig_esff_Addon_About("Fluentform");
             add_submenu_page('fluent_forms', __('E-Signature', 'esig'), __('E-Signature', 'esig'), 'read', 'esign-fluentform-about', array($esigAbout, 'about_page'));
         }
         
@@ -153,12 +154,9 @@ if (!class_exists('ESIG_FFDS_Admin')) :
           
             if (function_exists('wpFluentForm')) {
                 $esigFeed = esigFluentSetting::getEsigFeedSettings($formid);           
-                $submit_type = esigget('underline_data',$esigFeed);
+                $submit_type = esig_esff_get('underline_data',$esigFeed);
             }
-            $getValue = esigFluentSetting::getFluentValue();
-            if($getValue){
-                $esigFluentFormdata = $getValue;
-            }
+
             $ff_value = esigFluentSetting::get_value($esigFluentFormdata,$label,$formid,$field_id, $display, $option,$submit_type);
             
             if (!$ff_value) return false;
@@ -177,8 +175,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             $html = '';
     
             $html .= '<select id="esig_ff_field_id" name="esig_ff_field_id" class="chosen-select" style="width:250px;">';
-            $form_id = $_POST['form_id'];
-            
+            $form_id = esigpost('form_id');            
     
             $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
     
@@ -191,8 +188,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 if(empty($fieldname)){
                     continue;
                 }
-                $abel = "'".$fieldlabel."'";
-                $html .= '<option data-id='.$abel .' value=' . $fieldname . '>' . $fieldlabel . '</option>';
+                $label = "".$fieldlabel."";
+                $html .= '<option data-id='. esc_attr($label) .' value=' . esc_attr($fieldname) . '>' . esc_attr($fieldlabel) . '</option>';
             }
             echo $html;
     
@@ -211,8 +208,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
     
         public function add_sif_fluentform_buttons($sif_menu) {
     
-            $esig_type = isset($_GET['esig_type']) ? $_GET['esig_type'] : null;
-            $document_id = isset($_GET['document_id']) ? $_GET['document_id'] : null;
+            $esig_type = esig_esff_get('esig_type');
+            $document_id = esff_sanitize_init(esig_esff_get('document_id'));
     
             if (empty($esig_type) && !empty($document_id)) {
     
@@ -231,8 +228,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
     
         public function add_sif_fluentform_text_menu($sif_menu) {
     
-            $esig_type = esigget('esig_type');
-            $document_id = esigget('document_id');
+            $esig_type = esig_esff_get('esig_type');
+            $document_id = esff_sanitize_init(esig_esff_get('document_id'));
     
             if (empty($esig_type) && !empty($document_id)) {
                 $document_type = WP_E_Sig()->document->getDocumenttype($document_id);
@@ -245,6 +242,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             $sif_menu['Fluentform'] = array('label' => "Fluent Form Data");
             return $sif_menu;
         }
+
     
         public function enqueue_admin_scripts() {
     
@@ -262,21 +260,31 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 'toplevel_page_fluent_forms',
             );
 
-            if (in_array(esigFluentSetting::esigget("id",$screen), $fluent_setting_screens)) {              
+            if (in_array(esig_esff_get("id",$screen), $fluent_setting_screens)) {              
 
                 wp_enqueue_script('jquery');
                 wp_enqueue_script('fluentform-setting-script', plugins_url('assets/js/esig-fluentform-setting-control.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.0.1', true);
 
             }
     
-            if (in_array(esigFluentSetting::esigget("id",$screen), $admin_screens)) {
+            if (in_array(esig_esff_get("id",$screen), $admin_screens)) {
                 
                 wp_enqueue_script('jquery');
                 wp_enqueue_script('fluentform-add-admin-script', plugins_url('assets/js/esig-add-fluentform.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.1.0', true);
             }
             
-            if (esigFluentSetting::esigget("id",$screen) != "plugins") {
+            if (esig_esff_get("id",$screen) != "plugins") {
                 wp_enqueue_script('fluentform-add-admin-script', plugins_url('assets/js/esig-fluentform-control.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.1.0', true);
+            }
+
+            if (esig_esff_get("id",$screen) == 'fluent-forms_page_esign-fluentform-about' || esig_esff_get("id",$screen) == 'admin_page_esign-fluentform-about'  || esig_esff_get("id",$screen) == 'toplevel_page_esign-fluentforms-about'){
+                
+                wp_enqueue_script('esign-iframe-script', plugins_url('assets/js/esign-iframe.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.0.1', true);
+                
+                wp_register_style( 'esig_fluent_enqueue_style', plugins_url('about/assets/css/esig-about.css', __FILE__), false, '1.0.0' );
+                wp_enqueue_style( 'esig_fluent_enqueue_style' );
+                wp_enqueue_style( 'esig-google-fonts', 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap', false );
+                wp_enqueue_style( 'esig-snip-styles', plugins_url('about/assets/css/snip-styles.css', __FILE__), false, '0.0.1' );
             }
 
             
@@ -296,35 +304,34 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             $formId = $form->id;          
             $feedValue = esigFluentSetting::getEsigFeedSettings($formId);
            
-            if(!wp_validate_boolean(esigget("enable_esig",$feedValue))) return false;
+            if(!wp_validate_boolean(esig_esff_get("enable_esig",$feedValue))) return false;
           
          //  $ArrayHelper = new ArrayHelper();
          //  $signer_name = $ArrayHelper->get($feedValue, 'signer_name');
-           $signer_email = esigget('signer_email',$feedValue);
-            
-            //$edShortcode = new FluentForm\App\Services\FormBuilder\EditorShortcode();
-            $signer_email = ArrayHelper::get($formData, esigFluentSetting::parseInput($signer_email));
-           if (!is_email($signer_email)) return false;
-    
-           $signing_logic = esigget('signing_logic',$feedValue);
+            $email_field = esig_esff_get('signer_email',$feedValue);
+            $name_field = esig_esff_get('signer_name',$feedValue); 
 
-            $sad_page_id = esigget('select_sad_doc', $feedValue);
-            
-            $signer_name = ArrayHelper::get($formData, esigFluentSetting::parseInput(esigget('signer_name', $feedValue)));
+            if (strpos($name_field, 'names') !== false) {
+                $name_field = "names";
+            } 
 
-            if(!is_array($signer_name)) return false;
-
-            $signerName = esigFluentSetting::prepareNames($signer_name);
+            $signer_email = sanitize_email(esig_esff_get($email_field,$formData));           
+            $signer_name = esig_esff_get($name_field,$formData);   
+            $signing_logic = esig_esff_get('signing_logic',$feedValue);
+            $sad_page_id = esig_esff_get('select_sad_doc', $feedValue);
            
-           $document_id = $sad->get_sad_id($sad_page_id);
-                
-           $docStatus  = WP_E_Sig()->document->getStatus($document_id);
+            if(is_array($signer_name)){
+                $signer_name = sanitize_text_field(esigFluentSetting::prepareNames($signer_name));
+            }
+
+            $document_id = $sad->get_sad_id($sad_page_id);                    
+            $docStatus  = WP_E_Sig()->document->getStatus($document_id);
                 
             if($docStatus !="stand_alone") return false;
-    
+            
             if (!is_email($signer_email)) return false;
             //sending email invitation / redirecting .
-            self::esig_invite_document($document_id, $signer_email, $signerName, $formId,$insertId, $signing_logic,$formData,$feedValue,$form);
+            self::esig_invite_document($document_id, $signer_email, $signer_name, $formId,$insertId, $signing_logic,$formData,$feedValue,$form);
     
         }
 
@@ -382,11 +389,6 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 'document' => $doc,
                 'old_doc_id' => $old_doc_id,
             ));
-    
-    
-            // Enable reminder from cf7 e-signature settings. 
-          //  self::enableReminder($form_id,$doc_id);
-         
 
             if(isset($feedValue['signing_reminder'])){
                self::enableReminder($feedValue,$doc_id);
@@ -414,6 +416,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             Helper::setSubmissionMeta($insertId, 'esig_document_id', $doc_id);
             global $esigFluentDocumentId;
             $esigFluentDocumentId = $doc_id;
+            
             if ($signing_logic == "email") {
     
                 if ($invite_controller->saveThenSend($invitation, $doc)) {
@@ -428,8 +431,6 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                
                 $invite_url = WP_E_Invite::get_invite_url($invite_hash, $doc->document_checksum);   
                 WP_E_Sig()->meta->add($doc_id, "esig_fluent_forms_invite_url", wp_sanitize_redirect(urldecode( $invite_url)));
-                
-               // esigFluentSetting::save_invite_url($invite_hash, $doc->document_checksum);
             }
         }
 
@@ -437,10 +438,10 @@ if (!class_exists('ESIG_FFDS_Admin')) :
         private static function enableReminder($esignConfig,$docId)
         {
 
-            $reminder_set =  esigget('signing_reminder',$esignConfig);
-            $reminderEmail = esigget('reminder_email',$esignConfig);
-            $first_reminder_send = esigget('first_reminder_send',$esignConfig);
-            $expire_reminder = esigget('expire_reminder',$esignConfig);
+            $reminder_set =  esff_sanitize_init(esig_esff_get('signing_reminder',$esignConfig));
+            $reminderEmail = esff_sanitize_init(esig_esff_get('reminder_email',$esignConfig));
+            $first_reminder_send = esff_sanitize_init(esig_esff_get('first_reminder_send',$esignConfig));
+            $expire_reminder = esff_sanitize_init(esig_esff_get('expire_reminder',$esignConfig));
 
             if($reminderEmail < 1 || $first_reminder_send < 1 || $expire_reminder < 1)
             {
@@ -466,7 +467,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
            $formId = $form->id;          
            $feedValue = esigFluentSetting::getEsigFeedSettings($formId);
 
-           $signing_logic = esigget('signing_logic',$feedValue);
+           $signing_logic = esig_esff_get('signing_logic',$feedValue);
 
             global $esigFluentDocumentId;
         

@@ -43,7 +43,7 @@ class esigFluent extends IntegrationManager
 
         //$this->userApi = new UserRegistrationApi;
 
-        $this->logo = ESIG_FLUENT_ADDON_URL . "admin/assets/images/e-signature-logo.svg"; //$this->app->url('public/img/integrations/user_registration.png');
+        $this->logo = ESIG_ESFF_ADDON_URL . "admin/assets/images/e-signature-logo.svg"; //$this->app->url('public/img/integrations/user_registration.png');
 
         $this->description = 'This add-on allows you to redirect your form-filler or email an individual to review and sign an electronic document.';
 
@@ -124,21 +124,28 @@ class esigFluent extends IntegrationManager
                 'component'   => 'text'
             ],
             [
-                'key'          => 'signer_name',
-                'required' => true,
-                'label'        => __('Signer Name', 'esig'),
-                'placeholder'  => __('Signer Name', 'esig'),
-                'component'    => 'value_text',
-                'input_options' => 'all',
-                
-            ],
-            [
-                'key'          => 'signer_email',
-                'required' => true,
-                'label'        => __('Signer Email', 'esig'),
-                'placeholder'  => __('Signer Email', 'esig'),
-                'component'    => 'value_text',
-                'input_options' => 'emails',
+                'key'                => 'signer_info',
+                'require_list'       => false,
+                'label'              => 'Signer Details',
+                'tips'               => 'Please Select fields for signer name and signer email',
+                'component'          => 'map_fields',
+                'field_label_remote' => 'Use for',
+                'field_label_local'  => 'Form Field',
+                'primary_fileds'     => [
+                    [
+                        'key'           => 'signer_name',
+                        'label'         => __('Signer Name', 'esig'),
+                        'required'      => true,
+                        'input_options' => 'all'
+                    ],
+                    [
+                        'key'           => 'signer_email',
+                        'label'         => __('Signer Email', 'esig'),
+                        'required'      => true,
+                        'input_options' => 'emails'
+                    ],
+
+                ]
             ],
             [
                 'key'         => 'signing_logic',
@@ -224,14 +231,32 @@ class esigFluent extends IntegrationManager
           
             if(empty($settings[$field['key']]) && wp_validate_boolean($field['required']))
             {
-                $errors[$field['key']] = $field['label'] . ' is required.';
+                $errors[$field['key']] = $field['label'] . ' is requireddd.';
             }elseif($field['key'] == 'reminder_email' || $field['key'] == 'first_reminder_send' || $field['key'] == 'expire_reminder'){
                 
-                $reminderValue = $test = $settings[$field['key']];
+                $reminderValue = $settings[$field['key']];
+
+                if($settings['signing_reminder'] != '1'){
+                    $errors['signing_reminder'] = 'Please enabled signing reminder first';
+                }
 
                 if(strpos($reminderValue, '-') !== false || $reminderValue == '0' || preg_match("/[a-z]/i", $reminderValue)){
                     $errors[$field['key']] = 'Please enter a valid value for '. $field['label'];
-                }               
+                } 
+
+                $first_reminder_email = $settings['reminder_email'];
+                $second_reminder_email = $settings['first_reminder_send'];
+                $expire_reminder = $settings['expire_reminder'];
+
+               
+                if ($second_reminder_email <= $first_reminder_email ){
+                    $errors['first_reminder_send'] = 'Second reminder should be getter Greater than First reminder';
+                }
+                
+                if ($expire_reminder <= $second_reminder_email ){
+                    $errors['expire_reminder'] = 'Last reminder should be getter Greater than Second reminder';
+                }	
+                
 
             }
         }

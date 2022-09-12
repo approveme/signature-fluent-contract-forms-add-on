@@ -6,9 +6,9 @@
  * and open the template in the editor.
  */
 
-if (!class_exists('esig_Addon_About')) :
+if (!class_exists('esig_esff_Addon_About')) :
     
-    class esig_Addon_About {
+    class esig_esff_Addon_About {
     
         
         
@@ -32,7 +32,7 @@ if (!class_exists('esig_Addon_About')) :
 
         private function isAllowedScreen()
         {
-            $page = (isset($_GET['page']))? $_GET['page'] : false;
+            $page = esig_esff_get('page');
 
             $screens = array("esign-licenses-general");
 
@@ -59,22 +59,21 @@ if (!class_exists('esig_Addon_About')) :
             if($message)
             {
                 $this->loadCss();
-                echo '<div class="bangBar error ' . strtolower($this->_name) . '  ">' . $message . '</div>';
+                echo '<div class="bangBar error ' . esc_attr(strtolower($this->_name)) . '  ">' . $message . '</div>';
             }
             
         }
     
         final function loadCss(){
             
-                $page  = isset($_GET['page']) ? $_GET['page'] : false ;
+                $page  = esig_esff_get('page');
 
                 if(!empty($page)  && preg_match("/esign-/i",$page)){
                   return false;
                 }
 
                 wp_enqueue_style("esig-icon-css");
-
-                echo '<link id="esig-about-alert" href="'. plugins_url( '/assets/css/esig-about-alert.css', dirname(__FILE__)) .'" rel="stylesheet">';
+                wp_enqueue_style( 'esig-about-alert', plugins_url( '/assets/css/esig-about-alert.css', dirname(__FILE__)), array(),' 1.0.0', 'all' );
                 
         }
 
@@ -99,12 +98,12 @@ if (!class_exists('esig_Addon_About')) :
 
         public function about_page() {
             
-            include_once(constant("ESIGN_". strtoupper($this->_name) ."_ABOUT_PATH") . "/views/esig-addon-about.php");
+            include_once( ESIGN_ESFF_ABOUT_PATH . "/views/esig-addon-about.php");
         }
 
         public function core_page() {
 
-            include_once(constant("ESIGN_". strtoupper($this->_name) ."_ABOUT_PATH") . "/views/core-about.php");
+            include_once( ESIGN_ESFF_ABOUT_PATH . "/views/core-about.php");
         }
         
     }
