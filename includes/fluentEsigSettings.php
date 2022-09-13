@@ -6,11 +6,23 @@ use WP_E_Invite;
 
 class esigFluentSetting {
 
+
+    private static $entryValue = null;
+
+    public static function setFluentValue($value)
+    {
+        self::$entryValue = $value;
+    }
+    public static function getFluentValue()
+    {
+        return self::$entryValue;
+    }
+
         
     public static function get_sad_documents()
     {
         if (!function_exists('WP_E_Sig'))
-        return;
+                return;
 
         $api = WP_E_Sig();
 
@@ -150,32 +162,18 @@ class esigFluentSetting {
                 
     }
 
-    public static function esigget($name, $array = null) {
-
-        if (!isset($array) && function_exists('ESIG_GET')) {
-            return ESIG_GET($name);
-        }
-
-        if (is_array($array)) {
-            if (isset($array[$name])) {
-                return wp_unslash($array[$name]);
-            }
-            return false;
-        }
-
-        if (is_object($array)) {
-            if (isset($array->$name)) {
-                return wp_unslash($array->$name);
-            }
-            return false;
-        }
-
-        return false;
-    }
-
     public static function save_submission_value($document_id, $form_id, $formData) 
     {
         WP_E_Sig()->meta->add($document_id, "esig_fluent_forms_submission_value", json_encode($formData));
+    }
+
+    public static function get_submission_value($document_id, $form_id, $field_id) 
+    {
+        $fluent_value = json_decode(WP_E_Sig()->meta->get($document_id, "esig_fluent_forms_submission_value"), true);
+        if (is_array($fluent_value)) 
+        {
+            return esigget($field_id, $fluent_value);
+        }
     }
 
     public static function checkboxValue($value)
@@ -185,7 +183,7 @@ class esigFluentSetting {
         $items = '';
         foreach ($value as $item) {
             if ($item) {
-                $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">' . $item . '</li>';
+                $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">' . esc_attr($item) . '</li>';
             }
         }
         return  "<ul class='esig-checkbox-tick'>$items</ul>";
@@ -198,7 +196,7 @@ class esigFluentSetting {
         $items = '';
         foreach ($value as $key => $item) {
             foreach ($item as $newItem) {
-                $items .= '<li>'.$key.' - <input type="checkbox" onclick="return false;" readonly checked="checked">' . $newItem . '</li>';
+                $items .= '<li>'. $key .' - <input type="checkbox" onclick="return false;" readonly checked="checked">' . esc_attr($newItem) . '</li>';
             }
 
         }
@@ -275,7 +273,7 @@ class esigFluentSetting {
         }
 
         if(!is_array($data)) return false;
-        $value  = esigget($fieldId,$data);
+        $value  = esig_esff_get($fieldId,$data);
         switch($fieldId){
             case "checkbox":
                 return self::checkboxValue($value);
@@ -296,10 +294,10 @@ class esigFluentSetting {
                 return self::getHtmlFieldsValue($formId, 'html_codes');
                 break;            
             case "email":
-                return '<a style="'.$style.'" href="mailto:' . $value . '" target="_blank">' . $value . '</a>' ;
+                return '<a style="'. esc_attr($style) .'" href="mailto:' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;  
             case "url":
-                return '<a style="'.$style.'" href="' . $value . '" target="_blank">' . $value . '</a>' ;
+                return '<a style="'. esc_attr($style) .'" href="' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;
             case "file-upload":            
                 return self::fileValue($value,$style);
@@ -332,173 +330,6 @@ class esigFluentSetting {
 
             return false;
 
-            // print_r($data);
-            /*if (is_array($data)) {
-
-                if ($display == "value") {                   
-                    $value = isset($data[$field_id]) ? $data[$field_id] : false;
-                   // return $data;
-                    $result = '';
-                    if (is_array($value)) {
-                        
-                      if($field_id == "file-upload" || $field_id == "image-upload"){
-                           
-                            $items = '';
-                            foreach ($value as $item) {
-                                if ($item) {
-                                    $items .=  $item;  
-                                }
-                            }
-                            return "<a href=".$items.">".basename($items)."</a>";
-                        
-                        }elseif($field_id == "address_1"){
-                            
-                            foreach ($value as $key => $val) {                           
-
-                                if($key == 'country'){                                    
-                                    $result .= $val . '.   ';
-                                }else{
-                                    if($val){
-                                        $result .= $val . ', ';
-                                    }                                    
-                                    
-                                }                              
-                               
-                            }                            
-                        }else{
-                            foreach ($value as $val) {
-                                $result .= $val . ' ';
-                            } 
-                        }
-                        
-                        return substr($result, 0, strlen($result) - 2);
-                    }
-                    
-                  
-                    
-                    if($field_id == "input_radio"){
-                       $value = '<input type="radio" id='.$value.' onclick="return false;" readonly checked="checked"> '.$value.'';
-                    }
-                    
-                    
-                    if($field_id == "url"){
-                        $value = ($submit_type == "underline") ? '<a href="' . $value . '" target="_blank"><u>' . $value . '</u></a>' : '<a href="' . $value . '" target="_blank">' . $value . '</a>';
-                    }  
-                    
-                    if($field_id == "email"){
-                        $value = ($submit_type == "underline") ?  '<a href="mailto:' . $value . '" target="_blank"><u>' . $value . '</u></a>' :  '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>';
-                      
-                    } 
-                    
-                    if($field_id == "html_codes"){
-                       $value =  self::getHtmlFieldsValue($formid,'html_codes');
-                    }
-                    return $value;
-
-                
-
-
-                } elseif ($display == "label_value") {                   
-
-                    $value = isset($data[$field_id]) ? $data[$field_id] : false;
-                    $result = '';                          
-                    
-                    if (is_array($value)) {
-                        
-
-                        if($field_id == "address_1"){
-                            
-                            foreach ($value as $key => $val) {                           
-
-                                if($key == 'country'){    
-                                    $countries = wpFluentForm()->load(
-                                    wpFluentForm()->appPath('Services/FormBuilder/CountryNames.php')
-                                ) ;                               
-                                    $result .=$countries[$val] . '.   ';
-                                }else{
-                                    if($val){
-                                        $result .= $val . ', ';
-                                    }                                    
-                                    
-                                }                              
-                               
-                            }
-
-                            
-                        }elseif($field_id == "checkbox"){
-                            $items = '';
-                            foreach ($value as $item) {
-                                if ($item) {
-                                    $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">'.$item.'</li>';
-                                }
-                            }
-                            return $label . ": " ."<ul class='esig-checkbox-tick'>$items</ul>";
-                           // return $label . ": " ."<a href=".substr($result, 0, strlen($result) - 2).">".basename(substr($result, 0, strlen($result) - 2))."</a>";
-                        
-                        }elseif($field_id == "multi_select"){
-                        $items = '';
-                            foreach ($value as $item) {
-                                if ($item) {
-                                    $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">'.$item.'</li>';
-                                }
-                            }
-                            return $label . ": " ."<ul class='esig-checkbox-tick'>$items</ul>";
-                        }elseif($field_id == "repeater_field"){
-                            $items = '';
-                        
-                            foreach ($value as $val) {
-                                
-                                foreach ($val as $item) {
-                                if ($item) {
-                                    $items .= $item.'<br>';
-                                }
-                                }
-                               
-                            } 
-
-                            return $label . ": " . $items;
-                        }elseif($field_id == "file-upload" || $field_id == "image-upload"){
-                           
-                            
-                            $items = '';
-                            foreach ($value as $item) {
-                                if ($item) {
-                                    $items .=  $item;  
-                                }
-                            }
-                           
-                            return $label . ": " ."<a href=".$items.">".basename($items)."</a>";
-                            
-                        }else{
-                            foreach ($value as $val) {
-                                $result .= $val . ' ';
-                            } 
-                        }
-                        
-                        return $label . ": " . substr($result, 0, strlen($result) - 2);
-                    }
-                    
-                    if($field_id == "input_radio"){
-                       $value = '<input type="radio" id='.$value.' onclick="return false;" readonly checked="checked"> '.$value.'';
-                    }                    
-                    
-                    if($field_id == "url"){
-                        $value = ($submit_type == "underline") ? '<a href="' . $value . '" target="_blank"><u>' . $value . '</u></a>' : '<a href="' . $value . '" target="_blank">' . $value . '</a>';
-                    }  
-                    
-                    if($field_id == "email"){
-                        $value = ($submit_type == "underline") ?  '<a href="mailto:' . $value . '" target="_blank"><u>' . $value . '</u></a>' :  '<a href="mailto:' . $value . '" target="_blank">' . $value . '</a>';
-                      
-                    } 
-                    if($field_id == "html_codes"){                     
-                        
-                       $value =  self::getHtmlFieldsValue($formid,'html_codes');
-                    }
-                    return $label . ": " . $value;
-
-                }
-            }
-            return false;*/
         }
         
         
@@ -517,7 +348,7 @@ class esigFluentSetting {
         {
             $results = preg_replace('/^{(.*)}$/', '$1', $string);
             $array = explode(".", $results);
-            return esigget("1",$array);
+            return esig_esff_get("1",$array);
         }
 
         public static function prepareNames($names)
@@ -530,6 +361,5 @@ class esigFluentSetting {
             }
             return rtrim($result);
         }
-
     
 }
