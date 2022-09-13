@@ -22,6 +22,17 @@ if (!class_exists('ESIG_FFDS_Admin')) :
         protected static $instance = null;
         public $name;
 
+        private static $newFormId = null;
+
+        public static function setffFormID($ID)
+        {
+            self::$newFormId = $ID;
+        }
+        public static function getffFormID()
+        {
+            return self::$newFormId;
+        }
+
         /**
          * Slug of the plugin screen.
          * @since    1.0.1
@@ -157,11 +168,14 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 $submit_type = esig_esff_get('underline_data',$esigFeed);
             }
 
+
+            $newFormId = self::getffFormID();
+
             $ff_value = esigFluentSetting::get_value($esigFluentFormdata,$label,$formid,$field_id, $display, $option,$submit_type);
             
-            if (!$ff_value) return false;
-
-            return esigFluentSetting::display_value($ff_value, $submit_type);
+            if (!$ff_value || $newFormId != $formid) return false;
+            return esigFluentSetting::display_value($ff_value, $submit_type); 
+            
 
         }
 
@@ -301,7 +315,10 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             if(!class_exists('esig_sad_document')) return false;
             $sad = new esig_sad_document();    
     
-            $formId = $form->id;          
+            $formId = $form->id;   
+            
+            self::setffFormID($formId);
+            
             $feedValue = esigFluentSetting::getEsigFeedSettings($formId);
            
             if(!wp_validate_boolean(esig_esff_get("enable_esig",$feedValue))) return false;
