@@ -277,7 +277,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 wp_enqueue_script('fluentform-add-admin-script', plugins_url('assets/js/esig-fluentform-control.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.1.0', true);
             }
 
-            if (esig_esff_get("id",$screen) == 'fluent-forms_page_esign-fluentform-about' || esig_esff_get("id",$screen) == 'admin_page_esign-fluentform-about'  || esig_esff_get("id",$screen) == 'toplevel_page_esign-fluentforms-about'){
+            if (str_contains(esig_esff_get("id",$screen), 'esign-fluentform')){
                 
                 wp_enqueue_script('esign-iframe-script', plugins_url('assets/js/esign-iframe.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.0.1', true);
                 
