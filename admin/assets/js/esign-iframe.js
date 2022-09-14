@@ -45,7 +45,7 @@ function closeToolbar(link, event) {
 function getPluginName(){
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    let pluginName = "Gravity Forms"; // default to gravity forms if we don't know
+    let pluginName = "Fluent Forms"; // default to Fluent Forms if we don't know
     if( urlParams.has('page') ){
         pluginName = urlParams.get('page');
     }    
@@ -78,7 +78,7 @@ function pluginNameLookup(pluginName){
 function updateContent(pluginName){
     const pluginNameSanitized = pluginName.toLowerCase().replace(" ", "-");
     const pluginNameUTM = pluginNameSanitized.replace("-", "");
-    const ctaURL = "https://www.approveme.com/"+pluginNameSanitized+"-signature-special?utm_campaign=wprepo&utm_medium=snipbar&utm_source="+pluginNameUTM+"#letschat";      
+    const ctaURL = "https://www.approveme.com/"+pluginNameSanitized+"-signature-special?utm_source=wprepo&utm_medium=snipbar&utm_source="+pluginNameUTM+"#letschat";      
     document.getElementById("messageText").textContent = "Got a question about a custom "+pluginName+" to WP E-Sign workflow?";
     document.getElementById("buttonAction").setAttribute("href",ctaURL);
     document.getElementById("profileName").setAttribute("href", ctaURL);

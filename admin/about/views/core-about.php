@@ -33,7 +33,7 @@ function esig_generate_about_page(array $about_options = array())
     }
 
     if (!array_key_exists('main-cta', $about_options)) {
-        $about_options['main-cta'] = 'https://www.approveme.com/' . esc_attr($about_options['plugin-slug']) . '-signature-special/?utm_campaign=wprepo';
+        $about_options['main-cta'] = 'https://www.approveme.com/' . esc_attr($about_options['plugin-slug']) . '-signature-special/?utm_source=wprepo&utm_medium=link&utm_campaign=' . esc_attr($about_options['plugin-slug']) ;
     }
 
     $single_name = substr($about_options['pluginName'], -1) == 's' ?  substr($about_options['pluginName'], 0, -1) :  $about_options['pluginName'];
@@ -71,7 +71,7 @@ function esig_generate_about_page(array $about_options = array())
                             //header buttons
                             if (!$esigStatus || $esigStatus == 'no_wpe') {
                                 $headerOneText = 'Get Started';
-                                $headerOneURL = 'https://www.approveme.com/' . $about_options['plugin-slug'] . "-special-pricing/?utm_campaign=wprepo";
+                                $headerOneURL = 'https://www.approveme.com/' . $about_options['plugin-slug'] . '-signature-special/?utm_source=wprepo&utm_medium=link&utm_campaign=' . esc_attr($about_options['plugin-slug']) ;
                                 $headerTwoText = 'See all features';
                                 $headerTwoURL = $about_options['main-cta'] . '#features/';
                             } else {
