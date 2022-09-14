@@ -232,7 +232,7 @@ class esigFluent extends IntegrationManager
             if(empty($settings[$field['key']]) && wp_validate_boolean($field['required']))
             {
                 $errors[$field['key']] = $field['label'] . ' is required.';
-            }elseif($field['key'] == 'reminder_email' || $field['key'] == 'first_reminder_send' || $field['key'] == 'expire_reminder'){
+            }elseif(!empty($settings['reminder_email']) || !empty($settings['first_reminder_send']) || !empty($settings['expire_reminder']) || $settings['signing_reminder'] == '1'){
                 
                 $reminderValue = $settings[$field['key']];
 
