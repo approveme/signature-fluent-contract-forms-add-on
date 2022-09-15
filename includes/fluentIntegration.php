@@ -231,17 +231,17 @@ class esigFluent extends IntegrationManager
           
             if(empty($settings[$field['key']]) && wp_validate_boolean($field['required']))
             {
-                $errors[$field['key']] = $field['label'] . ' is required.';
+                $errors[] = $field['label'] . ' is required.';
             }elseif(!empty($settings['reminder_email']) || !empty($settings['first_reminder_send']) || !empty($settings['expire_reminder']) || $settings['signing_reminder'] == '1'){
                 
                 $reminderValue = $settings[$field['key']];
 
                 if($settings['signing_reminder'] != '1'){
-                    $errors['signing_reminder'] = 'Please enabled signing reminder first';
+                    $errors[] = 'Please enabled signing reminder first';
                 }
 
                 if(strpos($reminderValue, '-') !== false || $reminderValue == '0' || preg_match("/[a-z]/i", $reminderValue)){
-                    $errors[$field['key']] = 'Please enter a valid value for '. $field['label'];
+                    $errors[] = 'Please enter a valid value for '. $field['label'];
                 } 
 
                 $first_reminder_email = $settings['reminder_email'];
@@ -250,11 +250,11 @@ class esigFluent extends IntegrationManager
 
                
                 if ($second_reminder_email <= $first_reminder_email ){
-                    $errors['first_reminder_send'] = 'Second reminder should be Greater than First reminder';
+                    $errors[] = 'Second reminder should be Greater than First reminder';
                 }
                 
                 if ($expire_reminder <= $second_reminder_email ){
-                    $errors['expire_reminder'] = 'Last reminder should be getter Greater than Second reminder';
+                    $errors[] = 'Last reminder should be getter Greater than Second reminder';
                 }	
                 
 
