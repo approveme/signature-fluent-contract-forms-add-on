@@ -228,6 +228,12 @@ class esigFluent extends IntegrationManager
         
         $settingsFields = $this->getSettingsFields($settings);
         foreach ($settingsFields['fields'] as $field) {
+
+            if(empty($settings['signer_name'])){
+                $errors[] = 'Signer Name is required.';
+            }elseif(empty($settings['signer_email'])){
+                $errors[] = 'Signer Email is required.';
+            }
           
             if(empty($settings[$field['key']]) && wp_validate_boolean($field['required']))
             {
