@@ -248,6 +248,14 @@ class esigFluent extends IntegrationManager
                 $second_reminder_email = $settings['first_reminder_send'];
                 $expire_reminder = $settings['expire_reminder'];
 
+                if(empty($first_reminder_email)){
+                    $errors[] = 'Please enter First Reminder';
+                }elseif(empty($second_reminder_email)){
+                    $errors[] = 'Please enter Second Reminder';
+                }elseif(empty($expire_reminder)){
+                    $errors[] = 'Please enter Third Reminder ';
+                } 
+
                
                 if ($second_reminder_email <= $first_reminder_email ){
                     $errors[] = 'Second reminder should be Greater than First reminder';
