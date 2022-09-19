@@ -73,7 +73,7 @@ function esig_generate_about_page(array $about_options = array())
                                 $headerOneText = 'Get Started';
                                 $headerOneURL = 'https://www.approveme.com/' . $about_options['plugin-slug'] . '-signature-special/?utm_source=wprepo&utm_medium=link&utm_campaign=' . esc_attr($about_options['plugin-slug']) ;
                                 $headerTwoText = 'See all features';
-                                $headerTwoURL = $about_options['main-cta'] . '#features/';
+                                $headerTwoURL = $about_options['main-cta'] . '#features';
                             } else {
                                 $headerOneText = 'My Account';
                                 $headerOneURL = 'http://www.approveme.com/sign-in/';
