@@ -14,6 +14,17 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
     class ESIG_FFDS_Admin{
 
+        private static $fluentFormId = null;
+
+        public static function setFluentFormID($ID)
+        {
+            self::$fluentFormId = $ID;
+        }
+        public static function getFluentFormID()
+        {
+            return self::$fluentFormId;
+        }
+
         /**
          * Instance of this class.
          * @since    1.0.1
@@ -157,6 +168,9 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 $submit_type = esig_esff_get('underline_data',$esigFeed);
             }
 
+            $newFormId = self::getFluentFormID(); 
+                     
+            if ($newFormId != $formid) return false;            
             $ff_value = esigFluentSetting::get_value($esigFluentFormdata,$label,$formid,$field_id, $display, $option,$submit_type);
             
             if (!$ff_value) return false;
@@ -301,7 +315,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             if(!class_exists('esig_sad_document')) return false;
             $sad = new esig_sad_document();    
     
-            $formId = $form->id;          
+            $formId = $form->id;  
+            self::setFluentFormID($formId);        
             $feedValue = esigFluentSetting::getEsigFeedSettings($formId);
            
             if(!wp_validate_boolean(esig_esff_get("enable_esig",$feedValue))) return false;
@@ -348,7 +363,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             $esigFluentFormdata = $formData;
             // Copy the document
             $doc_id = WP_E_Sig()->document->copy($old_doc_id);
-    
+            
             WP_E_Sig()->meta->add($doc_id, 'esig_ff_form_id', $form_id);
             WP_E_Sig()->meta->add($doc_id, 'esig_ff_entry_id', $insertId);
           

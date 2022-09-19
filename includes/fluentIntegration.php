@@ -194,21 +194,21 @@ class esigFluent extends IntegrationManager
                 'label'       => 'First Reminder',
                 'required'    => false,
                 'component'   => 'number',               
-                'tips'         => 'Send the first reminder to the signer after this many days.',
+                'tips'         => '"Send the first reminder to the signer FIELD days after the initial signing request.',
             ],
 
             [
                 'key'         => 'first_reminder_send',
                 'label'       => 'Second Reminder',
                 'required'    => false,
-                'tips'         => 'Send the second reminder to the signer after this many days.',
+                'tips'         => 'Send the second reminder to the signer FIELD days after the initial signing request.',
                 'component'   => 'number'
             ],
             [
                 'key'         => 'expire_reminder',
                 'label'       => 'Third Reminder',
                 'required'    => false,
-                'tips'         => 'Send the final reminder to the signer after this many days.',
+                'tips'         => 'Send the last reminder to the signer FIELD days after the initial signing request.',
                 'component'   => 'number'
             ],
             
@@ -228,33 +228,47 @@ class esigFluent extends IntegrationManager
         
         $settingsFields = $this->getSettingsFields($settings);
         foreach ($settingsFields['fields'] as $field) {
+
+            if(empty($settings['signer_name'])){
+                $errors[] = 'Signer Name is required.';
+            }elseif(empty($settings['signer_email'])){
+                $errors[] = 'Signer Email is required.';
+            }
           
             if(empty($settings[$field['key']]) && wp_validate_boolean($field['required']))
             {
-                $errors[$field['key']] = $field['label'] . ' is requireddd.';
-            }elseif($field['key'] == 'reminder_email' || $field['key'] == 'first_reminder_send' || $field['key'] == 'expire_reminder'){
+                $errors[] = $field['label'] . ' is required.';
+            }elseif(!empty($settings['reminder_email']) || !empty($settings['first_reminder_send']) || !empty($settings['expire_reminder']) || $settings['signing_reminder'] == '1'){
                 
                 $reminderValue = $settings[$field['key']];
 
                 if($settings['signing_reminder'] != '1'){
-                    $errors['signing_reminder'] = 'Please enabled signing reminder first';
+                    $errors[] = 'Please enabled signing reminder first';
                 }
 
                 if(strpos($reminderValue, '-') !== false || $reminderValue == '0' || preg_match("/[a-z]/i", $reminderValue)){
-                    $errors[$field['key']] = 'Please enter a valid value for '. $field['label'];
+                    $errors[] = 'Please enter a valid value for '. $field['label'];
                 } 
 
                 $first_reminder_email = $settings['reminder_email'];
                 $second_reminder_email = $settings['first_reminder_send'];
                 $expire_reminder = $settings['expire_reminder'];
 
+                if(empty($first_reminder_email)){
+                    $errors[] = 'Please enter First Reminder';
+                }elseif(empty($second_reminder_email)){
+                    $errors[] = 'Please enter Second Reminder';
+                }elseif(empty($expire_reminder)){
+                    $errors[] = 'Please enter Third Reminder ';
+                } 
+
                
                 if ($second_reminder_email <= $first_reminder_email ){
-                    $errors['first_reminder_send'] = 'Second reminder should be getter Greater than First reminder';
+                    $errors[] = 'Second reminder should be Greater than First reminder';
                 }
                 
                 if ($expire_reminder <= $second_reminder_email ){
-                    $errors['expire_reminder'] = 'Last reminder should be getter Greater than Second reminder';
+                    $errors[] = 'Last reminder should be getter Greater than Second reminder';
                 }	
                 
 

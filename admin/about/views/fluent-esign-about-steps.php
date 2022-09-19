@@ -10,7 +10,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
             <h4><span class="esig-step">1</span> Download and Install the required plugins</h4>
             <p>Congrats on installing our Digital Signature Fluent Forms Add-on. You're almost ready! ApproveMe's WP E-Signature requires a few more plugins/add-ons so you can unlock the power and automate Fluent Forms and legally binding Digital Signatures. You'll need to download the following:</p>
 
-            <p>1. <a href="https://wordpress.org/plugins/fluent-forms/" target="_blank">Fluent Forms</a><br>2. <a href="https://www.approveme.com/wp-e-signature/?utm_source=wprepo&utm_medium=link&utm_campaign=fluentforms">WP E-Signature</a> <em>(ultimate, business or professional license)<br> </em>3. E-Signature Business Pack <em>(included with the Ultimate and Pro license)<br> </em></p>
+            <p>1. <a href="https://wordpress.org/plugins/fluent-forms/" target="_blank">Fluent Forms</a><br>2. <a href="https://www.approveme.com/wp-e-signature/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms">WP E-Signature</a> <em>(ultimate, business or professional license)<br> </em>3. E-Signature Business Pack <em>(included with the Ultimate and Pro license)<br> </em></p>
 
 
         </div>
@@ -40,7 +40,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
             <?php $licenseUrl = (function_exists("WP_E_Sig")) ? '<a href="admin.php?page=esign-licenses-general">enter your license key</a>' : 'enter your license key'; ?>
             <p>Once you have purchased an Ultimate or Pro licenses from ApproveMe you will need to <?php echo esc_url($licenseUrl) ;?> to activate updates and support.</p>
 
-            <p>To view your license key you can log into your <a href="https://www.approveme.com/sign-in/?utm_source=wprepo&utm_medium=link&utm_campaign=fluentforms">ApproveMe account here</a> (password was emailed with your receipt)</p>
+            <p>To view your license key you can log into your <a href="https://www.approveme.com/sign-in/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms">ApproveMe account here</a> (password was emailed with your receipt)</p>
 
         </div>
     </div>
@@ -60,7 +60,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
                     <p class="approveme-mini-btn"><a href="post-new.php?post_type=page" class="approveme-mini-btn outlined" target="_blank">Create a Blank Page Now</a></p>
                 </div>
             <?php endif; ?>
-            <p>To learn about stand alone documents, you can visit this <a href="https://wpe.approveme.com/article/156-basic-document-vs-stand-alone-document/?utm_source=wprepo&utm_medium=link&utm_campaign=fluentforms" target="_blank">helpful article</a></p>
+            <p>To learn about stand alone documents, you can visit this <a href="https://wpe.approveme.com/article/156-basic-document-vs-stand-alone-document/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms" target="_blank">helpful article</a></p>
         </div>
 
         <div class="approveme-column-2 approveme-center">
@@ -106,7 +106,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
             <p>This step will vary based on your desired outcome. Digital signature by Approve Me is triggered when a Fluent Formis submitted. This add-on gives you the ability to integrate Fluent Forms user data (that was inputted from the user when the form was submitted) into a new contract that will either be emailed to the user or will be displayed to the user after they submit you form.</p>
 
 
-            <p>To insert data into a WP E-Signature document, you will need the <a href="https://www.approveme.com/downloads/signer-input-fields/?utm_source=wprepo&utm_medium=link&utm_campaign=fluentforms">Custom Fields</a> add-on by ApproveMe <em>(Ultimate, Business or Pro license required).</em></p>
+            <p>To insert data into a WP E-Signature document, you will need the <a href="https://www.approveme.com/downloads/signer-input-fields/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms">Custom Fields</a> add-on by ApproveMe <em>(Ultimate, Business or Pro license required).</em></p>
 
             <p><strong>How to add form fields data into a contract using Fluent Forms</strong><br>
             <ol>
@@ -212,7 +212,7 @@ $isEsigAndProActive = (function_exists("WP_E_Sig") && class_exists("ESIG_SAD_Adm
 
             <p>To view a live fluent to WP E-Signature demo you can check one out at:</p>
             <div align="center">
-                <div class="approveme-btn"><a class="button-border" href="http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=fluentforms">Try a Live Demo of this Integration</a></div>
+                <div class="approveme-btn"><a class="button-border" href="http://www.secure.approveme.com/demo/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms">Try a Live Demo of this Integration</a></div>
             </div>
             <br>
         </div>
