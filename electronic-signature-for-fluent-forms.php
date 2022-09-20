@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @package   	      Electronic Signature Add-on for Fluent Forms
  * @contributors      Kevin Michael Gray (Approve Me), Abu Sohib (Approve Me)

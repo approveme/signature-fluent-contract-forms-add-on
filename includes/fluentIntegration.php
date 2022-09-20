@@ -194,7 +194,7 @@ class esigFluent extends IntegrationManager
                 'label'       => 'First Reminder',
                 'required'    => false,
                 'component'   => 'number',               
-                'tips'         => '"Send the first reminder to the signer FIELD days after the initial signing request.',
+                'tips'         => 'Send the first reminder to the signer FIELD days after the initial signing request.',
             ],
 
             [
@@ -206,7 +206,7 @@ class esigFluent extends IntegrationManager
             ],
             [
                 'key'         => 'expire_reminder',
-                'label'       => 'Third Reminder',
+                'label'       => 'Last Reminder',
                 'required'    => false,
                 'tips'         => 'Send the last reminder to the signer FIELD days after the initial signing request.',
                 'component'   => 'number'
