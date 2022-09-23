@@ -231,31 +231,37 @@ class esigFluent extends IntegrationManager
           
             if(empty($settings[$field['key']]) && wp_validate_boolean($field['required']))
             {
-                $errors[$field['key']] = $field['label'] . ' is requireddd.';
+                $errors[] = $field['label'] . ' is required.';
             }elseif($field['key'] == 'reminder_email' || $field['key'] == 'first_reminder_send' || $field['key'] == 'expire_reminder'){
                 
                 $reminderValue = $settings[$field['key']];
 
-                if($settings['signing_reminder'] != '1'){
+                if($settings['signing_reminder'] != '1' && !empty($settings['reminder_email'])){
                     $errors['signing_reminder'] = 'Please enabled signing reminder first';
                 }
 
                 if(strpos($reminderValue, '-') !== false || $reminderValue == '0' || preg_match("/[a-z]/i", $reminderValue)){
-                    $errors[$field['key']] = 'Please enter a valid value for '. $field['label'];
+                    $errors[] = 'Please enter a valid value for '. $field['label'];
                 } 
 
                 $first_reminder_email = $settings['reminder_email'];
                 $second_reminder_email = $settings['first_reminder_send'];
                 $expire_reminder = $settings['expire_reminder'];
 
-               
-                if ($second_reminder_email <= $first_reminder_email ){
-                    $errors['first_reminder_send'] = 'Second reminder should be getter Greater than First reminder';
+                if($settings['signing_reminder'] == '1'){ 
+
+                    if (empty($first_reminder_email) || empty($second_reminder_email) || empty($expire_reminder)){
+                        $errors[] = 'Please enter all reminder value';
+                    }
+                    
+                    if ($second_reminder_email <= $first_reminder_email ){
+                        $errors[] = 'Second reminder should be Greater than First reminder';
+                    }
+                    
+                    if ($expire_reminder <= $second_reminder_email ){
+                        $errors[] = 'Last reminder should be Greater than Second reminder';
+                    }	
                 }
-                
-                if ($expire_reminder <= $second_reminder_email ){
-                    $errors['expire_reminder'] = 'Last reminder should be getter Greater than Second reminder';
-                }	
                 
 
             }
