@@ -46,7 +46,7 @@ function fluentforms_message($esigStatus,$pluginName)
                   return '<span class="esig-icon-esig-alert"></span><h4>' . esc_attr($asterisk) . 'Your WP E-Signature install is missing the Pro Add-Ons. Advanced functionality will not work without these add-ons installed. <a class="about-button" href="'. esc_url(admin_url("admin.php?page=esign-addons")) .'">Install Pro Add-Ons</a></h4>';
                   break;
                 case 'wpe_inactive_pro':
-                  return '<span class="esig-icon-esig-alert"></span><h4 style="font-size:0.95em;">' . esc_attr($asterisk) . 'Your WP E-Signature Pro Add-Ons are installed but not enabled.  Advanced functionality will not work without these add-ons enabled. <a class="about-button" href="'. esc_url(esig_plugin_activation_link("e-signature-business-add-ons/e-signature-business-add-ons.php")) .'">Enable Pro Add-Ons</a></h4>';
+                  return '<span class="esig-icon-esig-alert"></span><h4>' . esc_attr($asterisk) . 'Your WP E-Signature Pro Add-Ons are installed but not enabled.  Advanced functionality will not work without these add-ons enabled. <a class="about-button" href="'. esc_url(esig_plugin_activation_link("e-signature-business-add-ons/e-signature-business-add-ons.php")) .'">Enable Pro Add-Ons</a></h4>';
                   break;
                 case 'wpe_active_pro':
 
