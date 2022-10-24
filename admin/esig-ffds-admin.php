@@ -139,6 +139,13 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 }
                
                 WP_E_Sig()->document->saveFormIntegration($sad_document_id, 'ninja');
+
+                $getModules = get_option('fluentform_global_modules_status');
+
+                if($getModules['wpesignature'] == 'no'){
+                    $getModules['wpesignature'] = 'yes';
+                    update_option('fluentform_global_modules_status',$getModules);
+                }
             
                 $data = array("form_id" => $fluentFormid);
                 $display_notice = dirname(__FILE__) . '/views/alert-almost-done.php';
