@@ -247,7 +247,7 @@ class esigFluent extends IntegrationManager
                 }
 
                 if(strpos($reminderValue, '-') !== false || $reminderValue == '0' || preg_match("/[a-z]/i", $reminderValue)){
-                    $errors[] = 'Please enter a valid value for '. $field['label'];
+                    $errors[] = 'Please enter a valid value for signing reminder';
                 } 
 
                 $first_reminder_email = $settings['reminder_email'];
