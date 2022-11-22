@@ -37,6 +37,15 @@ and open the template in the editor.
     display: inline-flex;
 }
 
+.admin_page_esign-fluentform-about .bangBar .about-button
+{
+    background: none;
+}
+.toplevel_page_esign-fluentform-about .bangBar .about-button
+{
+    background: none;
+}
+
 .bangBar h4
 {
     margin:0;
