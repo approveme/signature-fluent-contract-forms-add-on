@@ -41,36 +41,28 @@ class esigFluentSetting {
         return $choices;
     }
 
-    public static function get_signer_field_name($form_id)
+    public static function get_signer_info_field($form_id,$fields)
     {
         
 
         $choices = [];
+        $signerInfo = [];
         $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
 
         foreach ($formFields as $fieldlabel=>$fieldname) {
-             $choices[$fieldname] = $fieldlabel;            
-        }
-
-        return $choices;
-    }
-
-    public static function get_signer_field_email($form_id)
-    {
-        
-
-        $choices = [];
-        $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
-
-        foreach ($formFields as $fieldlabel=>$fieldname) {
-            if($fieldname != "email"){
+            if($fieldname != "email" && $fields == 'email'){
                 continue;
             }
-            $choices[$fieldname] = $fieldlabel;            
+             $choices[$fieldname] = $fieldlabel;            
+        }       
+
+        foreach ($choices as $key => $column) {
+            $signerInfo[$key] = $column;
         }
 
-        return $choices;
+        return $signerInfo;
     }
+   
     
      public static function getEntryValue($formId,$enttyID){
 

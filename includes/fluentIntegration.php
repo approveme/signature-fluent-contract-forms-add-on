@@ -104,17 +104,9 @@ class esigFluent extends IntegrationManager
             $SadFieldOptions[$key] = $column;
         }
 
-        $signerName = [];
+        $signerName = esigFluentSetting::get_signer_info_field($formId,'name');
+        $signerEmail = esigFluentSetting::get_signer_info_field($formId,'email');
 
-        foreach (esigFluentSetting::get_signer_field_name($formId) as $key => $column) {
-            $signerName[$key] = $column;
-        }
-
-        $signerEmail = [];
-
-        foreach (esigFluentSetting::get_signer_field_email($formId) as $key => $column) {
-            $signerEmail[$key] = $column;
-        }
         
         $fields = apply_filters('fluentform_wpesignature_feed_fields', [
            
