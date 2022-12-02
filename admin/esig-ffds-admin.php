@@ -333,9 +333,6 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             $email_field = esig_esff_get('signer_email',$feedValue);
             $name_field = esig_esff_get('signer_name',$feedValue); 
 
-            if (strpos($name_field, 'names') !== false) {
-                $name_field = "names";
-            } 
 
             $signer_email = sanitize_email(esig_esff_get($email_field,$formData));           
             $signer_name = esig_esff_get($name_field,$formData);   

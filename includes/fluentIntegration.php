@@ -98,11 +98,22 @@ class esigFluent extends IntegrationManager
 
     public function getSettingsFields($settings, $formId = null)
     {
-        //echo $formId . "testing";
-        //update_option("rupom", $formId);
+        
         $SadFieldOptions = [];
         foreach (esigFluentSetting::get_sad_documents() as $key => $column) {
             $SadFieldOptions[$key] = $column;
+        }
+
+        $signerName = [];
+
+        foreach (esigFluentSetting::get_signer_field_name($formId) as $key => $column) {
+            $signerName[$key] = $column;
+        }
+
+        $signerEmail = [];
+
+        foreach (esigFluentSetting::get_signer_field_email($formId) as $key => $column) {
+            $signerEmail[$key] = $column;
         }
         
         $fields = apply_filters('fluentform_wpesignature_feed_fields', [
@@ -123,30 +134,25 @@ class esigFluent extends IntegrationManager
                 'placeholder' => 'Your Feed Name',
                 'component'   => 'text'
             ],
-            [
-                'key'                => 'signer_info',
-                'require_list'       => false,
-                'label'              => 'Signer Details',
-                'tips'               => 'Please Select fields for signer name and signer email',
-                'component'          => 'map_fields',
-                'field_label_remote' => 'Use for',
-                'field_label_local'  => 'Form Field',
-                'primary_fileds'     => [
-                    [
-                        'key'           => 'signer_name',
-                        'label'         => __('Signer Name', 'esig'),
-                        'required'      => true,
-                        'input_options' => 'all'
-                    ],
-                    [
-                        'key'           => 'signer_email',
-                        'label'         => __('Signer Email', 'esig'),
-                        'required'      => true,
-                        'input_options' => 'emails'
-                    ],
 
-                ]
-            ],
+            [
+                'key'         => 'signer_name',
+                'label'       => 'Signer Name',
+                'tips'      => 'Select the name field from your gravity form. This field is what the signers full name will be on their WP E-Signature contract.',
+                'required'    =>  true, // true/false
+                'component'   => 'select', //  component type
+                'placeholder' => 'Signer Name',
+                'options'     => $signerName
+            ],   
+            [
+                'key'         => 'signer_email',
+                'label'       => 'Signer Email',
+                'tips'      => 'Select the email field of your signer from your gravity form fields. This field is what the signers email address will be on their WP E-Signature contract.',
+                'required'    =>  true, // true/false
+                'component'   => 'select', //  component type
+                'placeholder' => 'Signer Email',
+                'options'     => $signerEmail
+            ],    
             [
                 'key'         => 'signing_logic',
                 'label'       => 'Signing Logic',

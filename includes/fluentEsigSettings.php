@@ -40,6 +40,37 @@ class esigFluentSetting {
 
         return $choices;
     }
+
+    public static function get_signer_field_name($form_id)
+    {
+        
+
+        $choices = [];
+        $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
+
+        foreach ($formFields as $fieldlabel=>$fieldname) {
+             $choices[$fieldname] = $fieldlabel;            
+        }
+
+        return $choices;
+    }
+
+    public static function get_signer_field_email($form_id)
+    {
+        
+
+        $choices = [];
+        $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
+
+        foreach ($formFields as $fieldlabel=>$fieldname) {
+            if($fieldname != "email"){
+                continue;
+            }
+            $choices[$fieldname] = $fieldlabel;            
+        }
+
+        return $choices;
+    }
     
      public static function getEntryValue($formId,$enttyID){
 
