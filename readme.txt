@@ -470,6 +470,11 @@ Important: Do NOT include this page in your Nav menu since all of the magic actu
 
 
 == Changelog ==
+Version 1.0.4
+FIX: Allow other form data display with a filter 
+FIX: Fluent form signing reminder settings
+FIX: Signer name issue
+FIX : Some minor issues
 
 Version 1.0.3 
 FIX: Redirect issue fix 
