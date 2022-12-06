@@ -259,7 +259,7 @@ class esigFluent extends IntegrationManager
                 }elseif(empty($second_reminder_email)){
                     $errors[] = 'Please enter Second Reminder';
                 }elseif(empty($expire_reminder)){
-                    $errors[] = 'Please enter Third Reminder ';
+                    $errors[] = 'Please enter Last Reminder ';
                 } 
 
                
@@ -268,7 +268,7 @@ class esigFluent extends IntegrationManager
                 }
                 
                 if ($expire_reminder <= $second_reminder_email ){
-                    $errors[] = 'Last reminder should be getter Greater than Second reminder';
+                    $errors[] = 'Last reminder should be Greater than Second reminder';
                 }	
                 
 
