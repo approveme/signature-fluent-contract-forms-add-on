@@ -175,12 +175,15 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 $submit_type = esig_esff_get('underline_data',$esigFeed);
             }
 
-            $newFormId = self::getFluentFormID(); 
-                     
-            if ($newFormId != $formid) return false;            
+            $newFormId = self::getFluentFormID();       
             $ff_value = esigFluentSetting::get_value($esigFluentFormdata,$label,$formid,$field_id, $display, $option,$submit_type);
             
             if (!$ff_value) return false;
+            $allowOtherFormData = apply_filters("esig_fluent_allow_otherform_data",false);
+            if(!wp_validate_boolean($allowOtherFormData))
+            {
+            if ($newFormId != $formid) return false;  
+            }
 
             return esigFluentSetting::display_value($ff_value, $submit_type);
 
@@ -333,9 +336,6 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             $email_field = esig_esff_get('signer_email',$feedValue);
             $name_field = esig_esff_get('signer_name',$feedValue); 
 
-            if (strpos($name_field, 'names') !== false) {
-                $name_field = "names";
-            } 
 
             $signer_email = sanitize_email(esig_esff_get($email_field,$formData));           
             $signer_name = esig_esff_get($name_field,$formData);   
