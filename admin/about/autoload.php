@@ -35,6 +35,9 @@ function fluentforms_message($esigStatus,$pluginName)
             {
                $asterisk = "*"; 
             }
+
+            $fluentID = strpos($screen->id, 'fluent');
+            if($fluentID === false) return;
             
             switch ($esigStatus){
 
