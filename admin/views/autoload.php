@@ -38,7 +38,7 @@ function fluentforms_message($esigStatus,$pluginName)
             }
 
             $fluentID = strpos($screen->id, 'fluent');
-            if($fluentID === false) return;
+            if($fluentID === false && $screen->id != 'plugins') return;
             
             switch ($esigStatus){
 
