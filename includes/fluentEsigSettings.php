@@ -53,6 +53,9 @@ class esigFluentSetting {
             if($fieldname != "email" && $fields == 'email'){
                 continue;
             }
+            if($fieldname != "names" && $fields == 'name'){
+                continue;
+            }
              $choices[$fieldname] = $fieldlabel;            
         }       
 
