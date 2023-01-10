@@ -244,10 +244,6 @@ class esigFluent extends IntegrationManager
                     $errors[] = 'Please enabled signing reminder first';
                 }
 
-                if(strpos($reminderValue, '-') !== false || $reminderValue == '0' || preg_match("/[a-z]/i", $reminderValue)){
-                    $errors[] = 'Please enter a valid value for signing reminder';
-                } 
-
                 $first_reminder_email = $settings['reminder_email'];
                 $second_reminder_email = $settings['first_reminder_send'];
                 $expire_reminder = $settings['expire_reminder'];
@@ -257,8 +253,20 @@ class esigFluent extends IntegrationManager
                 }elseif(empty($second_reminder_email)){
                     $errors[] = 'Please enter Second Reminder';
                 }elseif(empty($expire_reminder)){
-                    $errors[] = 'Please enter Third Reminder ';
+                    $errors[] = 'Please enter Last Reminder ';
                 } 
+
+                if(strpos($first_reminder_email, '-') !== false || $first_reminder_email == '0' || preg_match("/[a-z]/i", $first_reminder_email)){
+                    $errors[] = 'Please enter a valid value for signing reminder';
+                }
+
+                if(strpos($second_reminder_email, '-') !== false ||  $second_reminder_email == '0' || preg_match("/[a-z]/i",  $second_reminder_email)){
+                    $errors[] = 'Please enter a valid value for signing reminder';
+                }
+
+                if(strpos($expire_reminder, '-') !== false ||  $expire_reminder == '0' || preg_match("/[a-z]/i",  $expire_reminder)){
+                    $errors[] = 'Please enter a valid value for signing reminder';
+                }
 
                
                 if ($second_reminder_email <= $first_reminder_email ){
@@ -266,7 +274,7 @@ class esigFluent extends IntegrationManager
                 }
                 
                 if ($expire_reminder <= $second_reminder_email ){
-                    $errors[] = 'Last reminder should be getter Greater than Second reminder';
+                    $errors[] = 'Last reminder should be Greater than Second reminder';
                 }	
                 
 
