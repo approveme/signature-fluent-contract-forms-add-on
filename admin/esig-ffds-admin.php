@@ -208,12 +208,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
             
 
-            foreach ($formFields as $fieldlabel=>$fieldname) {
-                if(empty($fieldname)){
-                    continue;
-                }
-                $label = "".$fieldlabel."";
-                $html .= '<option data-id='. esc_attr($label) .' value=' . esc_attr($fieldname) . '>' . esc_attr($fieldlabel) . '</option>';
+            foreach ($formFields as $fields) {
+                $html .= '<option data-id='. esc_attr($fields['label']) .' value=' . esc_attr($fields['name']) . '>' . esc_attr($fields['label']) . '</option>';
             }
             echo $html;
     

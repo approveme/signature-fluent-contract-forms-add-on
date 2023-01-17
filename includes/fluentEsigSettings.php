@@ -116,15 +116,10 @@ class esigFluentSetting {
 
     }
 
-    public static function getAllFluentFormFields($formID){
-        $forms = wpFluent()->table('fluentform_forms')
-								->select(['form_fields'])
-								->orderBy('id', 'DESC')
-                                ->where('id', $formID)
-								->get();
+    public static function getAllFluentFormFields($formId){
 
-        $formArray = json_decode(json_encode($forms), true);       
-        $fields = json_decode($formArray[0]['form_fields'], true);
+        $forms = wpFluent()->table('fluentform_forms')->find($formId);
+        $fields = json_decode($forms->form_fields, true);
 	    $fieldsArray = [];
         
 		foreach ($fields as $value) {
@@ -137,7 +132,7 @@ class esigFluentSetting {
 
                         if (array_key_exists("label",$name['settings']))
                         {
-                        $labelname = $name['settings']['label'];
+                            $labelname = $name['settings']['label'];
                         }                        
                         else{
                             $labelname = $name['settings']['admin_field_label'];
@@ -146,9 +141,9 @@ class esigFluentSetting {
                         
                         if(array_key_exists("html_codes",$name['settings'])){
                             $labelname = 'Custom/Html';
-                            $fieldsArray[$labelname]= 'html_codes';                          
+                            $fieldsArray[] = array("label" => $labelname , "name" => "html_codes" ) ;                          
                         } else{
-                            $fieldsArray[$labelname]= $name['attributes']['name']; 
+                            $fieldsArray[]= array("label" => $labelname, "name" => $name['attributes']['name']) ; 
                         }    
                         
                         
