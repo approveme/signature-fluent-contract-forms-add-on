@@ -50,14 +50,14 @@ class esigFluentSetting {
         $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
 
         foreach ($formFields as $fieldlabel=>$fieldname) {
-            if($fieldname != "email" && $fields == 'email'){
+            if(strpos($fieldname, 'email') === false && $fields == 'email'){
                 continue;
             }
-            if($fieldname != "names" && $fields == 'name'){
+            if(strpos($fieldname, 'names') === false && $fields == 'name'){
                 continue;
             }
              $choices[$fieldname] = $fieldlabel;            
-        }       
+        }        
 
         foreach ($choices as $key => $column) {
             $signerInfo[$key] = $column;
