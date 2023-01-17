@@ -41,21 +41,15 @@ class esigFluentSetting {
         return $choices;
     }
 
-    public static function get_signer_info_field($form_id,$fields)
+    public static function get_signer_info_field($form_id,$type)
     {
         
 
         $choices = [];
         $signerInfo = [];
-        $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
+        $formFields = esigFluentSetting::getFormFields($form_id,$type);
 
         foreach ($formFields as $fieldlabel=>$fieldname) {
-            if(strpos($fieldname, 'email') === false && $fields == 'email'){
-                continue;
-            }
-            if(strpos($fieldname, 'names') === false && $fields == 'name'){
-                continue;
-            }
              $choices[$fieldname] = $fieldlabel;            
         }       
 
@@ -174,6 +168,54 @@ class esigFluentSetting {
 		}
                 
                 
+    }
+
+    public static function getFormFields($formID,$getType){
+        $forms = wpFluent()->table('fluentform_forms')
+        ->select(['form_fields'])
+        ->orderBy('id', 'DESC')
+        ->where('id', $formID)
+        ->get();
+
+        $formArray = json_decode(json_encode($forms), true);       
+        $fields = json_decode($formArray[0]['form_fields'], true);
+        $nameArray = [];
+        $emailArray = [];
+
+        foreach ($fields as $value) {            
+
+            foreach ($value as $name) {   
+
+                if (array_key_exists("label",$name['settings']))
+                {
+                $labelname = $name['settings']['label'];
+                }                        
+                else{
+                    $labelname = $name['settings']['admin_field_label'];
+                } 
+
+
+                foreach ($name['attributes'] as $fieldType) {
+
+                    if ($fieldType == 'name-element' || $fieldType == 'text'){
+                        $nameArray[$labelname] = $name['attributes']['name']; 
+                    }
+                    if($fieldType == 'email'){
+                        $emailArray[$labelname]= $name['attributes']['name']; 
+                    } 
+                }                            
+            
+
+            }
+
+            if($getType == 'email'){
+                return  $emailArray;
+            }else{
+                return $nameArray; 
+            }
+
+                         
+        }
     }
 
     public static function save_submission_value($document_id, $form_id, $formData) 
