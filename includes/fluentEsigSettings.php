@@ -324,10 +324,7 @@ class esigFluentSetting {
                 break;
             case "html_codes":
                 return self::getHtmlFieldsValue($formId, 'html_codes');
-                break;            
-            case "email":
-                return '<a style="'. esc_attr($style) .'" href="mailto:' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
-                break;  
+                break;
             case "url":
                 return '<a style="'. esc_attr($style) .'" href="' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;
@@ -338,6 +335,11 @@ class esigFluentSetting {
                 return self::fileValue($value,$style);
                 break;     
             default:
+                if($fieldId){
+                    if(strpos($fieldId, 'email') !== false){
+                    return '<a style="'. esc_attr($style) .'" href="mailto:' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
+                    } 
+                }
                 if(is_array($value)) return self::arrayValue($value);
                 return $value;
         }
