@@ -124,11 +124,7 @@ class esigFluentSetting {
         
 		foreach ($fields as $value) {
 
-            
-                  
                     foreach ($value as $name) {
-                        
-                      
 
                         if (array_key_exists("label",$name['settings']))
                         {
@@ -137,13 +133,21 @@ class esigFluentSetting {
                         else{
                             $labelname = $name['settings']['admin_field_label'];
                         } 
-                        
+
+                        if (array_key_exists("data-type",$name['attributes']))
+                        {                           
+                            $fieldType = $name['attributes']['data-type'];                                                    
+                        }elseif(array_key_exists("type",$name['attributes'])){
+                            $fieldType = $name['attributes']['type'];
+                        }else{
+                            $fieldType = $name['attributes']['name'];
+                        }                         
                         
                         if(array_key_exists("html_codes",$name['settings'])){
                             $labelname = 'Custom/Html';
-                            $fieldsArray[] = array("label" => $labelname , "name" => "html_codes" ) ;                          
+                            $fieldsArray[] = array("label" => $labelname , "name" => "html_codes", "type" => "html") ;                          
                         } else{
-                            $fieldsArray[]= array("label" => $labelname, "name" => $name['attributes']['name']) ; 
+                            $fieldsArray[]= array("label" => $labelname, "name" => $name['attributes']['name'],"type" => $fieldType) ; 
                         }    
                         
                         
@@ -297,7 +301,7 @@ class esigFluentSetting {
         return $items;
     }
 
-    public static function generateValue($data,$fieldId,$formId,$displayType)
+    public static function generateValue($data,$fieldId,$formId,$displayType,$field_type)
     {
         $style = '';
         if($displayType == 'underline'){
@@ -306,40 +310,39 @@ class esigFluentSetting {
 
         if(!is_array($data)) return false;
         $value  = esig_esff_get($fieldId,$data);
-        switch($fieldId){
+
+     
+        switch($field_type){
             case "checkbox":
                 return self::checkboxValue($value);
                 break;
-            case "tabular_grid":
+            case "tabular-element":
                 return self::checkboxGridValue($value);
-                break;
-            case "multi_select":
-                return self::checkboxValue($value);
                 break;
             case "repeater_field":
                 return self::repeaterValue($value);
                 break;
-            case "address_1":
+            case "address-element":
                 return self::addressValue($value);
                 break;
-            case "html_codes":
+            case "html":
                 return self::getHtmlFieldsValue($formId, 'html_codes');
-                break;
+                break;            
+            case "email":
+                return '<a style="'. esc_attr($style) .'" href="mailto:' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
+                break;  
             case "url":
                 return '<a style="'. esc_attr($style) .'" href="' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;
-            case "file-upload":            
+            case "file":            
                 return self::fileValue($value,$style);
-                break;   
-            case "image-upload":            
-                return self::fileValue($value,$style);
-                break;     
+                break;
             default:
-                if($fieldId){
-                    if(strpos($fieldId, 'email') !== false){
-                    return '<a style="'. esc_attr($style) .'" href="mailto:' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
-                    } 
+
+                if(strpos($field_type, 'multi_select') !== false){
+                    return self::checkboxValue($value);
                 }
+
                 if(is_array($value)) return self::arrayValue($value);
                 return $value;
         }
@@ -350,13 +353,13 @@ class esigFluentSetting {
          * @param type $form_id
          * @return string
          */
-        public static function get_value($data,$label,$formid,$field_id, $display, $option,$submit_type) {
+        public static function get_value($data,$label,$formid,$field_id, $display, $option,$submit_type,$field_type) {
             
             if ($display == "label") {
                 return $label;
             }
 
-            $displayValue = self::generateValue($data,$field_id,$formid,$submit_type);
+            $displayValue = self::generateValue($data,$field_id,$formid,$submit_type,$field_type);
 
             if($display == "value") return $displayValue;
 
