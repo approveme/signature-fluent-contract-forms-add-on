@@ -25,8 +25,9 @@
                    var form_id= $('select[name="esig_ff_form_id"]').val();
                    
                    var field_id =$('select[name="esig_ff_field_id"]').val();
-                    var label = $('select[name="esig_ff_field_id"]').find(':selected').data('id');
+                   var label = $('select[name="esig_ff_field_id"]').find(':selected').data('id');
                    var displayType =$('select[name="esig_fluentform_value_display_type"]').val();
+                   var field_type = $('select[name="esig_ff_field_id"]').find(':selected').data('type');
                    // 
                   
                   if (field_id == "all") {
@@ -34,17 +35,18 @@
                                
                                 // Add $(this).val() to your list
                                 let allField = $(this).val();
-                                let allLabel = $(this).data('id');  
+                                let allLabel = $(this).data('id'); 
+                                let alltype = $(this).data('type');  
                                                                 
                                 if (allField == "all") return true;                               
 
 
-                                var return_text = '<p>[esigfluent formid="'+ form_id +'" label="'+ allLabel +'" field_id="'+ allField +'" display="'+ displayType +'"]</p>';
+                                var return_text = '<p>[esigfluent formid="'+ form_id +'" label="'+ allLabel +'" field_id="'+ allField +'" field_type="'+ alltype +'" display="'+ displayType +'"]</p>';
 		                esig_sif_admin_controls.insertContent(return_text);
                         });
                 }
                 else {
-                  var return_text = '[esigfluent formid="'+ form_id +'" label="'+ label +'" field_id="'+ field_id +'" display="'+ displayType +'" ]';
+                  var return_text = '[esigfluent formid="'+ form_id +'" label="'+ label +'" field_id="'+ field_id +'" field_type="'+ field_type +'" display="'+ displayType +'" ]';
 		  esig_sif_admin_controls.insertContent(return_text);
 
                 }
