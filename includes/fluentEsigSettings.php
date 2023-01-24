@@ -182,6 +182,10 @@ class esigFluentSetting {
 
                 foreach ($name['attributes'] as $fieldType) {
 
+                    if($fieldType == 'multi_select' || $name['attributes']['name'] == 'datetime'){
+                        continue;                       
+                    }
+
                     if ($fieldType == 'name-element' || $fieldType == 'text'){
                         $nameArray[] = array(
                         "label" => $labelname,
