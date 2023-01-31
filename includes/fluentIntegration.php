@@ -130,7 +130,7 @@ class esigFluent extends IntegrationManager
             [
                 'key'         => 'signer_name',
                 'label'       => 'Signer Name',
-                'tips'      => 'Select the name field from your gravity form. This field is what the signers full name will be on their WP E-Signature contract.',
+                'tips'      => 'Select the name field from your fluent form. This field is what the signers full name will be on their WP E-Signature contract.',
                 'required'    =>  true, // true/false
                 'component'   => 'select', //  component type
                 'placeholder' => 'Signer Name',
@@ -139,7 +139,7 @@ class esigFluent extends IntegrationManager
             [
                 'key'         => 'signer_email',
                 'label'       => 'Signer Email',
-                'tips'      => 'Select the email field of your signer from your gravity form fields. This field is what the signers email address will be on their WP E-Signature contract.',
+                'tips'      => 'Select the email field of your signer from your fluent form fields. This field is what the signers email address will be on their WP E-Signature contract.',
                 'required'    =>  true, // true/false
                 'component'   => 'select', //  component type
                 'placeholder' => 'Signer Email',
