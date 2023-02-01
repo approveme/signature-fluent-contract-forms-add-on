@@ -164,6 +164,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 'formid' => '',
                 'label' => '', 
                 'field_id' => '', 
+                'field_type' => '', 
                 'display' => '',
                 'option' => 'default'
                             ), $atts, 'esigfluent'));
@@ -176,7 +177,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             }
 
             $newFormId = self::getFluentFormID();       
-            $ff_value = esigFluentSetting::get_value($esigFluentFormdata,$label,$formid,$field_id, $display, $option,$submit_type);
+            $ff_value = esigFluentSetting::get_value($esigFluentFormdata,$label,$formid,$field_id, $display, $option,$submit_type,$field_type);
             
             if (!$ff_value) return false;
             $allowOtherFormData = apply_filters("esig_fluent_allow_otherform_data",false);
@@ -208,12 +209,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
             
 
-            foreach ($formFields as $fieldlabel=>$fieldname) {
-                if(empty($fieldname)){
-                    continue;
-                }
-                $label = "".$fieldlabel."";
-                $html .= '<option data-id='. esc_attr($label) .' value=' . esc_attr($fieldname) . '>' . esc_attr($fieldlabel) . '</option>';
+            foreach ($formFields as $fields) {
+                $html .= '<option data-type='. esc_attr($fields['type']) .' data-id='. esc_attr($fields['label']) .' value=' . esc_attr($fields['name']) . '>' . esc_attr($fields['label']) . '</option>';
             }
             echo $html;
     

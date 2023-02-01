@@ -41,26 +41,12 @@ class esigFluentSetting {
         return $choices;
     }
 
-    public static function get_signer_info_field($form_id,$fields)
+    public static function get_signer_info_field($form_id,$type)
     {
-        
-
-        $choices = [];
         $signerInfo = [];
-        $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
-
-        foreach ($formFields as $fieldlabel=>$fieldname) {
-            if(strpos($fieldname, 'email') === false && $fields == 'email'){
-                continue;
-            }
-            if(strpos($fieldname, 'names') === false && $fields == 'name'){
-                continue;
-            }
-             $choices[$fieldname] = $fieldlabel;            
-        }        
-
-        foreach ($choices as $key => $column) {
-            $signerInfo[$key] = $column;
+        $formFields = esigFluentSetting::getFormFields($form_id,$type);
+        foreach ($formFields as $field) {
+            $signerInfo[$field['name']] = $field['label'];
         }
 
         return $signerInfo;
@@ -130,39 +116,38 @@ class esigFluentSetting {
 
     }
 
-    public static function getAllFluentFormFields($formID){
-        $forms = wpFluent()->table('fluentform_forms')
-								->select(['form_fields'])
-								->orderBy('id', 'DESC')
-                                ->where('id', $formID)
-								->get();
+    public static function getAllFluentFormFields($formId){
 
-        $formArray = json_decode(json_encode($forms), true);       
-        $fields = json_decode($formArray[0]['form_fields'], true);
+        $forms = wpFluent()->table('fluentform_forms')->find($formId);
+        $fields = json_decode($forms->form_fields, true);
 	    $fieldsArray = [];
         
 		foreach ($fields as $value) {
 
-            
-                  
                     foreach ($value as $name) {
-                        
-                      
 
                         if (array_key_exists("label",$name['settings']))
                         {
-                        $labelname = $name['settings']['label'];
+                            $labelname = $name['settings']['label'];
                         }                        
                         else{
                             $labelname = $name['settings']['admin_field_label'];
                         } 
-                        
+
+                        if (array_key_exists("data-type",$name['attributes']))
+                        {                           
+                            $fieldType = $name['attributes']['data-type'];                                                    
+                        }elseif(array_key_exists("type",$name['attributes'])){
+                            $fieldType = $name['attributes']['type'];
+                        }else{
+                            $fieldType = $name['attributes']['name'];
+                        }                         
                         
                         if(array_key_exists("html_codes",$name['settings'])){
                             $labelname = 'Custom/Html';
-                            $fieldsArray[$labelname]= 'html_codes';                          
+                            $fieldsArray[] = array("label" => $labelname , "name" => "html_codes", "type" => "html") ;                          
                         } else{
-                            $fieldsArray[$labelname]= $name['attributes']['name']; 
+                            $fieldsArray[]= array("label" => $labelname, "name" => $name['attributes']['name'],"type" => $fieldType) ; 
                         }    
                         
                         
@@ -174,6 +159,56 @@ class esigFluentSetting {
 		}
                 
                 
+    }
+
+    public static function getFormFields($formId,$getType){
+
+        $forms = wpFluent()->table('fluentform_forms')->find($formId);   
+        $fields = json_decode($forms->form_fields, true);
+        $nameArray = [];
+        $emailArray = [];
+        foreach ($fields as $value) {            
+
+            foreach ($value as $name) {   
+
+                if (array_key_exists("label",$name['settings']))
+                {
+                $labelname = $name['settings']['label'];
+                }                        
+                else{
+                    $labelname = $name['settings']['admin_field_label'];
+                } 
+
+
+                foreach ($name['attributes'] as $fieldType) {
+
+                    if($fieldType == 'multi_select' || $name['attributes']['name'] == 'datetime'){
+                        continue;                       
+                    }
+
+                    if ($fieldType == 'name-element' || $fieldType == 'text'){
+                        $nameArray[] = array(
+                        "label" => $labelname,
+                        "name"=> $name['attributes']['name'] ) ; 
+                    }
+                    if($fieldType == 'email'){
+                        $emailArray[] = array(
+                            "label" => $labelname,
+                            "name" => $name['attributes']['name']
+                        ); 
+                    } 
+                }                            
+            
+
+            }
+
+            if($getType == 'email'){
+                return  $emailArray;
+            }else{
+                return $nameArray; 
+            }
+              
+        }
     }
 
     public static function save_submission_value($document_id, $form_id, $formData) 
@@ -270,7 +305,7 @@ class esigFluentSetting {
         return $items;
     }
 
-    public static function generateValue($data,$fieldId,$formId,$displayType)
+    public static function generateValue($data,$fieldId,$formId,$displayType,$field_type)
     {
         $style = '';
         if($displayType == 'underline'){
@@ -279,23 +314,22 @@ class esigFluentSetting {
 
         if(!is_array($data)) return false;
         $value  = esig_esff_get($fieldId,$data);
-        switch($fieldId){
+
+     
+        switch($field_type){
             case "checkbox":
                 return self::checkboxValue($value);
                 break;
-            case "tabular_grid":
+            case "tabular-element":
                 return self::checkboxGridValue($value);
-                break;
-            case "multi_select":
-                return self::checkboxValue($value);
                 break;
             case "repeater_field":
                 return self::repeaterValue($value);
                 break;
-            case "address_1":
+            case "address-element":
                 return self::addressValue($value);
                 break;
-            case "html_codes":
+            case "html":
                 return self::getHtmlFieldsValue($formId, 'html_codes');
                 break;            
             case "email":
@@ -304,13 +338,15 @@ class esigFluentSetting {
             case "url":
                 return '<a style="'. esc_attr($style) .'" href="' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;
-            case "file-upload":            
+            case "file":            
                 return self::fileValue($value,$style);
-                break;   
-            case "image-upload":            
-                return self::fileValue($value,$style);
-                break;     
+                break;
             default:
+
+                if(strpos($field_type, 'multi_select') !== false){
+                    return self::checkboxValue($value);
+                }
+
                 if(is_array($value)) return self::arrayValue($value);
                 return $value;
         }
@@ -321,13 +357,13 @@ class esigFluentSetting {
          * @param type $form_id
          * @return string
          */
-        public static function get_value($data,$label,$formid,$field_id, $display, $option,$submit_type) {
+        public static function get_value($data,$label,$formid,$field_id, $display, $option,$submit_type,$field_type) {
             
             if ($display == "label") {
                 return $label;
             }
 
-            $displayValue = self::generateValue($data,$field_id,$formid,$submit_type);
+            $displayValue = self::generateValue($data,$field_id,$formid,$submit_type,$field_type);
 
             if($display == "value") return $displayValue;
 
