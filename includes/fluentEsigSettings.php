@@ -118,97 +118,40 @@ class esigFluentSetting {
 
     public static function getAllFluentFormFields($formId){
 
-        $forms = wpFluent()->table('fluentform_forms')->find($formId);
-        $fields = json_decode($forms->form_fields, true);
-	    $fieldsArray = [];
-        
-		foreach ($fields as $value) {
-
-                    foreach ($value as $name) {
-
-                        if (array_key_exists("label",$name['settings']))
-                        {
-                            $labelname = $name['settings']['label'];
-                        }                        
-                        else{
-                            $labelname = $name['settings']['admin_field_label'];
-                        } 
-
-                        if (array_key_exists("data-type",$name['attributes']))
-                        {                           
-                            $fieldType = $name['attributes']['data-type'];                                                    
-                        }elseif(array_key_exists("type",$name['attributes'])){
-                            $fieldType = $name['attributes']['type'];
-                        }else{
-                            $fieldType = $name['attributes']['name'];
-                        }                         
-                        
-                        if(array_key_exists("html_codes",$name['settings'])){
-                            $labelname = 'Custom/Html';
-                            $fieldsArray[] = array("label" => $labelname , "name" => "html_codes", "type" => "html") ;                          
-                        } else{
-                            $fieldsArray[]= array("label" => $labelname, "name" => $name['attributes']['name'],"type" => $fieldType) ; 
-                        }    
-                        
-                        
-                       
-                    }
-                    
-                    return $fieldsArray;
-                  
-		}
+        $forms = fluentFormApi('forms')->form($formId);
+        $inputFields = $forms->inputs($with = ['admin_label']);
+        foreach ($inputFields as $key=> $field) {            
+            $fieldsArray[] = array("label" => $field['admin_label'] , "name" => $key, "type" => $field['element']) ; 
+        }
+        return $fieldsArray;
                 
                 
     }
 
     public static function getFormFields($formId,$getType){
 
-        $forms = wpFluent()->table('fluentform_forms')->find($formId);   
-        $fields = json_decode($forms->form_fields, true);
-        $nameArray = [];
-        $emailArray = [];
-        foreach ($fields as $value) {            
-
-            foreach ($value as $name) {   
-
-                if (array_key_exists("label",$name['settings']))
-                {
-                $labelname = $name['settings']['label'];
-                }                        
-                else{
-                    $labelname = $name['settings']['admin_field_label'];
-                } 
-
-
-                foreach ($name['attributes'] as $fieldType) {
-
-                    if($fieldType == 'multi_select' || $name['attributes']['name'] == 'datetime'){
-                        continue;                       
-                    }
-
-                    if ($fieldType == 'name-element' || $fieldType == 'text'){
-                        $nameArray[] = array(
-                        "label" => $labelname,
-                        "name"=> $name['attributes']['name'] ) ; 
-                    }
-                    if($fieldType == 'email'){
-                        $emailArray[] = array(
-                            "label" => $labelname,
-                            "name" => $name['attributes']['name']
-                        ); 
-                    } 
-                }                            
+        $forms = fluentFormApi('forms')->form($formId);
+        $inputFields = $forms->inputs($with = ['admin_label']);
+        foreach ($inputFields as $key=> $field) {
             
 
+            if($getType == 'email'){
+                if($field['element'] == 'input_email'){
+                    $fieldsArray[] = array("label" => $field['admin_label'] , "name" => $key) ;
+                }
             }
 
-            if($getType == 'email'){
-                return  $emailArray;
-            }else{
-                return $nameArray; 
+           if($getType == 'name'){
+                if($field['element'] == 'input_name' || $field['element'] == 'input_text'){
+                    $fieldsArray[] = array("label" => $field['admin_label'] , "name" => $key) ;
+                }
             }
               
+            
+             
         }
+        return $fieldsArray;
+   
     }
 
     public static function save_submission_value($document_id, $form_id, $formData) 
@@ -223,10 +166,10 @@ class esigFluentSetting {
         $items = '';
         foreach ($value as $item) {
             if ($item) {
-                $items .= '<li><input type="checkbox" onclick="return false;" readonly checked="checked">' . esc_attr($item) . '</li>';
+                $items .= esc_attr($item) . ', ';
             }
         }
-        return  "<ul class='esig-checkbox-tick'>$items</ul>";
+        return substr($items, 0, -2);
     }
 
     public static function checkboxGridValue($value)
@@ -317,35 +260,32 @@ class esigFluentSetting {
 
      
         switch($field_type){
-            case "checkbox":
+            case "input_checkbox":
                 return self::checkboxValue($value);
                 break;
-            case "tabular-element":
+            case "tabular":
                 return self::checkboxGridValue($value);
                 break;
             case "repeater_field":
                 return self::repeaterValue($value);
                 break;
-            case "address-element":
+            case "address":
                 return self::addressValue($value);
                 break;
             case "html":
                 return self::getHtmlFieldsValue($formId, 'html_codes');
                 break;            
-            case "email":
+            case "input_email":
                 return '<a style="'. esc_attr($style) .'" href="mailto:' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;  
-            case "url":
+            case "input_url":
                 return '<a style="'. esc_attr($style) .'" href="' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;
-            case "file":            
+            case "input_image":
+            case "input_file":            
                 return self::fileValue($value,$style);
                 break;
             default:
-
-                if(strpos($field_type, 'multi_select') !== false){
-                    return self::checkboxValue($value);
-                }
 
                 if(is_array($value)) return self::arrayValue($value);
                 return $value;
