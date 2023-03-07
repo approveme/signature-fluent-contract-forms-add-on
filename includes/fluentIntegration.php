@@ -104,8 +104,8 @@ class esigFluent extends IntegrationManager
             $SadFieldOptions[$key] = $column;
         }
 
-        $signerName = esigFluentSetting::get_signer_info_field($formId,'name');
-        $signerEmail = esigFluentSetting::get_signer_info_field($formId,'email');
+       // $signerName = esigFluentSetting::get_signer_info_field($formId,'name');
+      //  $signerEmail = esigFluentSetting::get_signer_info_field($formId,'email');
 
         
         $fields = apply_filters('fluentform_wpesignature_feed_fields', [
@@ -128,22 +128,28 @@ class esigFluent extends IntegrationManager
             ],
 
             [
-                'key'         => 'signer_name',
-                'label'       => 'Signer Name',
-                'tips'      => 'Select the name field from your fluent form. This field is what the signers full name will be on their WP E-Signature contract.',
-                'required'    =>  true, // true/false
-                'component'   => 'select', //  component type
-                'placeholder' => 'Signer Name',
-                'options'     => $signerName
-            ],   
-            [
-                'key'         => 'signer_email',
-                'label'       => 'Signer Email',
-                'tips'      => 'Select the email field of your signer from your fluent form fields. This field is what the signers email address will be on their WP E-Signature contract.',
-                'required'    =>  true, // true/false
-                'component'   => 'select', //  component type
-                'placeholder' => 'Signer Email',
-                'options'     => $signerEmail
+                'key'                => 'signer_info',
+                'require_list'       => false,
+                'label'              => 'Signer Details',
+                'tips'               => 'Please Select fields for signer name and signer email',
+                'component'          => 'map_fields',
+                'field_label_remote' => 'Use for',
+                'field_label_local'  => 'Form Field',
+                'primary_fileds'     => [
+                    [
+                        'key'           => 'signer_name',
+                        'label'         => __('Signer Name', 'esig'),
+                        'required'      => true,
+                        'input_options' => 'all'
+                    ],
+                    [
+                        'key'           => 'signer_email',
+                        'label'         => __('Signer Email', 'esig'),
+                        'required'      => true,
+                        'input_options' => 'emails'
+                    ],
+
+                ]
             ],    
             [
                 'key'         => 'signing_logic',

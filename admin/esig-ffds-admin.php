@@ -331,8 +331,11 @@ if (!class_exists('ESIG_FFDS_Admin')) :
          //  $ArrayHelper = new ArrayHelper();
          //  $signer_name = $ArrayHelper->get($feedValue, 'signer_name');
             $email_field = esig_esff_get('signer_email',$feedValue);
-            $name_field = esig_esff_get('signer_name',$feedValue); 
+            $name_field = esig_esff_get('signer_name',$feedValue);
 
+            if (strpos($name_field, 'names') !== false) {
+                $name_field = "names";
+            } 
 
             $signer_email = sanitize_email(esig_esff_get($email_field,$formData));           
             $signer_name = esig_esff_get($name_field,$formData);   
@@ -347,7 +350,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             $docStatus  = WP_E_Sig()->document->getStatus($document_id);
                 
             if($docStatus !="stand_alone") return false;
-            
+            if(!WP_E_Sig()->validation->esig_valid_string($signer_name)) return false ; 
             if (!is_email($signer_email)) return false;
             //sending email invitation / redirecting .
             self::esig_invite_document($document_id, $signer_email, $signer_name, $formId,$insertId, $signing_logic,$formData,$feedValue,$form);
