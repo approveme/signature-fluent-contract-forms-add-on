@@ -269,11 +269,11 @@ class esigFluent extends IntegrationManager
                 }
 
                
-                if ($second_reminder_email <= $first_reminder_email ){
+                if (intval($second_reminder_email) <= intval($first_reminder_email)){
                     $errors[] = 'Second reminder should be Greater than First reminder';
                 }
                 
-                if ($expire_reminder <= $second_reminder_email ){
+                if (intval($expire_reminder) <= intval($second_reminder_email)){
                     $errors[] = 'Last reminder should be Greater than Second reminder';
                 }	
                 
