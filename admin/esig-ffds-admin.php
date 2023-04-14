@@ -210,7 +210,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             
 
             foreach ($formFields as $fields) {
-                $html .= '<option data-type='. esc_attr($fields['type']) .' data-id='. esc_attr($fields['label']) .' value=' . esc_attr($fields['name']) . '>' . esc_attr($fields['label']) . '</option>';
+                $html .= '<option data-type='. esc_attr($fields['type']) .' data-id="'. esc_attr($fields['label']) .'" value=' . esc_attr($fields['name']) . '>' . esc_attr($fields['label']) . '</option>';
             }
             echo $html;
     

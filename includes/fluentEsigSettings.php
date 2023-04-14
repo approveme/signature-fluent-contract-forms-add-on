@@ -263,7 +263,7 @@ class esigFluentSetting {
             case "input_checkbox":
                 return self::checkboxValue($value);
                 break;
-            case "tabular":
+            case "tabular_grid":
                 return self::checkboxGridValue($value);
                 break;
             case "repeater_field":
