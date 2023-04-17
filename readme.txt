@@ -470,6 +470,10 @@ Important: Do NOT include this page in your Nav menu since all of the magic actu
 
 
 == Changelog ==
+Version 1.0.8
+FIX: Reminder interval validation issue 
+FIX: Some minor bugs 
+
 Version 1.0.7
 FIX: Container field value display issue 
 FIX: Some minor bugs 
