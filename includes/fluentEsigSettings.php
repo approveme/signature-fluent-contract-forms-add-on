@@ -178,8 +178,12 @@ class esigFluentSetting {
 
         $items = '';
         foreach ($value as $key => $item) {
-            foreach ($item as $newItem) {
-                $items .= '<li>'. $key .' - <label><input type="checkbox" onclick="return false;" readonly checked="checked"></label>' . esc_attr($newItem) . '</li>';
+            if(is_array($item)){
+                foreach ($item as $newItem) {
+                    $items .= '<li>'. $key .' - <label><input type="checkbox" onclick="return false;" readonly checked="checked" style="margin-right: 5px;"></label>' . esc_attr($newItem) . '</li>';
+                }
+            }else{
+                $items .= '<li>'. $key .' - <label><input type="radio" onclick="return false;" readonly checked="checked" style="margin-right: 5px;"></label>' . esc_attr($item) . '</li>';         
             }
 
         }
