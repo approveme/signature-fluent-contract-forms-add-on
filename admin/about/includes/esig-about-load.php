@@ -80,7 +80,7 @@ if (!class_exists('esig_esff_Addon_About')) :
 
         final function adminmenu() {
          
-            add_submenu_page(null, __('About', 'esig'), __('About', 'esig'), 'read', 'esign-' . strtolower($this->_name) . '-about', array($this, 'about_page'));
+            add_submenu_page(" ", __('About', 'esig'), __('About', 'esig'), 'read', 'esign-' . strtolower($this->_name) . '-about', array($this, 'about_page'));
 
             if (!function_exists('WP_E_Sig')) {
 
