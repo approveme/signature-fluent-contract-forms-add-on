@@ -224,7 +224,7 @@ class esigFluent extends IntegrationManager
     {
         $errors = [];
         
-        $settingsFields = $this->getSettingsFields($settings);
+        $settingsFields = $this->getSettingsFields($settings, $formId);
         foreach ($settingsFields['fields'] as $field) {
 
             if(empty($settings['signer_name'])){
@@ -236,9 +236,11 @@ class esigFluent extends IntegrationManager
             if(empty($settings[$field['key']]) && wp_validate_boolean($field['required']))
             {
                 $errors[] = $field['label'] . ' is required.';
-            }elseif(!empty($settings['reminder_email']) || !empty($settings['first_reminder_send']) || !empty($settings['expire_reminder']) || $settings['signing_reminder'] == '1'){
-                
-                $reminderValue = $settings[$field['key']];
+            }elseif(!empty($settings['reminder_email']) || !empty($settings['first_reminder_send']) || !empty($settings['expire_reminder']) || array_key_exists('signing_reminder', $settings)){
+
+                if(!array_key_exists('signing_reminder', $settings)){
+                    $settings['signing_reminder'] = '';
+                }
 
                 if($settings['signing_reminder'] != '1'){
                     $errors[] = 'Please enabled signing reminder first';
