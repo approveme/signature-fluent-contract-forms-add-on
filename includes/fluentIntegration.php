@@ -47,7 +47,7 @@ class esigFluent extends IntegrationManager
 
         $this->description = 'This add-on allows you to redirect your form-filler or email an individual to review and sign an electronic document.';
 
-        add_filter('fluentform_save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
+        add_filter('save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
       
        $this->registerAdminHooks();
     }
@@ -100,9 +100,12 @@ class esigFluent extends IntegrationManager
     {
         
         $SadFieldOptions = [];
-        foreach (esigFluentSetting::get_sad_documents() as $key => $column) {
-            $SadFieldOptions[$key] = $column;
+        if(class_exists('esig_sad_document')){
+            foreach (esigFluentSetting::get_sad_documents() as $key => $column) {
+                $SadFieldOptions[$key] = $column;
+            }
         }
+      
 
         $signerName = esigFluentSetting::get_signer_info_field($formId,'name');
         $signerEmail = esigFluentSetting::get_signer_info_field($formId,'email');
