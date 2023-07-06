@@ -471,7 +471,7 @@ Important: Do NOT include this page in your Nav menu since all of the magic actu
 
 == Changelog ==
 Version 1.1.0
-ADDED: Fluent Forms version 5.0.0
+ADDED: Fluent Forms version 5.0.0 support
 FIX: Php 8.1 compatibility issue
 FIX: Private page assign issue
 FIX: Some minor bugs
