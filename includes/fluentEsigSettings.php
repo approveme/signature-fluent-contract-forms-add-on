@@ -225,9 +225,7 @@ class esigFluentSetting {
         foreach ($value as $key => $val) {
 
             if ($key == 'country') {
-                $countries = wpFluentForm()->load(
-                    wpFluentForm()->appPath('Services/FormBuilder/CountryNames.php')
-                );
+                $countries = getFluentFormCountryList();
                 $result .= $countries[$val] . '.';
             } else {
                 if ($val) {
