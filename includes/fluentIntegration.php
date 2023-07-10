@@ -47,7 +47,7 @@ class esigFluent extends IntegrationManager
 
         $this->description = 'This add-on allows you to redirect your form-filler or email an individual to review and sign an electronic document.';
 
-        add_filter('fluentform_save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
+        add_filter('save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
       
        $this->registerAdminHooks();
     }
@@ -100,9 +100,12 @@ class esigFluent extends IntegrationManager
     {
         
         $SadFieldOptions = [];
-        foreach (esigFluentSetting::get_sad_documents() as $key => $column) {
-            $SadFieldOptions[$key] = $column;
+        if(class_exists('esig_sad_document')){
+            foreach (esigFluentSetting::get_sad_documents() as $key => $column) {
+                $SadFieldOptions[$key] = $column;
+            }
         }
+      
 
         $signerName = esigFluentSetting::get_signer_info_field($formId,'name');
         $signerEmail = esigFluentSetting::get_signer_info_field($formId,'email');
@@ -224,7 +227,7 @@ class esigFluent extends IntegrationManager
     {
         $errors = [];
         
-        $settingsFields = $this->getSettingsFields($settings);
+        $settingsFields = $this->getSettingsFields($settings, $formId);
         foreach ($settingsFields['fields'] as $field) {
 
             if(empty($settings['signer_name'])){
@@ -236,9 +239,11 @@ class esigFluent extends IntegrationManager
             if(empty($settings[$field['key']]) && wp_validate_boolean($field['required']))
             {
                 $errors[] = $field['label'] . ' is required.';
-            }elseif(!empty($settings['reminder_email']) || !empty($settings['first_reminder_send']) || !empty($settings['expire_reminder']) || $settings['signing_reminder'] == '1'){
-                
-                $reminderValue = $settings[$field['key']];
+            }elseif(!empty($settings['reminder_email']) || !empty($settings['first_reminder_send']) || !empty($settings['expire_reminder']) || array_key_exists('signing_reminder', $settings)){
+
+                if(!array_key_exists('signing_reminder', $settings)){
+                    $settings['signing_reminder'] = '';
+                }
 
                 if($settings['signing_reminder'] != '1'){
                     $errors[] = 'Please enabled signing reminder first';

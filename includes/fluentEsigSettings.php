@@ -29,7 +29,7 @@ class esigFluentSetting {
             $document_status = $api->document->getStatus($page->document_id);
 
             if ($document_status != 'trash') {
-                if ('publish' === get_post_status($page->page_id)) {
+                if ('publish' === get_post_status($page->page_id) || 'private' === get_post_status($page->page_id)) {
                     $choices[$page->page_id] = get_the_title($page->page_id);
                     
                 }
