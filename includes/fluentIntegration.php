@@ -47,7 +47,7 @@ class esigFluent extends IntegrationManager
 
         $this->description = 'This add-on allows you to redirect your form-filler or email an individual to review and sign an electronic document.';
 
-        add_filter('save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
+        add_filter('fluentform/save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
       
        $this->registerAdminHooks();
     }
