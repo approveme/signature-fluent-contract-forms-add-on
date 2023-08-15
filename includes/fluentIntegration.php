@@ -235,6 +235,9 @@ class esigFluent extends IntegrationManager
             }elseif(empty($settings['signer_email'])){
                 $errors[] = 'Signer Email is required.';
             }
+            elseif(empty($settings['signing_logic'])){
+                $errors[] = 'Signing Logic is required.';
+            }
             elseif(!empty($settings['reminder_email']) || !empty($settings['first_reminder_send']) || !empty($settings['expire_reminder']) || array_key_exists('signing_reminder', $settings)){
 
                 if(!array_key_exists('signing_reminder', $settings)){
