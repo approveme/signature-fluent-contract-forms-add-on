@@ -241,6 +241,16 @@ class esigFluent extends IntegrationManager
                     $settings['signing_reminder'] = '';
                 }
 
+                if(!array_key_exists('reminder_email', $settings)){
+                    $settings['reminder_email'] = '';
+                }
+                if(!array_key_exists('first_reminder_send', $settings)){
+                    $settings['first_reminder_send'] = '';
+                }
+                if(!array_key_exists('expire_reminder', $settings)){
+                    $settings['expire_reminder'] = '';
+                }
+
                 if($settings['signing_reminder'] != '1'){
                     $errors[] = 'Please enabled signing reminder first';
                 }
