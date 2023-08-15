@@ -230,7 +230,9 @@ class esigFluent extends IntegrationManager
         $settingsFields = $this->getSettingsFields($settings, $formId);
         foreach ($settingsFields['fields'] as $field) {
 
-            if(empty($settings['signer_name'])){
+            if(empty($settings['enable_esig'])){
+                $errors[] = 'Please enabled E-Signature Integration';
+            }elseif(empty($settings['signer_name'])){
                 $errors[] = 'Signer Name is required.';
             }elseif(empty($settings['signer_email'])){
                 $errors[] = 'Signer Email is required.';
