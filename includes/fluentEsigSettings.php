@@ -4,6 +4,8 @@ namespace esigFluentIntegration;
 use Mpdf\Tag\U;
 use WP_E_Invite;
 
+use function Crontrol\Event\get;
+
 class esigFluentSetting {
 
         
@@ -66,7 +68,14 @@ class esigFluentSetting {
 
     public static function getEsigFeedSettings($formId){
 
+        $settingsMeta=wpFluent()->table('fluentform_form_meta')
+        ->where('form_id', $formId)
+            ->where('meta_key', 'wpesignature_feeds').get();
+
+        return $settingsMeta ;
+
        $getEsigFeed = (new \FluentForm\App\Modules\Form\Form(wpFluentForm()));
+       print_r($getEsigFeed);
        $feedValue = $getEsigFeed->getMeta($formId, 'wpesignature_feeds', true);
 
        return $feedValue ;

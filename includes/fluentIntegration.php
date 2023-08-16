@@ -11,6 +11,7 @@ use ESIG_FFFDS;
 use esig_fluentform_document_view;
 use esig_sad_document;
 use FluentForm\App\Helpers\Helper;
+use FluentForm\App\Http\Controllers\IntegrationManagerController;
 use FluentForm\App\Services\ConditionAssesor;
 use FluentForm\App\Services\Integrations\IntegrationManager;
 use FluentForm\Framework\Foundation\Application;
@@ -18,7 +19,7 @@ use FluentForm\Framework\Helpers\ArrayHelper;
 use WP_E_Common;
 use WP_E_invitationsController;
 
-class esigFluent extends IntegrationManager
+class esigFluent extends IntegrationManagerController
 {
     public $category = 'wp_core';
     public $disableGlobalSettings = 'yes';

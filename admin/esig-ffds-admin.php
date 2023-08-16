@@ -325,7 +325,8 @@ if (!class_exists('ESIG_FFDS_Admin')) :
             $formId = $form->id;  
             self::setFluentFormID($formId);        
             $feedValue = esigFluentSetting::getEsigFeedSettings($formId);
-           
+            print_r($feedValue);
+            exit;
             if(!wp_validate_boolean(esig_esff_get("enable_esig",$feedValue))) return false;
           
          //  $ArrayHelper = new ArrayHelper();
