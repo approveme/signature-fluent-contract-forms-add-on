@@ -47,7 +47,7 @@ class esigFluent extends IntegrationManager
 
         $this->description = 'This add-on allows you to redirect your form-filler or email an individual to review and sign an electronic document.';
 
-        add_filter('save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
+        add_filter('fluentform/save_integration_value_' . $this->integrationKey, [$this, 'validate'], 10, 3);
       
        $this->registerAdminHooks();
     }
@@ -230,19 +230,32 @@ class esigFluent extends IntegrationManager
         $settingsFields = $this->getSettingsFields($settings, $formId);
         foreach ($settingsFields['fields'] as $field) {
 
-            if(empty($settings['signer_name'])){
+            if(empty($settings['enable_esig'])){
+                $errors[] = 'Please enabled E-Signature Integration';
+            }elseif(empty($settings['signer_name'])){
                 $errors[] = 'Signer Name is required.';
             }elseif(empty($settings['signer_email'])){
                 $errors[] = 'Signer Email is required.';
             }
-          
-            if(empty($settings[$field['key']]) && wp_validate_boolean($field['required']))
-            {
-                $errors[] = $field['label'] . ' is required.';
-            }elseif(!empty($settings['reminder_email']) || !empty($settings['first_reminder_send']) || !empty($settings['expire_reminder']) || array_key_exists('signing_reminder', $settings)){
+            elseif(empty($settings['signing_logic'])){
+                $errors[] = 'Signing Logic is required.';
+            } elseif (empty($settings['select_sad_doc'])) {
+                $errors[] = 'Please select document.';
+            }
+            elseif(!empty($settings['reminder_email']) || !empty($settings['first_reminder_send']) || !empty($settings['expire_reminder']) || array_key_exists('signing_reminder', $settings)){
 
                 if(!array_key_exists('signing_reminder', $settings)){
                     $settings['signing_reminder'] = '';
+                }
+
+                if(!array_key_exists('reminder_email', $settings)){
+                    $settings['reminder_email'] = '';
+                }
+                if(!array_key_exists('first_reminder_send', $settings)){
+                    $settings['first_reminder_send'] = '';
+                }
+                if(!array_key_exists('expire_reminder', $settings)){
+                    $settings['expire_reminder'] = '';
                 }
 
                 if($settings['signing_reminder'] != '1'){
