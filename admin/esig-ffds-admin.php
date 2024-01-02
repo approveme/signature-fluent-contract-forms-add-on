@@ -32,6 +32,7 @@ if (!class_exists('ESIG_FFDS_Admin')) :
          */
         protected static $instance = null;
         public $name;
+        private $plugin_slug, $document_view;
 
         /**
          * Slug of the plugin screen.
