@@ -6,7 +6,7 @@
  * Plugin Name:       Electronic Signature Add-on for Fluent Forms by ApproveMe.com
  * Plugin URI:        https://aprv.me/fluentforms
  * Description:       This add-on makes it possible to automatically email a WP E-Signature document (or redirect a user to a document) after the user has succesfully submitted a Fluent Forms. You can also insert data from the submitted Fluent Form into the WP E-Signature document.
- * Version:           1.1.2
+ * Version:           1.1.3
  * Author:            ApproveMe.com
  * Author URI:        https://www.approveme.com/
  * Text Domain:       esig-esff

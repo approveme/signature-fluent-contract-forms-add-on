@@ -23,6 +23,7 @@ class esigFluent extends IntegrationManager
     public $category = 'wp_core';
     public $disableGlobalSettings = 'yes';
     protected $form;
+    protected $document_view,$plugin_slug;
 
     public function __construct(Application $app )
     {
