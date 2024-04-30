@@ -2,8 +2,8 @@
 Contributors: approveme
 Tags: Fluent Forms, Fluent Form, Fluent Forms, contract, proposal, digital signature, esignature, esign, contact form, signature pad, wordpress form, wordpress e-signature, wordpress signature
 Requires at least: 6.0
-Tested up to: 6.4
-Stable tag: 1.1.3
+Tested up to: 6.5
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,10 +22,10 @@ Instantly produce a legally binding PDF WordPress contract from a Fluent Forms c
 
 *Please note you will need the following plugins installed to completely automate the process of collection of contracts using Fluent Forms and WP E-Signature.*
 1. [Fluent Forms](https://wordpress.org/plugins/fluentform/)
-2. [WP E-Signature](https://www.approveme.com/fluent-forms-signature-special/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) (Plus and Elite)
+2. [WP E-Signature](https://www.approveme.com/fluent-forms-signature-special/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) (Elite or Lifetime)
 3. [Stand Alone Document](https://www.approveme.com/fluent-forms-signature-special/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) (comes with above licenses)
 
-*A Plus or Elite license license is required and can be purchased at [www.approveme.com](https://www.approveme.com/fluent-forms-special-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)
+*A Elite or Lifetime license license is required and can be purchased at [www.approveme.com](https://www.approveme.com/fluent-forms-special-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)
 
 
 **What would you do if you discover the contracts you used in running your online business were not legally binding?**
