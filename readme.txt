@@ -266,11 +266,11 @@ ApproveMe's WP E Signature requires a few more plugins/add-ons to help you relea
 
 
 1. [Fluent Forms Lite](https://wordpress.org/plugins/fluentform/)
-2. [WP E Signature](https://www.approveme.com/fluent-forms-signature-special/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) (ultimate, elite or pro license)
+2. [WP E Signature](https://www.approveme.com/fluent-forms-signature-special/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) (Lifetime or Elite license)
 3. [esignature Business Pack](https://www.approveme.com/fluent-forms-signature-special/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) (comes with your license above)
 4. [Signature Add-On by ApproveMe](this plugin)
 
-*An Ultimate, Elite or Pro license is required and can be purchased at [www.approveme.com](https://www.approveme.com/fluent-forms-special-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)
+*An Lifetime or Elite license is required and can be purchased at [www.approveme.com](https://www.approveme.com/fluent-forms-special-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)
 
 **Step 2:**
 *Input your ApproveMe license*
@@ -361,7 +361,7 @@ To see a live demo of the Fluent Forms to WP E-Signature by visiting:
 Every signed document could be saved as a PDF, placed in an email, instantly synced to a Dropbox account and much more! You choose exactly how you want it to work! 
 
 
-*An up to date [Ultimate, Elite or Pro License](https://www.approveme.com/fluent-forms-special-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) is needed for ApproveMe’s  Fluent Forms Signature plugin to run smoothly*
+*An up to date [Lifetime or Elite License](https://www.approveme.com/fluent-forms-special-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms) is needed for ApproveMe’s  Fluent Forms Signature plugin to run smoothly*
 
 
 **[Get Your ApproveMe Elite License Now](https://www.approveme.com/fluent-forms-special-pricing/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms)**
@@ -394,7 +394,7 @@ The appropriation of the European Directive 1999/93/EC of 13 December 1999 estab
 
 = Will I Need to Renew my ApproveMe WordPress E-Signature License? =
 
-Yes you will (unless you have an Ultimate License). Each license key is valid for one calendar year from the purchase date. An active license key is needed for access to automatic/critical updates, plugin support and access to our growing [eSignature add-on library](https://www.approveme.com/esign-features/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms).  
+Yes you will (unless you have an Lifetime License). Each license key is valid for one calendar year from the purchase date. An active license key is needed for access to automatic/critical updates, plugin support and access to our growing [eSignature add-on library](https://www.approveme.com/esign-features/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms).  
 
 = Where Can I Find My ApproveMe WP esign License Key? =
 
@@ -408,7 +408,7 @@ Your license grants you access to all of our support resources, documentation, p
 
 = How much does it cost to renew my license? =
 
-The Ultimate Plan does not have a renewal cost.  It is a one-time payment for the WP E-Signature plugin.  However all other plans have an annual renewal.  Our goal has always been to pull the price back as much as we possibly can so small businesses and freelancers could sign documents electronically using their WordPress website (and save alot of money in the process). Not only is our WordPress signature plugin the most powerful of its kind, it’s also the most affordable.  Not to throw anyone under the bus, but look at what our competitors charge every single year:
+The Lifetime Plan does not have a renewal cost.  It is a one-time payment for the WP E-Signature plugin.  However all other plans have an annual renewal.  Our goal has always been to pull the price back as much as we possibly can so small businesses and freelancers could sign documents electronically using their WordPress website (and save alot of money in the process). Not only is our WordPress signature plugin the most powerful of its kind, it’s also the most affordable.  Not to throw anyone under the bus, but look at what our competitors charge every single year:
 
 Adobe charges $1,080 / yr (per 3 users)
 Docusign charges $1,440 / yr (per 3 users)
