@@ -470,6 +470,9 @@ Important: Do NOT include this page in your Nav menu since all of the magic actu
 
 
 == Changelog ==
+Version 1.1.4
+FIX: Some minor bugs 
+
 Version 1.1.3
 ADDED : PHP 8.2 compatibility
 FIX: Some minor bugs 
