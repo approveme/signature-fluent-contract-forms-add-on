@@ -61,7 +61,7 @@ function fluentforms_message($esigStatus,$pluginName)
                   elseif (!function_exists('wpFluentForm') && check_plugin_installed('fluentform/fluentform.php')) {// Notice about add-on dependent 3rd party plugin if not installed
                    return '<span class="esig-icon-esig-alert"></span><h4>Fluent Forms plugin is not activated. Please activate Fluent Forms version 4.3.0 or greater - <a href='. esc_url(generatePluginActivationLinkUrl()) .'>Click here to Activate the Plugin</a></h4>';
                   }
-                  elseif(!class_exists('ESIG_SAD_Admin')){// Notice about stand alone documents if not enabled
+                   elseif(!class_exists('WpEsignSad\Hooks\Admin\SadAdmin')){// Notice about stand alone documents if not enabled
                     return '<span class="esig-icon-esig-alert"></span><h4>WP E-Signature <a href="https://www.approveme.com/downloads/stand-alone-documents/?utm_source=wprepo&utm_medium=link&utm_campaign=fluent-forms" target="_blank">"Stand Alone Documents"</a> Add-on is not active. Please enable WP E-Signature Stand Alone Documents  <a class="about-button" href="'. esc_url(admin_url("admin.php?page=esign-addons&tab=disable&esig_action=enable&plugin_url=esig-stand-alone-docs%2Fesig-sad.php&plugin_name=WP%20E-Signature%20-%20Stand%20Alone%20Documents")) .'">Enable it now </a> </h4>';
                   }
 
