@@ -24,6 +24,8 @@ if (!defined("ESIG_ESFF_ADDON_URL")) {
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esff-function.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-ffds.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'admin/esig-fluent-filters.php' );
+
 register_activation_hook( __FILE__, array( 'ESIG_FFDS', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'ESIG_FFDS', 'deactivate' ) );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-fluentform-document-view.php' );
@@ -41,4 +43,6 @@ function loadEsigFluentIntegration()
 }
 
 require_once( plugin_dir_path( __FILE__ ) . 'admin/esig-ffds-admin.php' );
+add_action( 'plugins_loaded', array( 'esigFluentFilters', 'instance' ) );
 add_action( 'plugins_loaded', array( 'ESIG_FFDS_Admin', 'get_instance' ) );
+

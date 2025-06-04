@@ -42,12 +42,12 @@
 
 
                                 var return_text = '<p>[esigfluent formid="'+ form_id +'" label="'+ allLabel +'" field_id="'+ allField +'" field_type="'+ alltype +'" display="'+ displayType +'"]</p>';
-		                esig_sif_admin_controls.insertContent(return_text);
+		                 tinymce.get('document_content').insertContent(return_text);
                         });
                 }
                 else {
                   var return_text = '[esigfluent formid="'+ form_id +'" label="'+ label +'" field_id="'+ field_id +'" field_type="'+ field_type +'" display="'+ displayType +'" ]';
-		  esig_sif_admin_controls.insertContent(return_text);
+		   tinymce.get('document_content').insertContent(return_text);
 
                 }
             
@@ -69,6 +69,18 @@
             
             
         });
+
+
+          // display  gravity form option popup
+        $("#wpesign__fluentform-sif-popup").on("click", function(e) {
+
+                e.preventDefault();
+               
+                tb_show( "+ Gravity form option", "#TB_inline?inlineId=esig-fluentform-option", false );
+                
+
+        });
+        
 	
 })(jQuery);
 
