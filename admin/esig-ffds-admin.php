@@ -261,7 +261,7 @@ if (!class_exists('ESIG_FFDS_Admin')):
         public function add_sif_fluentform_buttons($sif_menu)
         {
 
-            $sif_menu .= '<a class="dropdown-item" id="wpesign__fluentform-sif-popup" href="#">Fluent Form Data</a>';
+            $sif_menu .= '<a class="dropdown-item bridge-plugin-integration" id="wpesign__fluentform-sif-popup" href="#">Fluent Form Data</a>';
             return $sif_menu;
         }
 
