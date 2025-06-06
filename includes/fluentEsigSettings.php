@@ -20,7 +20,7 @@ class esigFluentSetting {
 
         $sad = new \esig_sad_document();
 
-        $sad_pages = $sad->esig_get_sad_pages("fluentform");
+        $sad_pages = $sad->esig_get_sad_pages();
       
 
         $choices = [];
