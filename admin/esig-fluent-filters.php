@@ -39,7 +39,9 @@ if (!class_exists('esigFluentFilters')):
             $content = do_shortcodes_in_html_tags($content, true, $tagnames);
             
             $pattern = get_shortcode_regex($tagnames);
-            ESIG_GF_VALUE::setEntryID(esigget("entryId", $args));
+
+            //ESIG_GF_VALUE::setEntryID(esigget("entryId", $args));
+
             $content = preg_replace_callback("/$pattern/", 'do_shortcode_tag', $content);
             
             // Always restore square braces so we don't break things like <!--[if IE ]>
