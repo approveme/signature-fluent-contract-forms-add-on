@@ -101,6 +101,10 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
             // getting sad document id 
             $sad_document_id = esigget("id");
+             $documentStatus = esigget('document_status');
+             if ($documentStatus != "stand_alone") {
+                return;
+            }
 
 
             if (!$sad_document_id) {
