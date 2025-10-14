@@ -321,6 +321,15 @@ if (!class_exists('ESIG_FFDS_Admin')):
             }
 
             if (esig_esff_get("id", $screen) != "plugins") {
+                // Enqueue jQuery UI CSS for dialog styling (use local version from core plugin if available)
+                if (defined('ESIGN_ASSETS_DIR_URI')) {
+                    wp_enqueue_style('jquery-ui-css', ESIGN_ASSETS_DIR_URI . '/public/css/vendor/jquery-ui.css', array(), false, 'all');
+                } else {
+                    // Fallback to CDN if core plugin assets not available
+                    wp_enqueue_style('jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css', array(), '1.12.1', 'all');
+                }
+                // Enqueue custom Fluent Forms styles for dialog fixes
+                wp_enqueue_style('esig-fluent-dialog-styles', plugins_url('assets/css/esig-fluent-styles.css', __FILE__), array(), '1.0.0', 'all');
                 wp_enqueue_script('fluentform-add-admin-script', plugins_url('assets/js/esig-fluentform-control.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.1.0', true);
             }
 
