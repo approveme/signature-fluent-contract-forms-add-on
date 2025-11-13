@@ -2,25 +2,83 @@
         
 
         // next step click from sif pop
-        $( "#esig-fluentform-create" ).click(function() {
+        $("#esig-fluentform-create").click(function() {
           
- 
-                   var form_id= $('select[name="esig_ff_form_id"]').val();
-                 
-                   $("#esig-fluentform-form-first-step").hide();
-                   
-                   // jquery ajax to get form field . 
-                   jQuery.post(esigAjax.ajaxurl,{ action:"esig_fluent_form_fields",form_id:form_id},function( data ){ 
-                       
-				      $("#esig-ff-field-option").html(data);
-				},"html");
-                   
-                   $("#esig-ff-second-step").show();                        
+                var form_id = $('select[name="esig_ff_form_id"]').val();
+                
+                // Hide first step, show second step
+                $("#esig-fluentform-form-first-step").hide();
+                $("#esig-ff-second-step").show();
+                
+                // Show loading only on first load
+                var isFirstLoad = $("#esig-ff-field-option").is(':empty') || $("#esig-ff-field-option").html().trim() === '';
+                
+                if (isFirstLoad) {
+                        $("#esig-fluentform-loading-container").show();
+                }
+                
+                // AJAX to get form fields
+                jQuery.post(esigAjax.ajaxurl, { 
+                        action: "esig_fluent_form_fields", 
+                        form_id: form_id 
+                }, function(data) {
+                        
+                        // Hide and remove loading message
+                        $("#esig-fluentform-loading-container").fadeOut(200, function() {
+                                $(this).remove();
+                        });
+                        
+                        // Insert field options
+                        $("#esig-ff-field-option").html(data);
+                        
+                        // Show all elements with proper targeting and spacing
+                        setTimeout(function() {
+                                // Get DOM elements directly - use step2 button ID!
+                                var fieldOption = document.getElementById('esig-ff-field-option');
+                                var displayType = document.getElementById('select-fluentform-field-display-type');
+                                var buttonWrap = document.getElementById('upload_fluentform_button_step2');
+                                
+                                // Force inline styles with !important via setAttribute - add proper spacing
+                                if (fieldOption) {
+                                        fieldOption.setAttribute('style', 'display: block !important; visibility: visible !important; opacity: 1 !important; margin: 15px 0 !important;');
+                                }
+                                if (displayType) {
+                                        displayType.setAttribute('style', 'display: block !important; visibility: visible !important; opacity: 1 !important; margin: 15px 0 !important;');
+                                }
+                                if (buttonWrap) {
+                                        buttonWrap.setAttribute('style', 'display: block !important; visibility: visible !important; opacity: 1 !important; margin: 20px 0 !important;');
+                                        
+                                        // Also force the button inside visible
+                                        var button = buttonWrap.querySelector('#esig-fluentform-insert');
+                                        if (button) {
+                                                button.setAttribute('style', 'display: inline-block !important; visibility: visible !important; opacity: 1 !important;');
+                                        }
+                                }
+                                
+                        }, 100);
+                        
+                        // Re-initialize chosen for the dropdowns
+                        setTimeout(function() {
+                                if (jQuery.fn.chosen) {
+                                        try {
+                                                $("#esig-ff-field-option .chosen-select").chosen('destroy');
+                                                $("#select-fluentform-field-display-type .chosen-select").chosen('destroy');
+                                        } catch(e) {}
+                                        
+                                        $("#esig-ff-field-option .chosen-select").chosen();
+                                        $("#select-fluentform-field-display-type .chosen-select").chosen();
+                                }
+                        }, 150);
+                        
+                }, "html").fail(function(xhr, status, error) {
+                        $("#esig-fluentform-loading-container").html('<span style="color: red;">Error loading fields. Please try again.</span>');
+                });
   
         });
  
-        // ninja add to document button clicked 
-        $( "#esig-fluentform-insert" ).click(function() {
+        // fluent form add to document button clicked 
+        $(document).on("click", "#esig-fluentform-insert", function(e) {
+                e.preventDefault();
  
                    var form_id= $('select[name="esig_ff_form_id"]').val();
                    
