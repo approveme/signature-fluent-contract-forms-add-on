@@ -157,8 +157,14 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
                 $getModules = get_option('fluentform_global_modules_status');
 
-                if ($getModules['wpesignature'] == 'no') {
+                if (is_array($getModules) && isset($getModules['wpesignature']) && $getModules['wpesignature'] == 'no') {
                     $getModules['wpesignature'] = 'yes';
+                    update_option('fluentform_global_modules_status', $getModules);
+                } elseif (is_array($getModules) && !isset($getModules['wpesignature'])) {
+                    $getModules['wpesignature'] = 'yes';
+                    update_option('fluentform_global_modules_status', $getModules);
+                } elseif (!is_array($getModules)) {
+                    $getModules = array('wpesignature' => 'yes');
                     update_option('fluentform_global_modules_status', $getModules);
                 }
 
@@ -409,7 +415,7 @@ if (!class_exists('ESIG_FFDS_Admin')):
             $esigFluentFormdata = $formData;
           
             // Copy the document
-            $doc_id = WP_E_Sig()->document->copy($old_doc_id , ["integrationType" => "esigfluent", "form_id" => $form_id, "esig_ff_entry_id" => $insertId]);
+            $doc_id = WP_E_Sig()->document->copy($old_doc_id, ["integrationType" => "esigfluent", "form_id" => $form_id, "esig_ff_entry_id" => $insertId]);
 
             WP_E_Sig()->meta->add($doc_id, 'esig_ff_form_id', $form_id);
             WP_E_Sig()->meta->add($doc_id, 'esig_ff_entry_id', $insertId);
