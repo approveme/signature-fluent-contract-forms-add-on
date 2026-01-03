@@ -195,24 +195,71 @@ if (!class_exists('ESIG_FFDS_Admin')) :
 
         public function esig_fluent_form_fields() {
 
+            // Verify nonce for security
+            if (!check_ajax_referer('esig_fluent_form_fields', 'esig_fluent_nonce', false)) {
+                wp_send_json_error(array('message' => __('Security check failed. Please refresh the page and try again.', 'esig-esff')));
+                return;
+            }
 
-            if (!function_exists('WP_E_Sig')) return false;
+            // Check user capabilities
+            if (!current_user_can('edit_posts')) {
+                wp_send_json_error(array('message' => __('You do not have permission to perform this action.', 'esig-esff')));
+                return;
+            }
+
+            // Check E-Signature plugin is available
+            if (!function_exists('WP_E_Sig')) {
+                wp_send_json_error(array('message' => __('E-Signature plugin is not available.', 'esig-esff')));
+                return;
+            }
+
+            // Check current user is e-signature sender
+            if (!WP_E_Sig()->user->checkEsigAdmin(get_current_user_id())) {
+                wp_send_json_error(array('message' => __('You are not authorized to perform this action.', 'esig-esff')));
+                return;
+            }
+
+            // Validate and sanitize form_id
+            $form_id = isset($_POST['form_id']) ? $_POST['form_id'] : '';
+            if (empty($form_id) || !is_numeric($form_id)) {
+                wp_send_json_error(array('message' => __('Invalid form ID provided.', 'esig-esff')));
+                return;
+            }
+
+            $form_id = absint($form_id);
+
+            // Check if Fluent Forms is available
+            if (!function_exists('wpFluentForm')) {
+                wp_send_json_error(array('message' => __('Fluent Forms is not available.', 'esig-esff')));
+                return;
+            }
+    
+            $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
+            
+            if (empty($formFields) || !is_array($formFields)) {
+                wp_send_json_error(array('message' => __('Form not found or has no fields.', 'esig-esff')));
+                return;
+            }
     
             $html = '';
     
             $html .= '<select id="esig_ff_field_id" name="esig_ff_field_id" class="chosen-select" style="width:250px;">';
-            $form_id = esigpost('form_id');            
-    
-            $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
-    
-            $html .= '<option value="all">Insert all fields</option>';
-            
-
+            $html .= '<option value="all">' . esc_html__('Insert all fields', 'esig-esff') . '</option>';
             
 
             foreach ($formFields as $fields) {
-                $html .= '<option data-type='. esc_attr($fields['type']) .' data-id="'. esc_attr($fields['label']) .'" value=' . esc_attr($fields['name']) . '>' . esc_attr($fields['label']) . '</option>';
+                if (!isset($fields['type']) || !isset($fields['label']) || !isset($fields['name'])) {
+                    continue;
+                }
+                
+                $field_type = esc_attr($fields['type']);
+                $field_label = esc_attr($fields['label']);
+                $field_name = esc_attr($fields['name']);
+                
+                $html .= '<option data-type="' . $field_type . '" data-id="' . $field_label . '" value="' . $field_name . '">' . $field_label . '</option>';
             }
+            
+            $html .= '</select>';
             echo $html;
     
             die();
@@ -293,6 +340,12 @@ if (!class_exists('ESIG_FFDS_Admin')) :
                 
                 wp_enqueue_script('jquery');
                 wp_enqueue_script('fluentform-add-admin-script', plugins_url('assets/js/esig-add-fluentform.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.1.0', true);
+                
+                // Localize script with nonce for AJAX security
+                wp_localize_script('fluentform-add-admin-script', 'esigFluentAjax', array(
+                    'ajaxurl' => admin_url('admin-ajax.php'),
+                    'esig_fluent_nonce' => wp_create_nonce('esig_fluent_form_fields')
+                ));
             }
             
             if (esig_esff_get("id",$screen) != "plugins") {
@@ -492,14 +545,22 @@ if (!class_exists('ESIG_FFDS_Admin')) :
              if(!is_null($esigFluentDocumentId) && $signing_logic == "redirect"){
 
                 
-                $url =  WP_E_Sig()->meta->get($esigFluentDocumentId, "esig_fluent_forms_invite_url");           
-               
-                $returnData = [  
-                   'message'     => 'Form Submitted! Now redirecting to WP E-Signature document for signing',
-                   'action'      => 'hide_form',
-                   'redirectTo'  => 'customUrl',
-                   'redirectUrl' => $url,
-               ];  
+                $url =  WP_E_Sig()->meta->get($esigFluentDocumentId, "esig_fluent_forms_invite_url");
+                
+                // Validate redirect URL to prevent open redirect attacks
+                if (!empty($url)) {
+                    $url = wp_sanitize_redirect($url);
+                    $url = wp_validate_redirect($url, home_url());
+                    
+                    if ($url) {
+                        $returnData = [  
+                           'message'     => 'Form Submitted! Now redirecting to WP E-Signature document for signing',
+                           'action'      => 'hide_form',
+                           'redirectTo'  => 'customUrl',
+                           'redirectUrl' => $url,
+                       ];
+                    }
+                }
              
             } 
            
