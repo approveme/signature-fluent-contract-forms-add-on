@@ -232,7 +232,14 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
         public function esig_fluent_form_fields()
         {
-
+            // Security: Verify nonce for AJAX request
+            check_ajax_referer('esig-fluent-ajax-nonce', 'nonce');
+            
+            // Security: Verify user capabilities
+            if (!is_user_logged_in() || !current_user_can('edit_posts')) {
+                wp_send_json_error(array('message' => __('Insufficient permissions', 'esig-esff')));
+                die();
+            }
 
             if (!function_exists('WP_E_Sig'))
                 return false;
@@ -240,7 +247,8 @@ if (!class_exists('ESIG_FFDS_Admin')):
             $html = '';
 
             $html .= '<select id="esig_ff_field_id" name="esig_ff_field_id" class="chosen-select" style="width:250px;">';
-            $form_id = esigpost('form_id');
+            // Security: Sanitize form_id input
+            $form_id = isset($_POST['form_id']) ? intval($_POST['form_id']) : 0;
 
             $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
 
@@ -324,6 +332,12 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
                 wp_enqueue_script('jquery');
                 wp_enqueue_script('fluentform-add-admin-script', plugins_url('assets/js/esig-add-fluentform.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.1.0', true);
+                
+                // Security: Localize script with nonce for AJAX requests
+                wp_localize_script('fluentform-add-admin-script', 'esigFluentAjax', array(
+                    'ajaxurl' => admin_url('admin-ajax.php'),
+                    'nonce' => wp_create_nonce('esig-fluent-ajax-nonce'),
+                ));
             }
 
             if (esig_esff_get("id", $screen) != "plugins") {
@@ -438,7 +452,9 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
             $recipient['id'] = WP_E_Sig()->user->insert($recipient);
 
-            $doc_title = $old_doc->document_title . ' - ' . $signer_name;
+            // Security: Escape signer_name to prevent XSS in document title
+            $escaped_signer_name = esc_html($signer_name);
+            $doc_title = $old_doc->document_title . ' - ' . $escaped_signer_name;
             // Update the doc title
 
 

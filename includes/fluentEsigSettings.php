@@ -179,12 +179,14 @@ class esigFluentSetting {
 
         $items = '';
         foreach ($value as $key => $item) {
+            // Security: Escape key to prevent XSS
+            $escaped_key = esc_html($key);
             if(is_array($item)){
                 foreach ($item as $newItem) {
-                    $items .= '<li>'. $key .' - <label><input type="checkbox" onclick="return false;" readonly checked="checked" style="margin-right: 5px;"></label>' . esc_attr($newItem) . '</li>';
+                    $items .= '<li>'. $escaped_key .' - <label><input type="checkbox" onclick="return false;" readonly checked="checked" style="margin-right: 5px;"></label>' . esc_attr($newItem) . '</li>';
                 }
             }else{
-                $items .= '<li>'. $key .' - <label><input type="radio" onclick="return false;" readonly checked="checked" style="margin-right: 5px;"></label>' . esc_attr($item) . '</li>';         
+                $items .= '<li>'. $escaped_key .' - <label><input type="radio" onclick="return false;" readonly checked="checked" style="margin-right: 5px;"></label>' . esc_attr($item) . '</li>';         
             }
 
         }
@@ -200,7 +202,9 @@ class esigFluentSetting {
 
             foreach ($val as $item) {
                 if ($item) {
-                    $items .=  $item . '<br>';
+                    // Security: Escape item to prevent XSS
+                    $escaped_item = esc_html($item);
+                    $items .=  $escaped_item . '<br>';
                 }
             }
         } 
@@ -213,7 +217,9 @@ class esigFluentSetting {
         $items = '';
         foreach ($value as $item) {
             if ($item) {
-                $items .=  $item . ' ';
+                // Security: Escape item to prevent XSS
+                $escaped_item = esc_html($item);
+                $items .=  $escaped_item . ' ';
             }
         }
         return $items; 
@@ -227,10 +233,14 @@ class esigFluentSetting {
 
             if ($key == 'country') {
                 $countries = getFluentFormCountryList();
-                $result .= $countries[$val] . '.';
+                // Security: Escape country value to prevent XSS
+                $escaped_country = isset($countries[$val]) ? esc_html($countries[$val]) : esc_html($val);
+                $result .= $escaped_country . '.';
             } else {
                 if ($val) {
-                    $result .= $val . ',  ';
+                    // Security: Escape address value to prevent XSS
+                    $escaped_val = esc_html($val);
+                    $result .= $escaped_val . ',  ';
                 }
             }
         }
@@ -244,7 +254,11 @@ class esigFluentSetting {
         $items = '';
             foreach ($value as $item) {               
                 if ($item) {
-                    $items .=  '<a href='.$item.' style='.$style.' >'.basename($item).'</a><br>';  
+                    // Security: Escape URL and filename to prevent XSS
+                    $escaped_url = esc_url($item);
+                    $escaped_filename = esc_html(basename($item));
+                    $escaped_style = esc_attr($style);
+                    $items .=  '<a href="'.$escaped_url.'" style="'.$escaped_style.'">'.$escaped_filename.'</a><br>';  
                 }
             }
                            
@@ -319,11 +333,13 @@ class esigFluentSetting {
         
         public static function display_value($ff_value, $submit_type) {
 
+            // Security: Escape value to prevent XSS
+            $escaped_value = esc_html($ff_value);
             $result = '';
             if ($submit_type == "underline") {
-                $result .= '<u>' . $ff_value . '</u>';
+                $result .= '<u>' . $escaped_value . '</u>';
             } else {
-                $result .= $ff_value;
+                $result .= $escaped_value;
             }
             return $result;
         }

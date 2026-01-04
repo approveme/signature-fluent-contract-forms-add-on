@@ -18,9 +18,22 @@
                 }
                 
                 // AJAX to get form fields
-                jQuery.post(esigAjax.ajaxurl, { 
+                // Security: Include nonce in AJAX request
+                // Try esigFluentAjax first, then fallback to esigAjax
+                var nonce = (typeof esigFluentAjax !== 'undefined' && esigFluentAjax.nonce) 
+                    ? esigFluentAjax.nonce 
+                    : (typeof esigAjax !== 'undefined' && esigAjax._wpnonce) 
+                        ? esigAjax._wpnonce 
+                        : '';
+                var ajaxUrl = (typeof esigFluentAjax !== 'undefined' && esigFluentAjax.ajaxurl) 
+                    ? esigFluentAjax.ajaxurl 
+                    : (typeof esigAjax !== 'undefined' && esigAjax.ajaxurl) 
+                        ? esigAjax.ajaxurl 
+                        : ajaxurl;
+                jQuery.post(ajaxUrl, { 
                         action: "esig_fluent_form_fields", 
-                        form_id: form_id 
+                        form_id: form_id,
+                        nonce: nonce
                 }, function(data) {
                         
                         // Hide and remove loading message

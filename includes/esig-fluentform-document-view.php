@@ -76,9 +76,10 @@ class esig_fluentform_document_view {
                                             
 												foreach($forms as $form_id=>$form)
 												{
-												
-												
-													$more_option_page .=	'<option value="'. $form['id'] . '">'. $form['title'] .'</option>';
+													// Security: Escape option values and text to prevent XSS
+													$escaped_form_id = esc_attr($form['id']);
+													$escaped_form_title = esc_html($form['title']);
+													$more_option_page .=	'<option value="'. $escaped_form_id . '">'. $escaped_form_title .'</option>';
 												}
                                             }
                                             
