@@ -8,6 +8,19 @@
                  
                    $("#esig-fluentform-form-first-step").hide();
                    
+                   // Show loading indicator
+                   var loadingHtml = '<div id="esig-fluentform-loading" style="text-align: center; padding: 40px 20px;">' +
+                       '<div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; animation: esig-spin 1s linear infinite;"></div>' +
+                       '<p style="margin-top: 15px; color: #666; font-size: 14px;">Loading form fields...</p>' +
+                       '</div>';
+                   $("#esig-ff-field-option").html(loadingHtml);
+                   $("#esig-ff-second-step").show();
+                   
+                   // Add CSS animation for spinner if not already added
+                   if (!$('#esig-fluentform-spinner-style').length) {
+                       $('<style id="esig-fluentform-spinner-style">@keyframes esig-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>').appendTo('head');
+                   }
+                   
                    // jquery ajax to get form field with nonce for security
                    var ajaxUrl = (typeof esigFluentAjax !== 'undefined') ? esigFluentAjax.ajaxurl : esigAjax.ajaxurl;
                    var nonce = (typeof esigFluentAjax !== 'undefined') ? esigFluentAjax.esig_fluent_nonce : '';
