@@ -424,6 +424,10 @@ Renewing your license provides an additional year of support and software update
 
 Please feel free to contact us at anytime with any additional questions you might have at our [contact form page](https://aprv.me/fluent-lets-chat).
 
+= Where do I report security bugs found in this plugin? =
+
+Please report security bugs found in the source code of the undefined plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/0d0bd0b0-b5dc-4e72-ad39-c365702a58c1). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 == Screenshots ==
 1. **Add New Document:** Once you’ve installed the WP E-Signature, you will need to draft up a new “Stand Alone Document”
 
