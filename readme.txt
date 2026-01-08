@@ -474,6 +474,9 @@ Important: Do NOT include this page in your Nav menu since all of the magic actu
 
 
 == Changelog ==
+Version 1.1.6.2
+FIX : Broken  name issue .  
+
 Version 1.1.6.1
 FIX : Broken link issue . 
 
