@@ -3,7 +3,7 @@ Contributors: approveme
 Tags: Fluent Forms, Fluent Form, Fluent Forms, contract, proposal, digital signature, esignature, esign, contact form, signature pad, wordpress form, wordpress e-signature, wordpress signature
 Requires at least: 6.0
 Tested up to: 6.9
-Stable tag: 1.1.6.1
+Stable tag: 1.1.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -426,7 +426,7 @@ Please feel free to contact us at anytime with any additional questions you migh
 
 = Where do I report security bugs found in this plugin? =
 
-Please report security bugs found in the source code of the undefined plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/5618c60f-3385-49c8-a317-b0612b9fcd52). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+Please report security bugs found in the source code of the Electronic Signature Add-on for Fluent Forms plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/5618c60f-3385-49c8-a317-b0612b9fcd52). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 == Screenshots ==
 1. **Add New Document:** Once you’ve installed the WP E-Signature, you will need to draft up a new “Stand Alone Document”
