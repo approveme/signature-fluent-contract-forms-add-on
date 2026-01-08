@@ -199,7 +199,7 @@ class esigFluentSetting {
 
             foreach ($val as $item) {
                 if ($item) {
-                    $items .=  $item . '<br>';
+                    $items .=  esc_html($item) . '<br>';
                 }
             }
         } 
@@ -212,7 +212,7 @@ class esigFluentSetting {
         $items = '';
         foreach ($value as $item) {
             if ($item) {
-                $items .=  $item . ' ';
+                $items .=  esc_html($item) . ' ';
             }
         }
         return $items; 
@@ -226,10 +226,12 @@ class esigFluentSetting {
 
             if ($key == 'country') {
                 $countries = getFluentFormCountryList();
-                $result .= $countries[$val] . '.';
+                if (isset($countries[$val])) {
+                    $result .= esc_html($countries[$val]) . '.';
+                }
             } else {
                 if ($val) {
-                    $result .= $val . ',  ';
+                    $result .= esc_html($val) . ',  ';
                 }
             }
         }
@@ -243,7 +245,10 @@ class esigFluentSetting {
         $items = '';
             foreach ($value as $item) {               
                 if ($item) {
-                    $items .=  '<a href='.$item.' style='.$style.' >'.basename($item).'</a><br>';  
+                    $escaped_url = esc_url($item);
+                    $escaped_filename = esc_html(basename($item));
+                    $escaped_style = esc_attr($style);
+                    $items .=  '<a href="' . $escaped_url . '" style="' . $escaped_style . '">' . $escaped_filename . '</a><br>';  
                 }
             }
                            
