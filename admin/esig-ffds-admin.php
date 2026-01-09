@@ -194,9 +194,9 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
             global $esigFluentInsertId, $esigFluentFormdata;
 
-
             $formid = esig_clean_doublecodes($formid);
             $field_id = esig_clean_doublecodes($field_id);
+            // Label will be fetched from database in get_value(), so we don't need to worry about shortcode parsing
             $label = esig_clean_doublecodes($label);
             $field_type = esig_clean_doublecodes($field_type);
             $display = esig_clean_doublecodes($display);
@@ -258,7 +258,8 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
 
             foreach ($formFields as $fields) {
-                $html .= '<option data-type=' . esc_attr($fields['type']) . ' data-id="' . esc_attr($fields['label']) . '" value=' . esc_attr($fields['name']) . '>' . esc_attr($fields['label']) . '</option>';
+                // Ensure all attributes are properly quoted to preserve multi-word labels
+                $html .= '<option data-type="' . esc_attr($fields['type']) . '" data-id="' . esc_attr($fields['label']) . '" value="' . esc_attr($fields['name']) . '">' . esc_html($fields['label']) . '</option>';
             }
             echo $html;
 

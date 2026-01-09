@@ -129,6 +129,38 @@ class esigFluentSetting {
                 
     }
 
+    /**
+     * Get field label from database using formId and field_id
+     * This ensures we get the full label even if it contains spaces
+     * 
+     * @param int $formId The form ID
+     * @param string $fieldId The field ID/name
+     * @return string The field label or empty string if not found
+     */
+    public static function getFieldLabel($formId, $fieldId) {
+        if (empty($formId) || empty($fieldId)) {
+            return '';
+        }
+
+        if (!function_exists('fluentFormApi')) {
+            return '';
+        }
+
+        try {
+            $forms = fluentFormApi('forms')->form($formId);
+            $inputFields = $forms->inputs($with = ['admin_label']);
+            
+            if (isset($inputFields[$fieldId]) && isset($inputFields[$fieldId]['admin_label'])) {
+                return $inputFields[$fieldId]['admin_label'];
+            }
+        } catch (\Exception $e) {
+            // If there's an error, return empty string
+            return '';
+        }
+
+        return '';
+    }
+
     public static function getFormFields($formId,$getType){
 
         $forms = fluentFormApi('forms')->form($formId);
@@ -316,6 +348,13 @@ class esigFluentSetting {
          */
         public static function get_value($data,$label,$formid,$field_id, $display, $option,$submit_type,$field_type) {
             
+            // Get label from database instead of relying on shortcode attribute
+            // This ensures we get the full label even if it contains spaces
+            $dbLabel = self::getFieldLabel($formid, $field_id);
+            
+            // Use database label if available, otherwise fall back to shortcode label
+            $label = !empty($dbLabel) ? $dbLabel : (is_string($label) ? trim($label) : '');
+            
             if ($display == "label") {
                 return $label;
             }
@@ -324,7 +363,18 @@ class esigFluentSetting {
 
             if($display == "value") return $displayValue;
 
-            if($display == "label_value") return $label  . ": " . $displayValue;
+            if($display == "label_value") {
+                // Ensure we have a valid label before concatenating
+                if (!empty($label) && $displayValue !== false) {
+                    return $label . ": " . $displayValue;
+                } elseif (!empty($label)) {
+                    // If value is false/empty, still return the label
+                    return $label;
+                } elseif ($displayValue !== false) {
+                    // If label is empty but value exists, return just the value
+                    return $displayValue;
+                }
+            }
 
             return false;
 

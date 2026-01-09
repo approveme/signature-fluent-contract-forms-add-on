@@ -96,9 +96,10 @@
                    var form_id= $('select[name="esig_ff_form_id"]').val();
                    
                    var field_id =$('select[name="esig_ff_field_id"]').val();
-                   var label = $('select[name="esig_ff_field_id"]').find(':selected').data('id');
+                   // Use attr() instead of data() to get the raw label value (preserves spaces)
+                   var label = $('select[name="esig_ff_field_id"]').find(':selected').attr('data-id');
                    var displayType =$('select[name="esig_fluentform_value_display_type"]').val();
-                   var field_type = $('select[name="esig_ff_field_id"]').find(':selected').data('type');
+                   var field_type = $('select[name="esig_ff_field_id"]').find(':selected').attr('data-type');
                    // 
                   
                   if (field_id == "all") {
@@ -106,18 +107,27 @@
                                
                                 // Add $(this).val() to your list
                                 let allField = $(this).val();
-                                let allLabel = $(this).data('id'); 
-                                let alltype = $(this).data('type');  
+                                // Use attr() instead of data() to get the raw label value (preserves spaces)
+                                let allLabel = $(this).attr('data-id'); 
+                                let alltype = $(this).attr('data-type');  
                                                                 
                                 if (allField == "all") return true;                               
 
 
-                                var return_text = '<p>[esigfluent formid="'+ form_id +'" label="'+ allLabel +'" field_id="'+ allField +'" field_type="'+ alltype +'" display="'+ displayType +'"]</p>';
+                                // Ensure label is properly encoded to preserve spaces and special characters
+                                if (!allLabel) allLabel = '';
+                                // HTML encode the label to preserve spaces and special characters in shortcode
+                                var escapedLabel = $('<div>').text(allLabel).html().replace(/"/g, '&quot;');
+                                var return_text = '<p>[esigfluent formid="'+ form_id +'" label="'+ escapedLabel +'" field_id="'+ allField +'" field_type="'+ alltype +'" display="'+ displayType +'"]</p>';
 		                 tinymce.get('document_content').insertContent(return_text);
                         });
                 }
                 else {
-                  var return_text = '[esigfluent formid="'+ form_id +'" label="'+ label +'" field_id="'+ field_id +'" field_type="'+ field_type +'" display="'+ displayType +'" ]';
+                  // Ensure label is properly encoded to preserve spaces and special characters
+                  if (!label) label = '';
+                  // HTML encode the label to preserve spaces and special characters in shortcode
+                  var escapedLabel = $('<div>').text(label).html().replace(/"/g, '&quot;');
+                  var return_text = '[esigfluent formid="'+ form_id +'" label="'+ escapedLabel +'" field_id="'+ field_id +'" field_type="'+ field_type +'" display="'+ displayType +'" ]';
 		   tinymce.get('document_content').insertContent(return_text);
 
                 }
