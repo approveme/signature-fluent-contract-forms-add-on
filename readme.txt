@@ -471,7 +471,7 @@ Important: Do NOT include this page in your Nav menu since all of the magic actu
 
 == Changelog ==
 Version 2.0
-FIX: WordPress 6.7+ translation loading for cf7-wpesignature.
+ADDED: Compatibility release aligned with WP E-Signature 2.0.
 
 Version 1.1.6.2
 FIX : Broken name issue .
