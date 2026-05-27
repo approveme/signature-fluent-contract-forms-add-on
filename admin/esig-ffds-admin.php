@@ -142,7 +142,7 @@ if (!class_exists('ESIG_FFDS_Admin')):
                         ), $atts, 'esigfluent'));
 
 
-                        $formid = esig_clean_doublecodes($formid);
+                        $formid = esig_esff_clean_doublecodes($formid);
 
                         if (is_numeric($formid)) {
                             $fluentFormid = $formid;
@@ -194,13 +194,13 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
             global $esigFluentInsertId, $esigFluentFormdata;
 
-            $formid = esig_clean_doublecodes($formid);
-            $field_id = esig_clean_doublecodes($field_id);
+            $formid = esig_esff_clean_doublecodes($formid);
+            $field_id = esig_esff_clean_doublecodes($field_id);
             // Label will be fetched from database in get_value(), so we don't need to worry about shortcode parsing
-            $label = esig_clean_doublecodes($label);
-            $field_type = esig_clean_doublecodes($field_type);
-            $display = esig_clean_doublecodes($display);
-            $option = esig_clean_doublecodes($option);
+            $label = esig_esff_clean_doublecodes($label);
+            $field_type = esig_esff_clean_doublecodes($field_type);
+            $display = esig_esff_clean_doublecodes($display);
+            $option = esig_esff_clean_doublecodes($option);
 
         
             if (function_exists('wpFluentForm')) {
