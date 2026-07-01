@@ -180,54 +180,120 @@ if (!class_exists('ESIG_FFDS_Admin')):
             add_submenu_page('fluent_forms', __('E-Signature', 'esig'), __('E-Signature', 'esig'), 'read', 'esign-fluentform-about', array($esigAbout, 'about_page'));
         }
 
+        /**
+         * Render the [esigfluent] shortcode, replacing it with the submitted form field value.
+         *
+         * When a contract is viewed in a new HTTP request (e.g. the signer opens an email
+         * invite link), the in-memory globals set during form submission are gone. This
+         * method falls back to the submission data saved to document meta so that the
+         * field values are still populated correctly. This mirrors the pattern used by
+         * all other bridge plugins (Gravity, WPForms, Formidable, Forminator, Ninja).
+         *
+         * @since  2.0.1
+         * @access public
+         *
+         * @param  array $atts Shortcode attributes: formid, label, field_id, field_type, display, option.
+         *
+         * @return string|false Rendered field value/label, or false if nothing to render.
+         */
         public function render_shortcode_esigfluent($atts)
         {
-
             extract(shortcode_atts(array(
-                'formid' => '',
-                'label' => '',
-                'field_id' => '',
+                'formid'     => '',
+                'label'      => '',
+                'field_id'   => '',
                 'field_type' => '',
-                'display' => '',
-                'option' => 'default'
+                'display'    => '',
+                'option'     => 'default',
             ), $atts, 'esigfluent'));
 
             global $esigFluentInsertId, $esigFluentFormdata;
 
-            $formid = esig_esff_clean_doublecodes($formid);
-            $field_id = esig_esff_clean_doublecodes($field_id);
-            // Label will be fetched from database in get_value(), so we don't need to worry about shortcode parsing
-            $label = esig_esff_clean_doublecodes($label);
+            $formid     = esig_esff_clean_doublecodes($formid);
+            $field_id   = esig_esff_clean_doublecodes($field_id);
+            $label      = esig_esff_clean_doublecodes($label);
             $field_type = esig_esff_clean_doublecodes($field_type);
-            $display = esig_esff_clean_doublecodes($display);
-            $option = esig_esff_clean_doublecodes($option);
+            $display    = esig_esff_clean_doublecodes($display);
+            $option     = esig_esff_clean_doublecodes($option);
 
-        
             if (function_exists('wpFluentForm')) {
-                $esigFeed = esigFluentSetting::getEsigFeedSettings($formid);
+                $esigFeed    = esigFluentSetting::getEsigFeedSettings($formid);
                 $submit_type = esig_esff_get('underline_data', $esigFeed);
             }
 
-            $newFormId = self::getFluentFormID();
+            $newFormId  = self::getFluentFormID();
+            $isPreview  = (bool) esigget('esigpreview');
 
-            $allowOtherFormData = apply_filters("esig_fluent_allow_otherform_data", false);
+            /*
+             * When the contract is opened in a new HTTP request (email invite / redirect)
+             * the in-memory globals are null. Load saved submission data from document meta.
+             *
+             * Lookup priority:
+             *   1. csum URL param   — always present on the signing page.
+             *   2. document_id param — present on admin preview URLs (?esigpreview=1&document_id=X).
+             *   3. esig_global_document_id option — fallback set by esig_do_shortcode().
+             *
+             * This matches the established pattern used by WPForms, Forminator, and other
+             * bridge plugins so that preview of a submitted document shows real values.
+             */
+            if ( is_null($newFormId) || empty($esigFluentFormdata) ) {
+                if ( function_exists('WP_E_Sig') ) {
+                    $csum        = esigget('csum');
+                    $document_id = 0;
+
+                    if ( ! empty($csum) ) {
+                        $document_id = WP_E_Sig()->document->document_id_by_csum($csum);
+                    }
+
+                    if ( ! $document_id ) {
+                        $document_id = absint( esigget('document_id') );
+                    }
+
+                    if ( ! $document_id ) {
+                        $document_id = get_option('esig_global_document_id');
+                    }
+
+                    if ( $document_id ) {
+                        $saved_form_id = WP_E_Sig()->meta->get($document_id, 'esig_ff_form_id');
+                        if ($saved_form_id) {
+                            self::setFluentFormID($saved_form_id);
+                            $newFormId = $saved_form_id;
+                        }
+                        $saved_submission = WP_E_Sig()->meta->get($document_id, 'esig_fluent_forms_submission_value');
+                        if ($saved_submission) {
+                            $esigFluentFormdata = json_decode($saved_submission, true);
+                        }
+                    }
+                }
+            }
+
+            /*
+             * In admin preview mode with no submission data available, render the
+             * field label as a visible placeholder so the document layout is clear.
+             * When submission data WAS loaded above, fall through and display the
+             * real values instead of a placeholder.
+             */
+            if ( $isPreview && ( is_null($newFormId) || empty($esigFluentFormdata) ) ) {
+                $previewLabel = esigFluentSetting::getFieldLabel($formid, $field_id);
+                $previewLabel = ! empty($previewLabel) ? $previewLabel : $label;
+                return ! empty($previewLabel) ? '[' . esc_html($previewLabel) . ']' : '[' . esc_html($field_id) . ']';
+            }
+
+            $allowOtherFormData = apply_filters('esig_fluent_allow_otherform_data', false);
             if (!wp_validate_boolean($allowOtherFormData)) {
                 if ($newFormId != $formid) {
-
                     return false;
                 }
-            } 
-            
+            }
 
             $ff_value = esigFluentSetting::get_value($esigFluentFormdata, $label, $formid, $field_id, $display, $option, $submit_type, $field_type);
-          
-            if (!$ff_value)
+
+            if (!$ff_value) {
                 return false;
+            }
 
             return esigFluentSetting::display_value($ff_value, $submit_type);
-
         }
-
 
 
         public function esig_fluent_form_fields()

@@ -325,8 +325,9 @@ class esigFluentSetting {
                 return self::getHtmlFieldsValue($formId, 'html_codes');
                 break;            
             case "input_email":
-                return '<a style="'. esc_attr($style) .'" href="mailto:' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
-                break;  
+                $safe_email = sanitize_email( $value );
+                return '<a style="' . esc_attr($style) . '" href="mailto:' . esc_attr($safe_email) . '" target="_blank">' . esc_html($safe_email) . '</a>';
+                break;
             case "input_url":
                 return '<a style="'. esc_attr($style) .'" href="' . esc_url($value) . '" target="_blank">' . esc_attr($value) . '</a>' ;
                 break;
@@ -335,9 +336,8 @@ class esigFluentSetting {
                 return self::fileValue($value,$style);
                 break;
             default:
-
                 if(is_array($value)) return self::arrayValue($value);
-                return $value;
+                return esc_html($value);
         }
     }
 
@@ -381,17 +381,26 @@ class esigFluentSetting {
         }
         
         
+        /**
+         * Wrap a field value with underline markup if the display type requires it.
+         *
+         * Values passed here are already escaped by generateValue() per field type,
+         * so no additional escaping is applied — doing so would double-escape HTML
+         * returned for email/URL/file fields.
+         *
+         * @since  2.0.1
+         * @access public
+         *
+         * @param  string $ff_value    Already-escaped/sanitized field value or HTML markup.
+         * @param  string $submit_type Display type: 'underline' or anything else.
+         *
+         * @return string
+         */
         public static function display_value($ff_value, $submit_type) {
-
-            // Security: Escape value to prevent XSS
-            $escaped_value = esc_html($ff_value);
-            $result = '';
             if ($submit_type == "underline") {
-                $result .= '<u>' . $escaped_value . '</u>';
-            } else {
-                $result .= $escaped_value;
+                return '<u>' . $ff_value . '</u>';
             }
-            return $result;
+            return $ff_value;
         }
     
         public static function parseInput($string)
