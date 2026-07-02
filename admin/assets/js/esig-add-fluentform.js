@@ -1,5 +1,43 @@
 (function($){
-        
+
+    /**
+     * Insert content into the document editor, handling both Visual and Code/Text modes.
+     *
+     * When the editor is in Code/Text mode tinymce.get() returns null, which
+     * causes a fatal JS error. This helper falls back to direct textarea insertion
+     * so shortcodes are always placed at the cursor position regardless of mode.
+     *
+     * @since  2.0.2
+     *
+     * @param  {string} content  Shortcode or HTML string to insert.
+     * @return {void}
+     */
+    function esigFluentInsertContent( content ) {
+        var editor = ( typeof tinymce !== 'undefined' ) ? tinymce.get( 'document_content' ) : null;
+
+        if ( editor && ! editor.isHidden() ) {
+            // Visual (WYSIWYG) mode — use the TinyMCE API.
+            editor.insertContent( content );
+            return;
+        }
+
+        // Code/Text mode — write directly into the visible textarea.
+        var textarea = document.getElementById( 'document_content' );
+        if ( ! textarea ) {
+            return;
+        }
+
+        var start = textarea.selectionStart || 0;
+        var end   = textarea.selectionEnd   || start;
+        var text  = textarea.value          || '';
+
+        textarea.value = text.substring( 0, start ) + content + text.substring( end );
+        textarea.selectionStart = textarea.selectionEnd = start + content.length;
+        textarea.focus();
+
+        // Notify WordPress auto-save and other listeners that the content changed.
+        textarea.dispatchEvent( new Event( 'input', { bubbles: true } ) );
+    }
 
         // next step click from sif pop
         $("#esig-fluentform-create").click(function() {
@@ -119,7 +157,7 @@
                                 // HTML encode the label to preserve spaces and special characters in shortcode
                                 var escapedLabel = $('<div>').text(allLabel).html().replace(/"/g, '&quot;');
                                 var return_text = '<p>[esigfluent formid="'+ form_id +'" label="'+ escapedLabel +'" field_id="'+ allField +'" field_type="'+ alltype +'" display="'+ displayType +'"]</p>';
-		                 tinymce.get('document_content').insertContent(return_text);
+		                 esigFluentInsertContent( return_text );
                         });
                 }
                 else {
@@ -128,7 +166,7 @@
                   // HTML encode the label to preserve spaces and special characters in shortcode
                   var escapedLabel = $('<div>').text(label).html().replace(/"/g, '&quot;');
                   var return_text = '[esigfluent formid="'+ form_id +'" label="'+ escapedLabel +'" field_id="'+ field_id +'" field_type="'+ field_type +'" display="'+ displayType +'" ]';
-		   tinymce.get('document_content').insertContent(return_text);
+		   esigFluentInsertContent( return_text );
 
                 }
             
