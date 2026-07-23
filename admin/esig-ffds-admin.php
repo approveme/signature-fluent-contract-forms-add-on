@@ -436,6 +436,20 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
 
 
+        /**
+         * Creates a signature agreement from an eligible Fluent Forms submission.
+         *
+         * Skips agreement creation when the linked Stand Alone Document page is
+         * unavailable, trashed, or drafted.
+         *
+         * @since 2.0.3
+         *
+         * @param int    $insertId Submitted Fluent Forms entry ID.
+         * @param array  $formData Submitted Fluent Forms field data.
+         * @param object $form     Fluent Forms form object.
+         *
+         * @return bool|void False when submission is ineligible; otherwise void.
+         */
         public function fluentform_submission($insertId, $formData, $form)
         {
 
@@ -466,6 +480,13 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
             if (is_array($signer_name)) {
                 $signer_name = sanitize_text_field(esigFluentSetting::prepareNames($signer_name));
+            }
+
+            // Skip agreement creation when the linked SAD page is inaccessible.
+            // The core helper blocks deleted, trashed, and drafted pages while
+            // allowing all other valid WordPress page statuses. See TRL-1623.
+            if ( function_exists( 'esig_is_page_accessible' ) && ! esig_is_page_accessible( (int) $sad_page_id ) ) {
+                return false;
             }
 
             $document_id = $sad->get_sad_id($sad_page_id);
