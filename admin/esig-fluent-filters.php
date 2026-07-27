@@ -176,32 +176,37 @@ if (!class_exists('esigFluentFilters')):
         }
 
         /**
-         *  Render document to replace shortcodes 
-         *  @since 1.5.6.8
-         *  @param string $content | content of document which will be replaced 
-         *  @param int $new_doc_id | new document after cloning existing agreement. 
-         *  @param string $documentType | Type of document  
-         *  @param array $args | Different types of argument pass 
-         *  @return {string}  | Return replace content of shortcodes.
+         * Render document content by replacing [esigfluent] shortcodes with submitted field values.
+         *
+         * Migrated in TRL-1610 off the shared esig_global_document_id WordPress option to the
+         * request-scoped static stack introduced in TRL-1608. The document ID is pushed onto
+         * the stack before shortcode processing and popped immediately after, eliminating the
+         * concurrency hazard that the option-based approach carried.
+         *
+         * @since 1.5.6.8
+         *
+         * @param string $content      Document content containing shortcodes to replace.
+         * @param int    $new_doc_id   ID of the newly cloned document being rendered.
+         * @param string $documentType Type of document (e.g. 'stand_alone').
+         * @param array  $args         Render arguments including integrationType.
+         *
+         * @return string Document content with shortcodes replaced by submission values.
          */
+        public function document_content_render( $content, $new_doc_id, $documentType, $args ) {
 
-        public function document_content_render($content, $new_doc_id, $documentType, $args) {
-
-            if ($documentType != 'stand_alone') {
+            if ( 'stand_alone' !== $documentType ) {
                 return $content;
             }
 
-             update_option('esig_global_document_id', $new_doc_id, false);
+            $isIntregration = esigget( 'integrationType', $args );
 
-            $isIntregration = esigget("integrationType", $args);
-
-            if ($isIntregration != "esigfluent") {
-               
+            if ( 'esigfluent' !== $isIntregration ) {
                 return $content;
             }
-            $content = $this->replace_shortcode($content, $args);   
 
-            delete_option('esig_global_document_id');
+            \WpEsignature\Models\Document::push_document_context( $new_doc_id );
+            $content = $this->replace_shortcode( $content, $args );
+            \WpEsignature\Models\Document::pop_document_context();
 
             return $content;
         }
