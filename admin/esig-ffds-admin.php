@@ -252,8 +252,9 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
                     if ( ! $document_id ) {
                         // Prefer the request-scoped stack (TRL-1608/TRL-1610); fall back to
-                        // the legacy DB option when the core stack class is unavailable.
-                        if ( class_exists( '\WpEsignature\Models\Document' ) ) {
+                        // the legacy DB option when the core stack class/method is unavailable
+                        // (TRL-1644 — older core builds predating TRL-1608).
+                        if ( class_exists( '\WpEsignature\Models\Document' ) && method_exists( '\WpEsignature\Models\Document', 'current_document_id' ) ) {
                             $document_id = \WpEsignature\Models\Document::current_document_id();
                         } else {
                             $document_id = get_option( 'esig_global_document_id' );
