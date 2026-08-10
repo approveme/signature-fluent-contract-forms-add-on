@@ -189,6 +189,12 @@ if (!class_exists('ESIG_FFDS_Admin')):
          * field values are still populated correctly. This mirrors the pattern used by
          * all other bridge plugins (Gravity, WPForms, Formidable, Forminator, Ninja).
          *
+         * Document ID lookup priority:
+         *   1. csum URL param          — always present on the signing page.
+         *   2. document_id URL param   — present on admin preview URLs (?esigpreview=1&document_id=X).
+         *   3. Document::current_document_id() stack — set by esig_do_shortcode() via TRL-1608.
+         *   4. esig_global_document_id option — legacy fallback when core stack is unavailable.
+         *
          * @since  2.0.1
          * @access public
          *
@@ -228,40 +234,42 @@ if (!class_exists('ESIG_FFDS_Admin')):
              * When the contract is opened in a new HTTP request (email invite / redirect)
              * the in-memory globals are null. Load saved submission data from document meta.
              *
-             * Lookup priority:
-             *   1. csum URL param   — always present on the signing page.
-             *   2. document_id param — present on admin preview URLs (?esigpreview=1&document_id=X).
-             *   3. esig_global_document_id option — fallback set by esig_do_shortcode().
-             *
              * This matches the established pattern used by WPForms, Forminator, and other
              * bridge plugins so that preview of a submitted document shows real values.
              */
-            if ( is_null($newFormId) || empty($esigFluentFormdata) ) {
-                if ( function_exists('WP_E_Sig') ) {
-                    $csum        = esigget('csum');
+            if ( is_null( $newFormId ) || empty( $esigFluentFormdata ) ) {
+                if ( function_exists( 'WP_E_Sig' ) ) {
+                    $csum        = esigget( 'csum' );
                     $document_id = 0;
 
-                    if ( ! empty($csum) ) {
-                        $document_id = WP_E_Sig()->document->document_id_by_csum($csum);
+                    if ( ! empty( $csum ) ) {
+                        $document_id = WP_E_Sig()->document->document_id_by_csum( $csum );
                     }
 
                     if ( ! $document_id ) {
-                        $document_id = absint( esigget('document_id') );
+                        $document_id = absint( esigget( 'document_id' ) );
                     }
 
                     if ( ! $document_id ) {
-                        $document_id = get_option('esig_global_document_id');
+                        // Prefer the request-scoped stack (TRL-1608/TRL-1610); fall back to
+                        // the legacy DB option when the core stack class/method is unavailable
+                        // (TRL-1644 — older core builds predating TRL-1608).
+                        if ( class_exists( '\WpEsignature\Models\Document' ) && method_exists( '\WpEsignature\Models\Document', 'current_document_id' ) ) {
+                            $document_id = \WpEsignature\Models\Document::current_document_id();
+                        } else {
+                            $document_id = get_option( 'esig_global_document_id' );
+                        }
                     }
 
                     if ( $document_id ) {
-                        $saved_form_id = WP_E_Sig()->meta->get($document_id, 'esig_ff_form_id');
-                        if ($saved_form_id) {
-                            self::setFluentFormID($saved_form_id);
+                        $saved_form_id = WP_E_Sig()->meta->get( $document_id, 'esig_ff_form_id' );
+                        if ( $saved_form_id ) {
+                            self::setFluentFormID( $saved_form_id );
                             $newFormId = $saved_form_id;
                         }
-                        $saved_submission = WP_E_Sig()->meta->get($document_id, 'esig_fluent_forms_submission_value');
-                        if ($saved_submission) {
-                            $esigFluentFormdata = json_decode($saved_submission, true);
+                        $saved_submission = WP_E_Sig()->meta->get( $document_id, 'esig_fluent_forms_submission_value' );
+                        if ( $saved_submission ) {
+                            $esigFluentFormdata = json_decode( $saved_submission, true );
                         }
                     }
                 }
@@ -436,6 +444,20 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
 
 
+        /**
+         * Creates a signature agreement from an eligible Fluent Forms submission.
+         *
+         * Skips agreement creation when the linked Stand Alone Document page is
+         * unavailable, trashed, or drafted.
+         *
+         * @since 2.0.3
+         *
+         * @param int    $insertId Submitted Fluent Forms entry ID.
+         * @param array  $formData Submitted Fluent Forms field data.
+         * @param object $form     Fluent Forms form object.
+         *
+         * @return bool|void False when submission is ineligible; otherwise void.
+         */
         public function fluentform_submission($insertId, $formData, $form)
         {
 
@@ -466,6 +488,13 @@ if (!class_exists('ESIG_FFDS_Admin')):
 
             if (is_array($signer_name)) {
                 $signer_name = sanitize_text_field(esigFluentSetting::prepareNames($signer_name));
+            }
+
+            // Skip agreement creation when the linked SAD page is inaccessible.
+            // The core helper blocks deleted, trashed, and drafted pages while
+            // allowing all other valid WordPress page statuses. See TRL-1623.
+            if ( function_exists( 'esig_is_page_accessible' ) && ! esig_is_page_accessible( (int) $sad_page_id ) ) {
+                return false;
             }
 
             $document_id = $sad->get_sad_id($sad_page_id);

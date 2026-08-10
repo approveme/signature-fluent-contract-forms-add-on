@@ -6,7 +6,17 @@ use WP_E_Invite;
 
 class esigFluentSetting {
 
-        
+    /**
+     * Builds the Stand Alone Document options for Fluent Forms feed settings.
+     *
+     * Published and private pages are listed normally. Inaccessible pages remain
+     * listed with their status so existing feed selections are preserved and an
+     * administrator can see which page needs attention.
+     *
+     * @since 2.0.3
+     *
+     * @return array|null SAD page IDs mapped to their display titles, or null when E-Signature is unavailable.
+     */
     public static function get_sad_documents()
     {
         if (!function_exists('WP_E_Sig'))
@@ -29,14 +39,24 @@ class esigFluentSetting {
         foreach ($sad_pages as $page) {
             $document_status = $api->document->getStatus($page->document_id);
 
-            if ($document_status != 'trash') {
-                if ('publish' === get_post_status($page->page_id) || 'private' === get_post_status($page->page_id)) {
-                    $choices[$page->page_id] = get_the_title($page->page_id);
-                    
-                }
+            if ($document_status === 'trash') {
+                continue;
             }
 
-            
+            $title = get_the_title($page->page_id);
+            if (!$title) {
+                continue;
+            }
+
+            // Preserve pages with inaccessible statuses so existing feed mappings
+            // remain selected and clearly show the issue. See TRL-1622, TRL-1623.
+            $page_status = get_post_status((int) $page->page_id);
+            if (!in_array($page_status, array('publish', 'private'), true)) {
+                $status_label = $page_status ? ucfirst($page_status) : __('Deleted', 'esig-FFDS');
+                $title        = $title . ' [' . $status_label . ']';
+            }
+
+            $choices[$page->page_id] = $title;
         }
 
         return $choices;
