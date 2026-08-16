@@ -39,93 +39,107 @@
         textarea.dispatchEvent( new Event( 'input', { bubbles: true } ) );
     }
 
-        // next step click from sif pop
-        $("#esig-fluentform-create").click(function() {
-          
-                var form_id = $('select[name="esig_ff_form_id"]').val();
-                
-                // Hide first step, show second step
-                $("#esig-fluentform-form-first-step").hide();
-                $("#esig-ff-second-step").show();
-                
-                // Show loading only on first load
-                var isFirstLoad = $("#esig-ff-field-option").is(':empty') || $("#esig-ff-field-option").html().trim() === '';
-                
-                if (isFirstLoad) {
-                        $("#esig-fluentform-loading-container").show();
-                }
-                
-                // AJAX to get form fields
-                // Security: Include nonce in AJAX request
-                // Try esigFluentAjax first, then fallback to esigAjax
-                var nonce = (typeof esigFluentAjax !== 'undefined' && esigFluentAjax.nonce) 
-                    ? esigFluentAjax.nonce 
-                    : (typeof esigAjax !== 'undefined' && esigAjax._wpnonce) 
-                        ? esigAjax._wpnonce 
-                        : '';
-                var ajaxUrl = (typeof esigFluentAjax !== 'undefined' && esigFluentAjax.ajaxurl) 
-                    ? esigFluentAjax.ajaxurl 
-                    : (typeof esigAjax !== 'undefined' && esigAjax.ajaxurl) 
-                        ? esigAjax.ajaxurl 
-                        : ajaxurl;
-                jQuery.post(ajaxUrl, { 
-                        action: "esig_fluent_form_fields", 
-                        form_id: form_id,
-                        nonce: nonce
-                }, function(data) {
-                        
-                        // Hide and remove loading message
-                        $("#esig-fluentform-loading-container").fadeOut(200, function() {
-                                $(this).remove();
-                        });
-                        
-                        // Insert field options
-                        $("#esig-ff-field-option").html(data);
-                        
-                        // Show all elements with proper targeting and spacing
-                        setTimeout(function() {
-                                // Get DOM elements directly - use step2 button ID!
-                                var fieldOption = document.getElementById('esig-ff-field-option');
-                                var displayType = document.getElementById('select-fluentform-field-display-type');
-                                var buttonWrap = document.getElementById('upload_fluentform_button_step2');
-                                
-                                // Force inline styles with !important via setAttribute - add proper spacing
-                                if (fieldOption) {
-                                        fieldOption.setAttribute('style', 'display: block !important; visibility: visible !important; opacity: 1 !important; margin: 15px 0 !important;');
-                                }
-                                if (displayType) {
-                                        displayType.setAttribute('style', 'display: block !important; visibility: visible !important; opacity: 1 !important; margin: 15px 0 !important;');
-                                }
-                                if (buttonWrap) {
-                                        buttonWrap.setAttribute('style', 'display: block !important; visibility: visible !important; opacity: 1 !important; margin: 20px 0 !important;');
-                                        
-                                        // Also force the button inside visible
-                                        var button = buttonWrap.querySelector('#esig-fluentform-insert');
-                                        if (button) {
-                                                button.setAttribute('style', 'display: inline-block !important; visibility: visible !important; opacity: 1 !important;');
-                                        }
-                                }
-                                
-                        }, 100);
-                        
-                        // Re-initialize chosen for the dropdowns
-                        setTimeout(function() {
-                                if (jQuery.fn.chosen) {
-                                        try {
-                                                $("#esig-ff-field-option .chosen-select").chosen('destroy');
-                                                $("#select-fluentform-field-display-type .chosen-select").chosen('destroy');
-                                        } catch(e) {}
-                                        
-                                        $("#esig-ff-field-option .chosen-select").chosen();
-                                        $("#select-fluentform-field-display-type .chosen-select").chosen();
-                                }
-                        }, 150);
-                        
-                }, "html").fail(function(xhr, status, error) {
-                        $("#esig-fluentform-loading-container").html('<span style="color: red;">Error loading fields. Please try again.</span>');
-                });
-  
-        });
+    /**
+     * Display a Fluent Forms field-loading error.
+     *
+     * @since 2.0.4
+     *
+     * @param {string} message Error message to display.
+     * @return {void}
+     */
+    function esigFluentShowFieldError( message ) {
+        $( '#esig-fluentform-loading-container' )
+            .text( message )
+            .css( 'color', '#b32d2e' )
+            .show();
+        $( '#esig-ff-field-option, #select-fluentform-field-display-type, #upload_fluentform_button_step2' ).hide();
+    }
+
+    /**
+     * Render fields returned by the Fluent Forms AJAX endpoint.
+     *
+     * @since 2.0.4
+     *
+     * @param {Array} fields Fluent Forms field definitions.
+     * @return {void}
+     */
+    function esigFluentRenderFields( fields ) {
+        var $fieldContainer = $( '#esig-ff-field-option' );
+        var $fieldSelect = $( '<select>', {
+            id: 'esig_ff_field_id',
+            name: 'esig_ff_field_id',
+            class: 'chosen-select'
+        } ).css( 'width', '250px' );
+
+        $fieldSelect.append( $( '<option>', { value: 'all', text: 'Insert all fields' } ) );
+
+        fields.forEach( function( field ) {
+            $fieldSelect.append(
+                $( '<option>', {
+                    value: field.name,
+                    text: field.label
+                } )
+                    .attr( 'data-id', field.label )
+                    .attr( 'data-type', field.type )
+            );
+        } );
+
+        $fieldContainer.empty().append( $fieldSelect ).show();
+        $( '#esig-fluentform-loading-container' ).hide();
+        $( '#select-fluentform-field-display-type, #upload_fluentform_button_step2' ).show();
+
+        if ( $.fn.chosen ) {
+            $fieldSelect.chosen();
+
+            var $displaySelect = $( '#select-fluentform-field-display-type .chosen-select' );
+            if ( ! $displaySelect.data( 'chosen' ) ) {
+                $displaySelect.chosen();
+            }
+        }
+    }
+
+    // Load form fields after the modal's first step. Delegation supports the
+    // document editor rendering integration controls after this script loads.
+    $( document ).on( 'click', '#esig-fluentform-create', function( event ) {
+        event.preventDefault();
+
+        var formId = $( 'select[name="esig_ff_form_id"]' ).val();
+        var settings = ( typeof esigFluentAjax !== 'undefined' ) ? esigFluentAjax : {};
+        var ajaxUrl = settings.ajaxurl || ( typeof ajaxurl !== 'undefined' ? ajaxurl : '' );
+
+        if ( ! formId || ! /^\d+$/.test( formId ) ) {
+            esigFluentShowFieldError( settings.selectForm || 'Select a Fluent Form first.' );
+            return;
+        }
+
+        $( '#esig-fluentform-form-first-step' ).hide();
+        $( '#esig-ff-second-step' ).show();
+        $( '#esig-fluentform-loading-container' ).text( 'Loading form fields...' ).css( 'color', '#555' ).show();
+
+        $.post( ajaxUrl, {
+            action: 'esig_fluent_form_fields',
+            form_id: formId,
+            nonce: settings.nonce || ''
+        } ).done( function( response ) {
+            var fields = response && response.success && response.data ? response.data.fields : [];
+
+            if ( ! Array.isArray( fields ) || ! fields.length ) {
+                var message = response && response.data && response.data.message
+                    ? response.data.message
+                    : ( settings.noFields || 'No fields were found for this Fluent Form.' );
+                esigFluentShowFieldError( message );
+                return;
+            }
+
+            esigFluentRenderFields( fields );
+        } ).fail( function( xhr ) {
+            var response = xhr.responseJSON;
+            var message = response && response.data && response.data.message
+                ? response.data.message
+                : ( settings.error || 'Unable to load Fluent Form fields. Please try again.' );
+            esigFluentShowFieldError( message );
+        } );
+    } );
  
         // fluent form add to document button clicked 
         $(document).on("click", "#esig-fluentform-insert", function(e) {
@@ -177,7 +191,7 @@
         
         
         //if overflow
-        $('#select-fluentform-form-list').click(function(){
+        $( document ).on( 'click', '#select-fluentform-form-list', function() {
             
             
           
@@ -191,17 +205,22 @@
 
 
           // display  gravity form option popup
-        $("#wpesign__fluentform-sif-popup").on("click", function(e) {
+        $( document ).on( 'click', '#wpesign__fluentform-sif-popup', function(e) {
 
                 e.preventDefault();
+
+                $( '#esig-fluentform-form-first-step' ).show();
+                $( '#esig-ff-second-step' ).hide();
+                $( '#esig-ff-field-option' ).empty().hide();
+                $( '#esig-fluentform-loading-container' ).hide();
+                $( '#select-fluentform-field-display-type, #upload_fluentform_button_step2' ).hide();
                
-                tb_show( "+ Gravity form option", "#TB_inline?inlineId=esig-fluentform-option", false );
+                tb_show( "+ Fluent Form Data", "#TB_inline?inlineId=esig-fluentform-option", false );
                 
 
         });
         
 	
 })(jQuery);
-
 
 
