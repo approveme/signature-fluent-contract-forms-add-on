@@ -304,41 +304,54 @@ if (!class_exists('ESIG_FFDS_Admin')):
         }
 
 
-        public function esig_fluent_form_fields()
-        {
-            // Security: Verify nonce for AJAX request
-            check_ajax_referer('esig-fluent-ajax-nonce', 'nonce');
-            
-            // Security: Verify user capabilities
-            if (!is_user_logged_in() || !current_user_can('edit_posts')) {
-                wp_send_json_error(array('message' => __('Insufficient permissions', 'esig-esff')));
-                die();
-            }
+		/**
+		 * Return the fields for a selected Fluent Form.
+		 *
+		 * @since 2.0.4
+		 *
+		 * @return void
+		 */
+		public function esig_fluent_form_fields() {
+			check_ajax_referer( 'esig-fluent-ajax-nonce', 'nonce' );
 
-            if (!function_exists('WP_E_Sig'))
-                return false;
+			if ( ! is_user_logged_in() || ! current_user_can( 'edit_posts' ) ) {
+				wp_send_json_error( array( 'message' => __( 'Insufficient permissions.', 'esig-esff' ) ), 403 );
+			}
 
-            $html = '';
+			if ( ! function_exists( 'WP_E_Sig' ) || ! function_exists( 'fluentFormApi' ) ) {
+				wp_send_json_error( array( 'message' => __( 'Fluent Forms integration is unavailable.', 'esig-esff' ) ), 400 );
+			}
 
-            $html .= '<select id="esig_ff_field_id" name="esig_ff_field_id" class="chosen-select" style="width:250px;">';
-            // Security: Sanitize form_id input
-            $form_id = isset($_POST['form_id']) ? intval($_POST['form_id']) : 0;
+			$form_id = isset( $_POST['form_id'] ) ? absint( wp_unslash( $_POST['form_id'] ) ) : 0;
 
-            $formFields = esigFluentSetting::getAllFluentFormFields($form_id);
+			if ( ! $form_id ) {
+				wp_send_json_error( array( 'message' => __( 'Select a Fluent Form first.', 'esig-esff' ) ), 400 );
+			}
 
-            $html .= '<option value="all">Insert all fields</option>';
+			try {
+				$form_fields = (array) esigFluentSetting::getAllFluentFormFields( $form_id );
+			} catch ( Throwable $exception ) {
+				wp_send_json_error( array( 'message' => __( 'Unable to load Fluent Form fields.', 'esig-esff' ) ), 500 );
+			}
 
+			$fields = array();
 
+			foreach ( $form_fields as $field ) {
+				$field_name = sanitize_text_field( $field['name'] ?? '' );
 
+				if ( '' === $field_name ) {
+					continue;
+				}
 
-            foreach ($formFields as $fields) {
-                // Ensure all attributes are properly quoted to preserve multi-word labels
-                $html .= '<option data-type="' . esc_attr($fields['type']) . '" data-id="' . esc_attr($fields['label']) . '" value="' . esc_attr($fields['name']) . '">' . esc_html($fields['label']) . '</option>';
-            }
-            echo $html;
+				$fields[] = array(
+					'label' => sanitize_text_field( $field['label'] ?? '' ),
+					'name'  => $field_name,
+					'type'  => sanitize_key( $field['type'] ?? '' ),
+				);
+			}
 
-            die();
-        }
+			wp_send_json_success( array( 'fields' => $fields ) );
+		}
 
         public function document_add_data($more_contents)
         {
@@ -378,8 +391,14 @@ if (!class_exists('ESIG_FFDS_Admin')):
         }
 
 
-        public function enqueue_admin_scripts()
-        {
+		/**
+		 * Enqueue Fluent Forms integration assets on supported admin screens.
+		 *
+		 * @since 2.0.4
+		 *
+		 * @return void
+		 */
+		public function enqueue_admin_scripts() {
 
 
             $screen = get_current_screen();
@@ -406,13 +425,20 @@ if (!class_exists('ESIG_FFDS_Admin')):
             if (in_array(esig_esff_get("id", $screen), $admin_screens)) {
 
                 wp_enqueue_script('jquery');
-                wp_enqueue_script('fluentform-add-admin-script', plugins_url('assets/js/esig-add-fluentform.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.1.0', true);
+				wp_enqueue_script( 'fluentform-add-admin-script', plugins_url( 'assets/js/esig-add-fluentform.js', __FILE__ ), array( 'jquery', 'jquery-ui-dialog' ), ESIG_ESFF_VERSION, true );
                 
                 // Security: Localize script with nonce for AJAX requests
-                wp_localize_script('fluentform-add-admin-script', 'esigFluentAjax', array(
-                    'ajaxurl' => admin_url('admin-ajax.php'),
-                    'nonce' => wp_create_nonce('esig-fluent-ajax-nonce'),
-                ));
+				wp_localize_script(
+					'fluentform-add-admin-script',
+					'esigFluentAjax',
+					array(
+						'ajaxurl'    => admin_url( 'admin-ajax.php' ),
+						'nonce'      => wp_create_nonce( 'esig-fluent-ajax-nonce' ),
+						'selectForm' => __( 'Select a Fluent Form first.', 'esig-esff' ),
+						'noFields'   => __( 'No fields were found for this Fluent Form.', 'esig-esff' ),
+						'error'      => __( 'Unable to load Fluent Form fields. Please try again.', 'esig-esff' ),
+					)
+				);
             }
 
             if (esig_esff_get("id", $screen) != "plugins") {
@@ -425,7 +451,7 @@ if (!class_exists('ESIG_FFDS_Admin')):
                 }
                 // Enqueue custom Fluent Forms styles for dialog fixes
                 wp_enqueue_style('esig-fluent-dialog-styles', plugins_url('assets/css/esig-fluent-styles.css', __FILE__), array(), '1.0.0', 'all');
-                wp_enqueue_script('fluentform-add-admin-script', plugins_url('assets/js/esig-fluentform-control.js', __FILE__), array('jquery', 'jquery-ui-dialog'), '0.1.0', true);
+				wp_enqueue_script( 'fluentform-add-admin-script', plugins_url( 'assets/js/esig-fluentform-control.js', __FILE__ ), array( 'jquery', 'jquery-ui-dialog' ), ESIG_ESFF_VERSION, true );
             }
 
             if (str_contains(esig_esff_get("id", $screen), 'esign-fluentform')) {
@@ -684,4 +710,3 @@ if (!class_exists('ESIG_FFDS_Admin')):
     }
 
 endif;
-

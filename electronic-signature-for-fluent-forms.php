@@ -22,6 +22,11 @@ if (!defined("ESIG_ESFF_ADDON_URL")) {
     define('ESIG_ESFF_ADDON_URL', plugins_url("/", __FILE__));
 }
 
+// Keep enqueued assets aligned with the installed plugin release.
+if ( ! defined( 'ESIG_ESFF_VERSION' ) ) {
+	define( 'ESIG_ESFF_VERSION', '2.0.4' );
+}
+
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esff-function.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-ffds.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'admin/esig-fluent-filters.php' );
@@ -45,4 +50,3 @@ function loadEsigFluentIntegration()
 require_once( plugin_dir_path( __FILE__ ) . 'admin/esig-ffds-admin.php' );
 add_action( 'plugins_loaded', array( 'esigFluentFilters', 'instance' ) );
 add_action( 'plugins_loaded', array( 'ESIG_FFDS_Admin', 'get_instance' ) );
-
