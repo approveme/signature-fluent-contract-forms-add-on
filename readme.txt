@@ -3,7 +3,7 @@ Contributors: approveme
 Tags: Fluent Forms, Fluent Form, Fluent Forms, contract, proposal, digital signature, esignature, esign, contact form, signature pad, wordpress form, wordpress e-signature, wordpress signature
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -473,6 +473,9 @@ Important: Do NOT include this page in your Nav menu since all of the magic actu
 
 
 == Changelog ==
+Version 2.0.5
+FIX: Fluent Form fields missing from the document editor.
+
 Version 2.0.4
 FIX: Guard Fluent Forms Stand Alone Document pages from inaccessible/unavailable page states.
 
