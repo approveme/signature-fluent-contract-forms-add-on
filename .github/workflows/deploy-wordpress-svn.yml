@@ -1,0 +1,42 @@
+# Deploys the plugin to the WordPress.org SVN repository whenever a
+# GitHub release is published (excludes pre-releases). The GitHub release
+# tag (e.g. v2.0.5) is stripped of its leading "v" so the SVN tag matches
+# readme.txt's Stable tag convention (e.g. 2.0.5).
+#
+# Required repo secrets:
+#   APPROVEME_SVN_USERNAME - WordPress.org SVN username
+#   APPROVEME_SVN_PASSWORD - WordPress.org SVN password
+
+name: Deploy to WordPress.org SVN
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  deploy:
+    name: Deploy to WordPress.org
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Strip "v" prefix from release tag for SVN version
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify tag matches readme.txt Stable tag
+        run: |
+          STABLE_TAG=$(grep -m1 '^Stable tag:' readme.txt | sed 's/^Stable tag:[[:space:]]*//' | tr -d '\r')
+          if [ "$STABLE_TAG" != "${{ steps.version.outputs.version }}" ]; then
+            echo "::error::Release tag (${{ steps.version.outputs.version }}) does not match readme.txt Stable tag ($STABLE_TAG)"
+            exit 1
+          fi
+
+      - name: WordPress Plugin Deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_USERNAME: ${{ secrets.APPROVEME_SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.APPROVEME_SVN_PASSWORD }}
+          SLUG: signature-fluent-contract-forms-add-on
+          VERSION: ${{ steps.version.outputs.version }}
