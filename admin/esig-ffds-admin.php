@@ -189,11 +189,8 @@ if (!class_exists('ESIG_FFDS_Admin')):
          * field values are still populated correctly. This mirrors the pattern used by
          * all other bridge plugins (Gravity, WPForms, Formidable, Forminator, Ninja).
          *
-         * Document ID lookup priority:
-         *   1. csum URL param          — always present on the signing page.
-         *   2. document_id URL param   — present on admin preview URLs (?esigpreview=1&document_id=X).
-         *   3. Document::current_document_id() stack — set by esig_do_shortcode() via TRL-1608.
-         *   4. esig_global_document_id option — legacy fallback when core stack is unavailable.
+         * The document id comes only from Document::current_document_id() (TRL-1608), with the
+         * esig_global_document_id option as a legacy fallback. Request params are never trusted.
          *
          * @since  2.0.1
          * @access public
@@ -239,26 +236,13 @@ if (!class_exists('ESIG_FFDS_Admin')):
              */
             if ( is_null( $newFormId ) || empty( $esigFluentFormdata ) ) {
                 if ( function_exists( 'WP_E_Sig' ) ) {
-                    $csum        = esigget( 'csum' );
-                    $document_id = 0;
-
-                    if ( ! empty( $csum ) ) {
-                        $document_id = WP_E_Sig()->document->document_id_by_csum( $csum );
-                    }
-
-                    if ( ! $document_id ) {
-                        $document_id = absint( esigget( 'document_id' ) );
-                    }
-
-                    if ( ! $document_id ) {
-                        // Prefer the request-scoped stack (TRL-1608/TRL-1610); fall back to
-                        // the legacy DB option when the core stack class/method is unavailable
-                        // (TRL-1644 — older core builds predating TRL-1608).
-                        if ( class_exists( '\WpEsignature\Models\Document' ) && method_exists( '\WpEsignature\Models\Document', 'current_document_id' ) ) {
-                            $document_id = \WpEsignature\Models\Document::current_document_id();
-                        } else {
-                            $document_id = get_option( 'esig_global_document_id' );
-                        }
+                    // TRL-1772: resolve only from the render context, never from csum/document_id params.
+                    // Prefer the request-scoped stack (TRL-1608/TRL-1610); fall back to the legacy
+                    // DB option when core predates it (TRL-1644).
+                    if ( class_exists( '\WpEsignature\Models\Document' ) && method_exists( '\WpEsignature\Models\Document', 'current_document_id' ) ) {
+                        $document_id = \WpEsignature\Models\Document::current_document_id();
+                    } else {
+                        $document_id = get_option( 'esig_global_document_id' );
                     }
 
                     if ( $document_id ) {
