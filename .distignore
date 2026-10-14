@@ -4,3 +4,8 @@
 .distignore
 node_modules
 *.zip
+tests
+phpunit.xml
+phpunit.xml.dist
+.phpunit.result.cache
+.gitattributes

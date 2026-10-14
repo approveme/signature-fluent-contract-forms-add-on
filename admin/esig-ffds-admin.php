@@ -189,11 +189,8 @@ if (!class_exists('ESIG_FFDS_Admin')):
          * field values are still populated correctly. This mirrors the pattern used by
          * all other bridge plugins (Gravity, WPForms, Formidable, Forminator, Ninja).
          *
-         * Document ID lookup priority:
-         *   1. csum URL param          — always present on the signing page.
-         *   2. document_id URL param   — present on admin preview URLs (?esigpreview=1&document_id=X).
-         *   3. Document::current_document_id() stack — set by esig_do_shortcode() via TRL-1608.
-         *   4. esig_global_document_id option — legacy fallback when core stack is unavailable.
+         * The document id comes from ESIG_FFDS_Document_Resolver: the render context, a validated
+         * invite+csum pair, or the legacy option. A bare csum/document_id is never trusted (TRL-1772).
          *
          * @since  2.0.1
          * @access public
@@ -239,27 +236,8 @@ if (!class_exists('ESIG_FFDS_Admin')):
              */
             if ( is_null( $newFormId ) || empty( $esigFluentFormdata ) ) {
                 if ( function_exists( 'WP_E_Sig' ) ) {
-                    $csum        = esigget( 'csum' );
-                    $document_id = 0;
-
-                    if ( ! empty( $csum ) ) {
-                        $document_id = WP_E_Sig()->document->document_id_by_csum( $csum );
-                    }
-
-                    if ( ! $document_id ) {
-                        $document_id = absint( esigget( 'document_id' ) );
-                    }
-
-                    if ( ! $document_id ) {
-                        // Prefer the request-scoped stack (TRL-1608/TRL-1610); fall back to
-                        // the legacy DB option when the core stack class/method is unavailable
-                        // (TRL-1644 — older core builds predating TRL-1608).
-                        if ( class_exists( '\WpEsignature\Models\Document' ) && method_exists( '\WpEsignature\Models\Document', 'current_document_id' ) ) {
-                            $document_id = \WpEsignature\Models\Document::current_document_id();
-                        } else {
-                            $document_id = get_option( 'esig_global_document_id' );
-                        }
-                    }
+                    // TRL-1772: verified document only (render context or invite+csum pair), never a raw param.
+                    $document_id = ESIG_FFDS_Document_Resolver::resolve();
 
                     if ( $document_id ) {
                         $saved_form_id = WP_E_Sig()->meta->get( $document_id, 'esig_ff_form_id' );
