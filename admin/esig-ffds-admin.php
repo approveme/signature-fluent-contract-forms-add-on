@@ -189,8 +189,8 @@ if (!class_exists('ESIG_FFDS_Admin')):
          * field values are still populated correctly. This mirrors the pattern used by
          * all other bridge plugins (Gravity, WPForms, Formidable, Forminator, Ninja).
          *
-         * The document id comes only from Document::current_document_id() (TRL-1608), with the
-         * esig_global_document_id option as a legacy fallback. Request params are never trusted.
+         * The document id comes from ESIG_FFDS_Document_Resolver: the render context, a validated
+         * invite+csum pair, or the legacy option. A bare csum/document_id is never trusted (TRL-1772).
          *
          * @since  2.0.1
          * @access public
@@ -236,14 +236,8 @@ if (!class_exists('ESIG_FFDS_Admin')):
              */
             if ( is_null( $newFormId ) || empty( $esigFluentFormdata ) ) {
                 if ( function_exists( 'WP_E_Sig' ) ) {
-                    // TRL-1772: resolve only from the render context, never from csum/document_id params.
-                    // Prefer the request-scoped stack (TRL-1608/TRL-1610); fall back to the legacy
-                    // DB option when core predates it (TRL-1644).
-                    if ( class_exists( '\WpEsignature\Models\Document' ) && method_exists( '\WpEsignature\Models\Document', 'current_document_id' ) ) {
-                        $document_id = \WpEsignature\Models\Document::current_document_id();
-                    } else {
-                        $document_id = get_option( 'esig_global_document_id' );
-                    }
+                    // TRL-1772: verified document only (render context or invite+csum pair), never a raw param.
+                    $document_id = ESIG_FFDS_Document_Resolver::resolve();
 
                     if ( $document_id ) {
                         $saved_form_id = WP_E_Sig()->meta->get( $document_id, 'esig_ff_form_id' );

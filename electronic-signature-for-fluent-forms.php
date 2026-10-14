@@ -28,6 +28,7 @@ if ( ! defined( 'ESIG_ESFF_VERSION' ) ) {
 }
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esff-function.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-ffds-document-resolver.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/esig-ffds.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'admin/esig-fluent-filters.php' );
 
